@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remix Jessicaa Chauhan · Frontend Developer Portfolio</title>
+    <meta name="description" content="A modern editorial-style portfolio showcasing high-performance frontend engineering, interactive case studies, and thoughtful UI design." />
+    <meta property="og:title" content="Remix Jessicaa Chauhan · Frontend Developer Portfolio" />
+    <meta property="og:description" content="A modern editorial-style portfolio showcasing high-performance frontend engineering, interactive case studies, and thoughtful UI design." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio_theme');
+          if (saved === 'obsidian') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'obsidian');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'crystal');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-[#FAFAFA] dark:bg-[#09080E] text-[#180F2E] dark:text-[#F5F3FA] antialiased selection:bg-[#C4B5FD]/40 selection:text-[#180F2E] dark:selection:bg-[#A78BFA]/30 dark:selection:text-white min-h-screen overflow-x-hidden transition-colors duration-500">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

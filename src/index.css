@@ -1,0 +1,455 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-canvas: #FAFAFA;
+    --text-primary: #180F2E;
+    --text-secondary: #423764;
+    --color-primary: #C4B5FD;
+    --color-accent: #423764;
+    --color-surface: #FFFFFF;
+    --color-border: #D6CBFF;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(214, 203, 255, 0.75);
+    --glass-shadow: 0 20px 60px rgba(66, 55, 100, 0.08);
+    --violet-deep: #423764;
+    --purple-electric: #8B5CF6;
+    --lavender-soft: #C4B5FD;
+    --pink-violet: #D6CBFF;
+    --cool-blue: #C8D5FF;
+  }
+
+  .dark {
+    --bg-canvas: #09080E;
+    --text-primary: #F5F3FA;
+    --text-secondary: #9E98AB;
+    --color-primary: #C4B5FD;
+    --color-accent: #A78BFA;
+    --color-surface: #13111C;
+    --color-border: rgba(214, 203, 255, 0.2);
+    --glass-bg: rgba(19, 17, 28, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+    --violet-deep: #A78BFA;
+    --purple-electric: #C4B5FD;
+    --lavender-soft: #C4B5FD;
+    --pink-violet: #D8B4FE;
+    --cool-blue: #93C5FD;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  body {
+    font-family: 'Sora', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+}
+
+/* Primary Typography: Fraunces (Headlines) & Sora (Body), After (Header Brand) */
+@font-face {
+  font-family: 'After';
+  src: url('/fonts/after-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-primary: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Sora', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-headline: 'Fraunces', Georgia, serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-after: 'After', 'Sora', sans-serif;
+  --font-lobster-two: 'Lobster Two', cursive, sans-serif;
+}
+
+.font-lobster-two {
+  font-family: 'Lobster Two', cursive, sans-serif;
+}
+
+.font-after {
+  font-family: 'After', 'Sora', sans-serif;
+}
+
+.font-fraunces {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.font-fraunces-italic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-optical-sizing: auto;
+}
+
+.font-sora {
+  font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-helvetica {
+  font-family: 'Sora', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+.font-syne {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.font-outfit {
+  font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-jakarta {
+  font-family: 'Sora', 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-playfair {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+.font-playfair-italic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-optical-sizing: auto;
+}
+
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Apple Liquid Glass Primitives */
+.liquid-glass-nav {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 16px 40px -10px rgba(109, 61, 245, 0.07),
+    0 4px 16px rgba(30, 20, 50, 0.04),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px 0 rgba(185, 167, 255, 0.16);
+}
+
+.liquid-glass-nav-scrolled {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(34px) saturate(190%);
+  -webkit-backdrop-filter: blur(34px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 20px 50px -10px rgba(109, 61, 245, 0.10),
+    0 8px 24px rgba(30, 20, 50, 0.06),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px 0 rgba(185, 167, 255, 0.14);
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    0 8px 25px rgba(109, 61, 245, 0.05),
+    0 2px 8px rgba(30, 20, 50, 0.03),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px 0 rgba(185, 167, 255, 0.18);
+}
+
+.liquid-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 12px 30px rgba(109, 61, 245, 0.10),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2.5px 0 rgba(185, 167, 255, 0.25);
+}
+
+/* General glassmorphism primitives for rest of page */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  box-shadow: 0 20px 60px rgba(30, 20, 50, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 8px 30px rgba(30, 20, 50, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Obsidian Dark Atmosphere Glass Overrides */
+.dark .liquid-glass-nav {
+  background: rgba(18, 16, 26, 0.70);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.75),
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 2px 0 rgba(139, 92, 246, 0.22);
+}
+
+.dark .liquid-glass-nav-scrolled {
+  background: rgba(14, 12, 22, 0.86);
+  backdrop-filter: blur(36px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 24px 60px -10px rgba(0, 0, 0, 0.85),
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 2px 0 rgba(139, 92, 246, 0.28);
+}
+
+.dark .liquid-glass-pill {
+  background: rgba(26, 22, 38, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px 0 rgba(139, 92, 246, 0.2);
+  color: #F5F3FA;
+}
+
+.dark .liquid-glass-pill:hover {
+  background: rgba(36, 30, 54, 0.88);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.65),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.24);
+}
+
+.dark .glass-surface {
+  background: rgba(18, 16, 26, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dark .glass-pill {
+  background: rgba(24, 21, 35, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  color: #F5F3FA;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #09080E;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #2B253B;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4C3F6D;
+}
+
+/* Fallback for browsers lacking backdrop-filter */
+@supports not (backdrop-filter: blur(24px)) {
+  .liquid-glass-nav {
+    background: rgba(248, 247, 252, 0.95);
+  }
+  .liquid-glass-pill {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  .glass-surface {
+    background: rgba(247, 246, 250, 0.94);
+  }
+}
+
+/* Subtle Film Noise Texture */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
+}
+
+/* Liquid Atmospheric Hero Aura Breathing Keyframes */
+@keyframes auraBreathe {
+  0%, 100% {
+    transform: scale(0.86);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 1;
+  }
+}
+
+@keyframes auraBreatheCore {
+  0%, 100% {
+    transform: scale(0.82);
+    opacity: 0.68;
+  }
+  50% {
+    transform: scale(1.26);
+    opacity: 1;
+  }
+}
+
+@keyframes auraPulseHeart {
+  0%, 100% {
+    transform: scale(0.78);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.32);
+    opacity: 1;
+  }
+}
+
+.animate-aura-breathe {
+  animation: auraBreathe 5.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-aura-core {
+  animation: auraBreatheCore 5.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-aura-heart {
+  animation: auraPulseHeart 5.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes liquidBlob1 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(40px, -30px, 0) scale(1.08) rotate(6deg);
+  }
+  66% {
+    transform: translate3d(-30px, 25px, 0) scale(0.94) rotate(-4deg);
+  }
+}
+
+@keyframes liquidBlob2 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+  }
+  40% {
+    transform: translate3d(-45px, 35px, 0) scale(1.12) rotate(-8deg);
+  }
+  75% {
+    transform: translate3d(30px, -25px, 0) scale(0.92) rotate(5deg);
+  }
+}
+
+@keyframes liquidBlob3 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(35px, 30px, 0) scale(1.15);
+  }
+}
+
+@keyframes liquidBlobCenter {
+  0%, 100% {
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(-50%, -50%, 0) scale(1.14);
+    opacity: 0.98;
+  }
+}
+
+@keyframes liquidSheen {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F7FC;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D4E4;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B9A7FF;
+}
+
+/* Marquee Track Animations */
+@keyframes marqueeLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* Edge blur & fade mask for marquee */
+.marquee-fade-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* Custom 3D Liquid Glass Cursor rule for fine pointer devices */
+@media (pointer: fine) {
+  html.custom-glass-cursor-active,
+  html.custom-glass-cursor-active * {
+    cursor: none !important;
+  }
+}
+
