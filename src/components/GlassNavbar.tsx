@@ -52,13 +52,13 @@ export function GlassNavbar({ onNavigate, isMenuOpen, onToggleMenu }: GlassNavba
             if (isMenuOpen) onToggleMenu();
             onNavigate("top");
           }}
-          className="relative z-10 font-lobster-two text-sm sm:text-[15.5px] font-normal tracking-wide text-[#180F2E] dark:text-[#F5F3FA] hover:text-[#423764] dark:hover:text-[#C4B5FD] transition-colors select-none focus-visible:outline-none rounded-full cursor-pointer py-0.5"
+          className="relative z-10 font-lobster-two text-sm sm:text-[15.5px] font-normal tracking-wide text-[#34154E] dark:text-[#F5F3FA] hover:text-[#583C7E] dark:hover:text-[#C4B5FD] transition-colors select-none focus-visible:outline-none rounded-full cursor-pointer py-0.5"
         >
           {DESIGNER_NAME}
         </button>
 
         {/* Subtle Separator */}
-        <span className="relative z-10 text-[#423764]/25 dark:text-white/20 text-xs select-none">
+        <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
           |
         </span>
 
@@ -68,7 +68,7 @@ export function GlassNavbar({ onNavigate, isMenuOpen, onToggleMenu }: GlassNavba
         </div>
 
         {/* Subtle Separator */}
-        <span className="relative z-10 text-[#423764]/25 dark:text-white/20 text-xs select-none">
+        <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
           |
         </span>
 
@@ -83,7 +83,7 @@ export function GlassNavbar({ onNavigate, isMenuOpen, onToggleMenu }: GlassNavba
           onClick={onToggleMenu}
           aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
-          className="group/trigger relative z-10 p-1.5 sm:p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full text-[#180F2E] dark:text-[#F5F3FA] hover:bg-[#180F2E]/[0.06] dark:hover:bg-white/10 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none"
+          className="group/trigger relative z-10 p-1.5 sm:p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full text-[#34154E] dark:text-[#F5F3FA] hover:bg-[#34154E]/[0.06] dark:hover:bg-white/10 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none"
         >
           <div className="relative w-4 h-3.5 flex flex-col justify-between items-center overflow-hidden">
             {/* Top bar / diagonal line */}

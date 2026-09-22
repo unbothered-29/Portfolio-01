@@ -78,11 +78,11 @@ export function Hero({
         </div>
 
         {/* Dominant Headline: 3 Rows - Fraunces Headline + Fraunces Italic */}
-        <h1 className="text-[clamp(44px,8.5vw,144px)] sm:text-[clamp(56px,8.5vw,144px)] text-[#180F2E] dark:text-[#F5F3FA] leading-[0.92] sm:leading-[0.95] transition-all duration-300 drop-shadow-[0_20px_50px_rgba(66,55,100,0.08)] dark:drop-shadow-[0_20px_50px_rgba(196,181,253,0.22)] select-none">
+        <h1 className="text-[clamp(44px,8.5vw,144px)] sm:text-[clamp(56px,8.5vw,144px)] text-[#34154E] dark:text-[#F5F3FA] leading-[0.92] sm:leading-[0.95] transition-all duration-300 drop-shadow-[0_20px_50px_rgba(66,55,100,0.08)] dark:drop-shadow-[0_20px_50px_rgba(196,181,253,0.22)] select-none">
           <span className="block font-fraunces font-bold tracking-tight uppercase">
             BUILD
           </span>
-          <span className="block font-fraunces italic font-normal sm:font-medium tracking-[-0.02em] text-[#423764] dark:text-[#C4B5FD] py-1 sm:py-1.5 normal-case">
+          <span className="block font-fraunces italic font-normal sm:font-medium tracking-[-0.02em] text-[#543673] dark:text-[#C4B5FD] py-1 sm:py-1.5 normal-case">
             Digital
           </span>
           <span className="block font-fraunces font-bold tracking-tight uppercase">
@@ -91,7 +91,7 @@ export function Hero({
         </h1>
 
         {/* Supporting Text in Refined Sora */}
-        <p className="mt-8 sm:mt-10 md:mt-12 font-sora text-[15px] sm:text-[17px] md:text-[18px] font-normal text-[#423764]/80 dark:text-[#A19BAE] max-w-xl leading-relaxed tracking-normal px-2">
+        <p className="mt-8 sm:mt-10 md:mt-12 font-sora text-[15px] sm:text-[17px] md:text-[18px] font-normal text-[#543673]/85 dark:text-[#A19BAE] max-w-xl leading-relaxed tracking-normal px-2">
           Front-end developer focused on creating responsive, polished interfaces that turn ideas into usable products.
         </p>
 
@@ -100,7 +100,7 @@ export function Hero({
           {/* Action Pill */}
           <button
             onClick={onContactClick}
-            className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full overflow-hidden text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-[#180F2E] dark:text-[#F5F3FA] bg-white/[0.80] hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.16] backdrop-blur-[20px] backdrop-saturate-[180%] border border-[#D6CBFF] dark:border-white/15 hover:border-[#C4B5FD] dark:hover:border-white/30 shadow-[0_8px_25px_rgba(66,55,100,0.08),_0_2px_6px_rgba(30,20,50,0.03),_inset_0_1px_1.5px_0_rgba(255,255,255,0.98),_inset_0_-1px_2px_0_rgba(214,203,255,0.3)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5),_inset_0_1px_1.5px_0_rgba(255,255,255,0.18),_inset_0_-1px_2px_0_rgba(196,181,253,0.25)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(66,55,100,0.14)] dark:hover:shadow-[0_12px_30px_rgba(0,0,0,0.7)] active:translate-y-0 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]/70 min-h-[42px]"
+            className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full overflow-hidden text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-[#34154E] dark:text-[#F5F3FA] bg-white/[0.80] hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.16] backdrop-blur-[20px] backdrop-saturate-[180%] border border-[#D6CBFF] dark:border-white/15 hover:border-[#C4B5FD] dark:hover:border-white/30 shadow-[0_8px_25px_rgba(66,55,100,0.08),_0_2px_6px_rgba(30,20,50,0.03),_inset_0_1px_1.5px_0_rgba(255,255,255,0.98),_inset_0_-1px_2px_0_rgba(214,203,255,0.3)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5),_inset_0_1px_1.5px_0_rgba(255,255,255,0.18),_inset_0_-1px_2px_0_rgba(196,181,253,0.25)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(66,55,100,0.14)] dark:hover:shadow-[0_12px_30px_rgba(0,0,0,0.7)] active:translate-y-0 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]/70 min-h-[42px]"
           >
             {/* Fluid Reflection Inside Pill */}
             <span
@@ -115,7 +115,7 @@ export function Hero({
 
       {/* Small Supporting Metadata */}
       <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-5 sm:left-8 md:left-12 lg:left-16 z-20 text-left pointer-events-none select-none">
-        <div className="font-sora text-[9.5px] sm:text-[10px] md:text-[10.5px] leading-[1.65] tracking-[0.2em] uppercase font-medium text-[#423764]/60 dark:text-[#8E879B] flex flex-col">
+        <div className="font-sora text-[9.5px] sm:text-[10px] md:text-[10.5px] leading-[1.65] tracking-[0.2em] uppercase font-medium text-[#583C7E]/75 dark:text-[#8E879B] flex flex-col">
           <span>FRONT-END DEVELOPER</span>
           <span>MUMBAI / INDIA</span>
           <span>2026</span>

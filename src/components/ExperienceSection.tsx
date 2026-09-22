@@ -168,13 +168,13 @@ export default experience;`;
       <div className="pb-8 sm:pb-12 border-b border-[#D6CBFF] dark:border-[#201D2A] mb-10 sm:mb-14 md:mb-16 font-sora">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#423764]/70 dark:text-[#8D879C]">
+            <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#583C7E]/75 dark:text-[#8D879C]">
               03 / EXPERIENCE
             </span>
-            <h2 className="mt-2.5 sm:mt-3 font-fraunces text-[32px] sm:text-[46px] md:text-[60px] font-bold tracking-tight text-[#180F2E] dark:text-[#F5F3FA] leading-[1.04]">
+            <h2 className="mt-2.5 sm:mt-3 font-fraunces text-[32px] sm:text-[46px] md:text-[60px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.04]">
               Professional{" "}
-              <span className="font-fraunces italic font-normal text-[#423764] dark:text-[#C4B5FD]">
-                Experience.
+              <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">
+                experience.
               </span>
             </h2>
           </div>
@@ -211,7 +211,7 @@ export default experience;`;
               {activeExp && (
                 <>
                   <span className="text-[#C4B5FD]/70">/</span>
-                  <span className="text-[#180F2E] dark:text-[#F5F3FA] font-medium">
+                  <span className="text-[#34154E] dark:text-[#F5F3FA] font-medium">
                     {activeExp.fileName}
                   </span>
                 </>
@@ -225,7 +225,7 @@ export default experience;`;
               type="button"
               onClick={handleCopyCode}
               aria-label="Copy experience code snippet"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-[#58506E] dark:text-[#B4A8D0] hover:text-[#180F2E] dark:hover:text-white bg-white dark:bg-[#1E1730] hover:bg-[#F3EEFC] dark:hover:bg-[#2A2044] border border-[#E2DCF0] dark:border-[#382C5A] transition-all cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-[#58506E] dark:text-[#B4A8D0] hover:text-[#34154E] dark:hover:text-white bg-white dark:bg-[#1E1730] hover:bg-[#F3EEFC] dark:hover:bg-[#2A2044] border border-[#E2DCF0] dark:border-[#382C5A] transition-all cursor-pointer shadow-xs"
             >
               {isCopied ? (
                 <>
@@ -274,7 +274,7 @@ export default experience;`;
                   className={cn(
                     "shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all duration-200 cursor-pointer border select-none",
                     isActive
-                      ? "bg-[#EDE6FB] dark:bg-[#251B3D] text-[#180F2E] dark:text-[#F5F3FA] border-[#7C3AED]/40 dark:border-[#A78BFA]/50 shadow-xs font-semibold"
+                      ? "bg-[#EDE6FB] dark:bg-[#251B3D] text-[#34154E] dark:text-[#F5F3FA] border-[#7C3AED]/40 dark:border-[#A78BFA]/50 shadow-xs font-semibold"
                       : "bg-white dark:bg-[#151022] text-[#58506E] dark:text-[#A19BAE] border-[#E8E2F2] dark:border-[#2C2340] hover:bg-[#F9F6FE] dark:hover:bg-[#1D1630]"
                   )}
                 >
@@ -333,7 +333,7 @@ export default experience;`;
                   ) : (
                     <Folder className="w-4 h-4 text-[#7C3AED] dark:text-[#C4B5FD] stroke-[2]" />
                   )}
-                  <span className="font-semibold uppercase tracking-wider text-[11px] text-[#180F2E] dark:text-[#F5F3FA]">
+                  <span className="font-semibold uppercase tracking-wider text-[11px] text-[#34154E] dark:text-[#F5F3FA]">
                     EXPERIENCE
                   </span>
                 </button>
@@ -357,8 +357,8 @@ export default experience;`;
                           className={cn(
                             "w-full group flex items-center justify-between px-3 py-2 rounded-xl font-mono text-xs sm:text-[12.5px] transition-all duration-200 cursor-pointer text-left border",
                             isActive
-                              ? "bg-[#EDE6FB] dark:bg-[#251B3D] text-[#180F2E] dark:text-[#F5F3FA] font-medium border-[#7C3AED]/40 dark:border-[#A78BFA]/50 shadow-xs"
-                              : "border-transparent text-[#58506E] dark:text-[#9F94B8] hover:bg-[#F4EFFC] dark:hover:bg-[#1A1428] hover:text-[#180F2E] dark:hover:text-white"
+                              ? "bg-[#EDE6FB] dark:bg-[#251B3D] text-[#34154E] dark:text-[#F5F3FA] font-medium border-[#7C3AED]/40 dark:border-[#A78BFA]/50 shadow-xs"
+                              : "border-transparent text-[#58506E] dark:text-[#9F94B8] hover:bg-[#F4EFFC] dark:hover:bg-[#1A1428] hover:text-[#34154E] dark:hover:text-white"
                           )}
                         >
                           <div className="flex items-center gap-2 min-w-0">
@@ -433,8 +433,8 @@ export default experience;`;
                         className={cn(
                           "group relative h-full inline-flex items-center gap-2 px-3.5 sm:px-4.5 font-mono text-xs sm:text-[12.5px] border-r border-[#E8E2F2] dark:border-[#241D35] transition-all cursor-pointer select-none",
                           isActive
-                            ? "bg-white dark:bg-[#110E1C] text-[#180F2E] dark:text-[#F5F3FA] font-medium"
-                            : "bg-transparent text-[#7B7095] dark:text-[#8D82A5] hover:bg-[#F2EDFB] dark:hover:bg-[#171124] hover:text-[#180F2E] dark:hover:text-white"
+                            ? "bg-white dark:bg-[#110E1C] text-[#34154E] dark:text-[#F5F3FA] font-medium"
+                            : "bg-transparent text-[#7B7095] dark:text-[#8D82A5] hover:bg-[#F2EDFB] dark:hover:bg-[#171124] hover:text-[#34154E] dark:hover:text-white"
                         )}
                       >
                         {/* Active Top Line Indicator */}
@@ -457,7 +457,7 @@ export default experience;`;
                             handleCloseTab(exp.id);
                           }}
                           aria-label={`Close ${exp.fileName}`}
-                          className="p-1 rounded-md hover:bg-[#E4DCF5] dark:hover:bg-[#251B3D] text-[#9E92B5] hover:text-[#180F2E] dark:hover:text-white transition-all ml-1 cursor-pointer"
+                          className="p-1 rounded-md hover:bg-[#E4DCF5] dark:hover:bg-[#251B3D] text-[#9E92B5] hover:text-[#34154E] dark:hover:text-white transition-all ml-1 cursor-pointer"
                         >
                           <X className="w-3.5 h-3.5 stroke-[2]" />
                         </button>
@@ -493,7 +493,7 @@ export default experience;`;
                       </div>
 
                       {/* Syntax Code Body */}
-                      <div className="flex-1 space-y-1 overflow-x-auto text-[#180F2E] dark:text-[#F5F3FA]">
+                      <div className="flex-1 space-y-1 overflow-x-auto text-[#34154E] dark:text-[#F5F3FA]">
                         {/* Line 01: Comment */}
                         <div className="text-[#8D82A7] dark:text-[#766A92] italic leading-relaxed">
                           // Professional Experience · {activeExp.company}
@@ -504,7 +504,7 @@ export default experience;`;
                           <span className="text-[#7C3AED] dark:text-[#C4B5FD] font-semibold">
                             const
                           </span>{" "}
-                          <span className="text-[#180F2E] dark:text-[#F5F3FA] font-medium">
+                          <span className="text-[#34154E] dark:text-[#F5F3FA] font-medium">
                             experience
                           </span>{" "}
                           <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
@@ -677,7 +677,7 @@ export default experience;`;
                           <span className="text-[#7C3AED] dark:text-[#C4B5FD] font-semibold">
                             export default
                           </span>{" "}
-                          <span className="text-[#180F2E] dark:text-[#F5F3FA] font-medium">
+                          <span className="text-[#34154E] dark:text-[#F5F3FA] font-medium">
                             experience
                           </span>
                           <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
@@ -692,7 +692,7 @@ export default experience;`;
                     <div className="w-13 h-13 rounded-2xl bg-[#F0EBFA] dark:bg-[#1E1730] border border-[#D6CBFF] dark:border-[#382C5A] flex items-center justify-center text-[#7C3AED] dark:text-[#C4B5FD] mb-4 shadow-xs">
                       <FileCode className="w-6 h-6 stroke-[1.8]" />
                     </div>
-                    <h4 className="font-mono text-sm font-semibold text-[#180F2E] dark:text-[#F5F3FA]">
+                    <h4 className="font-mono text-sm font-semibold text-[#34154E] dark:text-[#F5F3FA]">
                       No Open Editors
                     </h4>
                     <p className="mt-1.5 font-mono text-xs text-[#7B7095] dark:text-[#8D82A5] max-w-sm leading-relaxed">
@@ -729,9 +729,9 @@ export default experience;`;
                   {activeExp ? "JavaScript JSX" : "Plain Text"}
                 </span>
                 <span className="hidden sm:inline">Prettier</span>
-                <span className="text-[#423764] dark:text-[#C4B5FD] flex items-center gap-1 font-semibold">
+                <span className="text-[#583C7E] dark:text-[#C4B5FD] flex items-center gap-1 font-semibold">
                   <span>✦</span>
-                  <span>Experience</span>
+                  <span>experience</span>
                 </span>
               </div>
             </div>

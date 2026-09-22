@@ -21,11 +21,11 @@ export function WorkSection({ onSelectProject }: WorkSectionProps) {
         Strictly NO icons, NO emojis, NO glass, NO gradients
       */}
       <div className="pb-8 sm:pb-14 border-b border-[#D6CBFF] dark:border-[#201D2A] mb-10 sm:mb-16 md:mb-24">
-        <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#423764]/70 dark:text-[#8D879C]">
+        <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#583C7E]/80 dark:text-[#8D879C]">
           01 / MY PROJECTS
         </span>
-        <h2 className="mt-2.5 sm:mt-3 font-fraunces text-[32px] sm:text-[46px] md:text-[60px] font-bold tracking-tight text-[#180F2E] dark:text-[#F5F3FA] leading-[1.04]">
-          My <span className="font-fraunces italic font-normal text-[#423764] dark:text-[#C4B5FD]">projects.</span>
+        <h2 className="mt-2.5 sm:mt-3 font-fraunces text-[32px] sm:text-[46px] md:text-[60px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.04]">
+          My <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">projects.</span>
         </h2>
       </div>
 

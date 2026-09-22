@@ -24,7 +24,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
     <footer
       id="contact"
       role="contentinfo"
-      className="relative z-10 w-full bg-[#FAFAF9] dark:bg-[#09080E] text-[#180F2E] dark:text-[#F5F3FA] transition-colors duration-500 overflow-hidden"
+      className="relative z-10 w-full bg-[#FAFAF9] dark:bg-[#09080E] text-[#34154E] dark:text-[#F5F3FA] transition-colors duration-500 overflow-hidden"
     >
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           1. UPPER FOOTER AREA (Spacious White / Off-White)
@@ -50,7 +50,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   className="w-full h-full object-contain pointer-events-none drop-shadow-[0_2px_6px_rgba(147,112,219,0.35)]"
                 />
               </div>
-              <span className="font-sora font-semibold text-lg sm:text-xl tracking-tight text-[#180F2E] dark:text-[#F5F3FA]">
+              <span className="font-sora font-semibold text-lg sm:text-xl tracking-tight text-[#34154E] dark:text-[#F5F3FA]">
                 JESSICAA
               </span>
             </a>
@@ -65,10 +65,10 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
               <button
                 type="button"
                 onClick={onOpenTalk}
-                className="group inline-flex items-center gap-2 px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full text-xs sm:text-[12.5px] font-medium tracking-wide text-[#180F2E] dark:text-[#F5F3FA] bg-white dark:bg-[#151022] hover:bg-[#FAF8FE] dark:hover:bg-[#1D1630] border border-[#E0D8F0] dark:border-[#382C5A] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_14px_rgba(180,160,230,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]"
+                className="group inline-flex items-center gap-2 px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full text-xs sm:text-[12.5px] font-medium tracking-wide text-[#34154E] dark:text-[#F5F3FA] bg-white dark:bg-[#151022] hover:bg-[#FAF8FE] dark:hover:bg-[#1D1630] border border-[#E0D8F0] dark:border-[#382C5A] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_14px_rgba(180,160,230,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]"
               >
                 <span>LET'S TALK</span>
-                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2] text-[#180F2E] dark:text-[#F5F3FA] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2] text-[#34154E] dark:text-[#F5F3FA] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </button>
             </div>
           </div>
@@ -77,7 +77,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
           <div className="lg:col-span-8 xl:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 lg:gap-10">
             {/* Column 1: WORK */}
             <div className="flex flex-col">
-              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#180F2E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
+              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#34154E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
                 WORK
               </h3>
               <ul className="space-y-2.5 sm:space-y-3 font-sora text-xs sm:text-[13.5px] text-[#58506E] dark:text-[#A19BAE]">
@@ -85,7 +85,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("work")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Projects
                   </button>
@@ -94,7 +94,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("work")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Case Studies
                   </button>
@@ -103,7 +103,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("work")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Design Work
                   </button>
@@ -113,7 +113,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
 
             {/* Column 2: EXPLORE */}
             <div className="flex flex-col">
-              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#180F2E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
+              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#34154E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
                 EXPLORE
               </h3>
               <ul className="space-y-2.5 sm:space-y-3 font-sora text-xs sm:text-[13.5px] text-[#58506E] dark:text-[#A19BAE]">
@@ -121,7 +121,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("about")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     About
                   </button>
@@ -130,7 +130,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("stack")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Skills
                   </button>
@@ -139,7 +139,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={() => handleNav("experience")}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Experience
                   </button>
@@ -149,14 +149,14 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
 
             {/* Column 3: CONTACT */}
             <div className="flex flex-col">
-              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#180F2E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
+              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#34154E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
                 CONTACT
               </h3>
               <ul className="space-y-2.5 sm:space-y-3 font-sora text-xs sm:text-[13.5px] text-[#58506E] dark:text-[#A19BAE]">
                 <li>
                   <a
                     href="mailto:chauhanjessicaa27@gmail.com"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     Email
                   </a>
@@ -166,7 +166,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     LinkedIn
                   </a>
@@ -175,7 +175,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                   <button
                     type="button"
                     onClick={onOpenTalk}
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     Resume
                   </button>
@@ -185,7 +185,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
 
             {/* Column 4: SOCIAL */}
             <div className="flex flex-col">
-              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#180F2E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
+              <h3 className="font-sora text-xs sm:text-[13px] font-semibold tracking-wider text-[#34154E] dark:text-[#F5F3FA] uppercase mb-4 sm:mb-5">
                 SOCIAL
               </h3>
               <ul className="space-y-2.5 sm:space-y-3 font-sora text-xs sm:text-[13.5px] text-[#58506E] dark:text-[#A19BAE]">
@@ -194,7 +194,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     LinkedIn
                   </a>
@@ -204,7 +204,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     Instagram
                   </a>
@@ -214,7 +214,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     href="https://x.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     Twitter / X
                   </a>
@@ -224,7 +224,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     href="https://github.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#180F2E] dark:hover:text-white transition-colors duration-150"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     GitHub
                   </a>
@@ -245,14 +245,14 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
             <button
               type="button"
               onClick={() => setActiveLegalModal("Privacy Policy")}
-              className="hover:text-[#180F2E] dark:hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+              className="hover:text-[#34154E] dark:hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
             >
               Privacy Policy
             </button>
             <button
               type="button"
               onClick={() => setActiveLegalModal("Terms of Service")}
-              className="hover:text-[#180F2E] dark:hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+              className="hover:text-[#34154E] dark:hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
             >
               Terms of Service
             </button>
@@ -305,7 +305,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
           </div>
 
           {/* Subtle Mobile/Bottom Home Indicator Handle like in reference */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 w-28 sm:w-36 h-1 sm:h-1.5 rounded-full bg-[#180F2E]/60 dark:bg-white/60 pointer-events-none" />
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 w-28 sm:w-36 h-1 sm:h-1.5 rounded-full bg-[#34154E]/60 dark:bg-white/60 pointer-events-none" />
         </div>
       </div>
 
@@ -319,7 +319,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
             className="w-full max-w-md bg-white dark:bg-[#161125] p-6 sm:p-8 rounded-2xl border border-[#E0D8F0] dark:border-[#382C5A] shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="font-sora font-semibold text-lg text-[#180F2E] dark:text-[#F5F3FA] mb-3">
+            <h3 className="font-sora font-semibold text-lg text-[#34154E] dark:text-[#F5F3FA] mb-3">
               {activeLegalModal}
             </h3>
             <p className="text-sm text-[#58506E] dark:text-[#A19BAE] leading-relaxed mb-6">
@@ -330,7 +330,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
             <button
               type="button"
               onClick={() => setActiveLegalModal(null)}
-              className="px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-[#180F2E] dark:bg-[#7758C4] hover:opacity-90 transition-opacity cursor-pointer"
+              className="px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-[#34154E] dark:bg-[#7758C4] hover:opacity-90 transition-opacity cursor-pointer"
             >
               Close
             </button>

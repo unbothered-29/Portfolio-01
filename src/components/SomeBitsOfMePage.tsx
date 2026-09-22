@@ -251,7 +251,7 @@ export function SomeBitsOfMePage({
       }}
       onDragLeave={() => setIsDragOverCanvas(false)}
       onDrop={handleDrop}
-      className="relative w-full h-screen max-h-screen overflow-hidden text-[#180F2E] dark:text-[#F5F3FA] font-sora selection:bg-[#C4B5FD]/40 selection:text-[#180F2E] dark:selection:bg-[#A78BFA]/30 dark:selection:text-white"
+      className="relative w-full h-screen max-h-screen overflow-hidden text-[#34154E] dark:text-[#F5F3FA] font-sora selection:bg-[#C4B5FD]/40 selection:text-[#34154E] dark:selection:bg-[#A78BFA]/30 dark:selection:text-white"
     >
       {/* 
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -368,8 +368,8 @@ export function SomeBitsOfMePage({
               : "hover:ring-1 hover:ring-white/25"
           }`}
         >
-          {/* Subtle translucent glass backing to distinguish from background */}
-          <div className="absolute inset-0 bg-[#0F081F]/[0.45] backdrop-blur-[12px] border border-white/[0.12] rounded-[2px] -z-10" />
+          {/* Liquid glassy transparent backdrop letting the aurora shine through */}
+          <div className="absolute inset-0 bg-white/[0.06] backdrop-blur-[20px] backdrop-saturate-[200%] border border-white/[0.28] shadow-[0_16px_40px_rgba(0,0,0,0.5),_inset_0_1.5px_1px_0_rgba(255,255,255,0.6)] rounded-[3px] -z-10" />
 
           {/* 8 Figma-style Transform Handles (Visible only when selected) */}
           {isSelected && (
@@ -482,7 +482,7 @@ export function SomeBitsOfMePage({
       <div className="lg:hidden h-full overflow-y-auto px-4 sm:px-6 pt-24 pb-20 space-y-6">
         {/* Prominent Editorial Header */}
         <div className="flex flex-col items-center justify-center pt-2 pb-2">
-          <div className="relative border border-white/25 px-5 py-3.5 bg-[#0F081F]/[0.70] backdrop-blur-xl rounded-[3px] text-center shadow-2xl">
+          <div className="relative border border-white/[0.30] px-5 py-3.5 bg-white/[0.08] backdrop-blur-[24px] backdrop-saturate-[200%] rounded-[3px] text-center shadow-[0_16px_40px_rgba(0,0,0,0.6),_inset_0_1.5px_1px_0_rgba(255,255,255,0.65)]">
             <h1 className="font-fraunces text-[34px] sm:text-[40px] font-bold text-white leading-[0.95] drop-shadow-md">
               Some Bits
               <br />

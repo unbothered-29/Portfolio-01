@@ -133,7 +133,7 @@ export function FullscreenNavOverlay({
             className={`relative w-[calc(100vw-16px)] sm:w-[calc(100vw-28px)] md:w-[calc(100vw-40px)] h-[calc(100dvh-16px)] sm:h-[calc(100dvh-28px)] md:h-[calc(100dvh-40px)] max-w-[1580px] rounded-[24px] sm:rounded-[32px] md:rounded-[38px] overflow-hidden flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 border shadow-[0_30px_90px_rgba(24,15,46,0.18)] dark:shadow-[0_30px_90px_rgba(0,0,0,0.45)] transition-colors duration-300 ${
               isDark
                 ? "bg-[#0E0C17] text-[#F5F3FA] border-white/[0.12]"
-                : "bg-[#FAFAFA] text-[#180F2E] border-[#D6CBFF]"
+                : "bg-[#FAFAFA] text-[#34154E] border-[#D6CBFF]"
             }`}
           >
             {/* 
@@ -167,12 +167,12 @@ export function FullscreenNavOverlay({
                   }}
                   className="group flex flex-col items-start text-left cursor-pointer focus-visible:outline-none"
                 >
-                  <span className="text-xs sm:text-sm font-bold tracking-[0.16em] uppercase transition-colors group-hover:text-[#423764] dark:group-hover:text-[#C4B5FD]">
+                  <span className="text-xs sm:text-sm font-bold tracking-[0.16em] uppercase transition-colors group-hover:text-[#583C7E] dark:group-hover:text-[#C4B5FD]">
                     {DESIGNER_NAME.toUpperCase()}
                   </span>
                   <span
                     className={`text-[10px] sm:text-xs tracking-wider uppercase font-sora mt-0.5 ${
-                      isDark ? "text-[#9E98AB]" : "text-[#423764]/70"
+                      isDark ? "text-[#9E98AB]" : "text-[#583C7E]/75"
                     }`}
                   >
                     01 / Manila, PH · Portfolio
@@ -193,7 +193,7 @@ export function FullscreenNavOverlay({
                   className={`group p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none ${
                     isDark
                       ? "bg-white/[0.06] border-white/15 text-[#F5F3FA] hover:bg-white/[0.14] active:scale-95"
-                      : "bg-[#FAFAFA] border-[#D6CBFF] text-[#180F2E] hover:bg-[#180F2E]/[0.05] active:scale-95"
+                      : "bg-[#FAFAFA] border-[#D6CBFF] text-[#34154E] hover:bg-[#34154E]/[0.05] active:scale-95"
                   }`}
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2] transition-transform duration-200 group-hover:rotate-90" />
@@ -264,7 +264,7 @@ export function FullscreenNavOverlay({
                           <span
                             className={`block text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold uppercase tracking-[-0.02em] font-fraunces leading-[1.1] transition-all duration-200 ease-out ${
                               isHovered
-                                ? "text-[#423764] dark:text-[#C4B5FD] scale-[1.02]"
+                                ? "text-[#583C7E] dark:text-[#C4B5FD] scale-[1.02]"
                                 : isDimmed
                                 ? isDark
                                   ? "opacity-25 text-current"
@@ -309,7 +309,7 @@ export function FullscreenNavOverlay({
               className={`relative z-10 w-full pt-3 sm:pt-4 border-t flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-xs sm:text-[13px] tracking-wide font-sora transition-colors ${
                 isDark
                   ? "border-white/[0.08] text-[#9E98AB]"
-                  : "border-[#D6CBFF] text-[#423764]/80"
+                  : "border-[#D6CBFF] text-[#583C7E]/80"
               }`}
             >
               {/* Left Social Links */}

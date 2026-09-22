@@ -71,28 +71,28 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
       {/* Modal Container */}
       <div
-        className="relative z-10 w-full max-w-lg rounded-[32px] bg-[#FAFAFA]/95 dark:bg-[#12101D]/[0.95] backdrop-blur-[32px] border border-[#D6CBFF] dark:border-white/15 shadow-[0_24px_80px_rgba(24,15,46,0.18)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.85)] p-6 sm:p-10 animate-in zoom-in-95 duration-200 text-[#180F2E] dark:text-[#F5F3FA] font-sora"
+        className="relative z-10 w-full max-w-lg rounded-[32px] bg-[#FAFAFA]/95 dark:bg-[#12101D]/[0.95] backdrop-blur-[32px] border border-[#D6CBFF] dark:border-white/15 shadow-[0_24px_80px_rgba(24,15,46,0.18)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.85)] p-6 sm:p-10 animate-in zoom-in-95 duration-200 text-[#34154E] dark:text-[#F5F3FA] font-sora"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-4 pb-4 font-sora">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase text-[#423764]/70 dark:text-[#A19BAE]">
+            <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
               <span>Direct Inquiry</span>
             </div>
             <h3
               id="contact-modal-title"
-              className="mt-2 font-fraunces text-2xl sm:text-3xl font-bold tracking-tight text-[#180F2E] dark:text-[#F5F3FA]"
+              className="mt-2 font-fraunces text-2xl sm:text-3xl font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA]"
             >
-              Let's <span className="font-fraunces italic font-normal text-[#423764] dark:text-[#C4B5FD]">talk.</span>
+              Let's <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">talk.</span>
             </h3>
           </div>
 
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="p-2 rounded-full bg-[#180F2E]/[0.05] dark:bg-white/10 hover:bg-[#180F2E]/[0.1] dark:hover:bg-white/20 text-[#180F2E] dark:text-[#F5F3FA] transition-colors focus-visible:outline-none cursor-pointer"
+            className="p-2 rounded-full bg-[#34154E]/[0.05] dark:bg-white/10 hover:bg-[#34154E]/[0.1] dark:hover:bg-white/20 text-[#34154E] dark:text-[#F5F3FA] transition-colors focus-visible:outline-none cursor-pointer"
           >
             <X className="w-4 h-4 stroke-[1.8]" />
           </button>

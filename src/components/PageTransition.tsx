@@ -152,7 +152,7 @@ export function PageTransition() {
                     )}
 
                     {/* Main Headline Title */}
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-helvetica tracking-tight text-[#111015] dark:text-[#F5F3FA] leading-[1.08]">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-helvetica tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.08]">
                       {title}
                     </h2>
 

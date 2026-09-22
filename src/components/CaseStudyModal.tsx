@@ -52,12 +52,12 @@ export function CaseStudyModal({ project, onClose, onSelectProject }: CaseStudyM
 
       {/* Clean Minimal Editorial Modal Shell */}
       <div
-        className="relative z-10 w-full max-w-4xl my-auto max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-[#FAFAFA] dark:bg-[#12101A] border border-[#D6CBFF] dark:border-white/10 shadow-2xl p-6 sm:p-10 md:p-12 text-[#180F2E] dark:text-[#F5F3FA] font-sora transition-all"
+        className="relative z-10 w-full max-w-4xl my-auto max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-[#FAFAFA] dark:bg-[#12101A] border border-[#D6CBFF] dark:border-white/10 shadow-2xl p-6 sm:p-10 md:p-12 text-[#34154E] dark:text-[#F5F3FA] font-sora transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar: Category, Year, and Minimal Close */}
         <div className="flex items-center justify-between gap-4 pb-6">
-          <div className="flex items-center gap-2 font-sora text-xs text-[#423764]/70 dark:text-[#9A94A8] tracking-widest uppercase">
+          <div className="flex items-center gap-2 font-sora text-xs text-[#583C7E]/75 dark:text-[#9A94A8] tracking-widest uppercase">
             <span>{project.category}</span>
             <span>·</span>
             <span>{project.year}</span>
@@ -66,7 +66,7 @@ export function CaseStudyModal({ project, onClose, onSelectProject }: CaseStudyM
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="p-2 rounded-full hover:bg-[#180F2E]/[0.05] dark:hover:bg-white/10 text-[#423764]/70 dark:text-[#9A94A8] hover:text-[#180F2E] dark:hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-full hover:bg-[#34154E]/[0.05] dark:hover:bg-white/10 text-[#583C7E]/75 dark:text-[#9A94A8] hover:text-[#34154E] dark:hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5 stroke-[1.75]" />
           </button>
@@ -76,13 +76,13 @@ export function CaseStudyModal({ project, onClose, onSelectProject }: CaseStudyM
         <div>
           <h2
             id="case-study-title"
-            className="text-3xl sm:text-4xl md:text-5xl font-bold font-fraunces tracking-tight text-[#180F2E] dark:text-white leading-[1.08]"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold font-fraunces tracking-tight text-[#34154E] dark:text-white leading-[1.08]"
           >
             {project.title}
           </h2>
 
           {project.altText && project.altText !== project.title && (
-            <p className="mt-2 text-sm sm:text-base text-[#423764]/80 dark:text-[#ABA4BA] leading-relaxed max-w-2xl font-sora">
+            <p className="mt-2 text-sm sm:text-base text-[#583C7E]/85 dark:text-[#ABA4BA] leading-relaxed max-w-2xl font-sora">
               {project.altText}
             </p>
           )}

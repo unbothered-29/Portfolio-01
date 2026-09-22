@@ -94,7 +94,7 @@ function MainPortfolioContent() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#FAFAFA] dark:bg-[#09080E] text-[#180F2E] dark:text-[#F5F3FA] font-sora selection:bg-[#C4B5FD]/40 selection:text-[#180F2E] dark:selection:bg-[#A78BFA]/30 dark:selection:text-white overflow-x-clip transition-colors duration-500"
+      className="relative min-h-screen bg-[#FAFAFA] dark:bg-[#09080E] text-[#34154E] dark:text-[#F5F3FA] font-sora selection:bg-[#C4B5FD]/40 selection:text-[#34154E] dark:selection:bg-[#A78BFA]/30 dark:selection:text-white overflow-x-clip transition-colors duration-500"
     >
       {/* 1. Atmospheric Soft Blur Glow Background */}
       <AtmosphericBackground />

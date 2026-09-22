@@ -27,11 +27,11 @@ export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
           {/* Left Side: Heading & Lavender Folder */}
           <div className="lg:col-span-5 flex flex-col justify-between font-sora">
             <div>
-              <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#423764]/70 dark:text-[#8D879C] block mb-2 sm:mb-3">
+              <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#583C7E]/75 dark:text-[#8D879C] block mb-2 sm:mb-3">
                 04 / ABOUT ME
               </span>
-              <h2 className="font-fraunces text-[30px] sm:text-[42px] md:text-[54px] font-bold tracking-tight text-[#180F2E] dark:text-[#F5F3FA] leading-[1.1]">
-                A little <span className="font-fraunces italic font-normal text-[#423764] dark:text-[#C4B5FD]">about me.</span>
+              <h2 className="font-fraunces text-[30px] sm:text-[42px] md:text-[54px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.1]">
+                A little <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">about me.</span>
               </h2>
             </div>
 
@@ -44,11 +44,11 @@ export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
           {/* Right Side: Biography & Compact Metadata */}
           <div className="lg:col-span-7 flex flex-col justify-between font-sora">
             {/* Short Designer Biography */}
-            <div className="space-y-4 sm:space-y-5 text-[14.5px] sm:text-[16px] md:text-[17px] text-[#180F2E]/90 dark:text-[#F5F3FA]/90 font-normal leading-[1.7] max-w-2xl font-sora">
+            <div className="space-y-4 sm:space-y-5 text-[14.5px] sm:text-[16px] md:text-[17px] text-[#34154E]/90 dark:text-[#F5F3FA]/90 font-normal leading-[1.7] max-w-2xl font-sora">
               <p>
                 I am a multidisciplinary visual designer working at the intersection of brand identity, digital craft, and art direction. I believe in designing interfaces and experiences that feel natural, quiet, and enduring.
               </p>
-              <p className="text-[#423764]/80 dark:text-[#A19BAE]">
+              <p className="text-[#583C7E]/85 dark:text-[#A19BAE]">
                 Over the past seven years, I have collaborated with global architectural studios, sound engineering labs, and modern technology companies to translate complex ideas into clear visual systems with mathematical rigor and aesthetic warmth.
               </p>
             </div>
@@ -57,37 +57,37 @@ export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
             <div className="mt-8 sm:mt-12 pt-8 sm:pt-10 border-t border-[#D6CBFF] dark:border-white/10 font-sora">
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 sm:gap-y-8 gap-x-8 sm:gap-x-10">
                 <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#423764]/70 dark:text-[#A19BAE]">
+                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Based in
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#180F2E] dark:text-[#F5F3FA]">
+                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
                     {DESIGNER_METADATA.basedIn}
                   </dd>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#423764]/70 dark:text-[#A19BAE]">
+                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Specialty
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#180F2E] dark:text-[#F5F3FA]">
+                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
                     {DESIGNER_METADATA.specialty}
                   </dd>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#423764]/70 dark:text-[#A19BAE]">
+                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Experience
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#180F2E] dark:text-[#F5F3FA]">
+                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
                     {DESIGNER_METADATA.experience}
                   </dd>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#423764]/70 dark:text-[#A19BAE]">
+                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Focus
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#180F2E] dark:text-[#F5F3FA]">
+                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
                     {DESIGNER_METADATA.focus}
                   </dd>
                 </div>
@@ -100,11 +100,11 @@ export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
                 href="/some-bits-of-me"
                 onClick={handleClickBits}
                 id="link-more-about-me"
-                className="group inline-flex items-center gap-1.5 text-[14px] sm:text-[15px] font-medium text-[#423764] dark:text-[#C4B5FD] hover:text-[#180F2E] dark:hover:text-white transition-colors duration-200 cursor-pointer font-sora select-none"
+                className="group inline-flex items-center gap-1.5 text-[14px] sm:text-[15px] font-medium text-[#583C7E] dark:text-[#C4B5FD] hover:text-[#34154E] dark:hover:text-white transition-colors duration-200 cursor-pointer font-sora select-none"
               >
                 <span className="relative">
                   More about me
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#423764] dark:bg-[#C4B5FD] group-hover:bg-[#180F2E] dark:group-hover:bg-white transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#583C7E] dark:bg-[#C4B5FD] group-hover:bg-[#34154E] dark:group-hover:white transition-all duration-300 group-hover:w-full" />
                 </span>
                 <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-base leading-none">
                   ↗

@@ -50,9 +50,9 @@ export function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
 
           {/* Frosted Glass Floating Indicator on Hover */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/0 group-hover:bg-black/15 dark:group-hover:bg-black/35 transition-colors duration-300">
-            <div className="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out px-4 py-2 rounded-full bg-white/95 dark:bg-[#181622]/90 backdrop-blur-md border border-[#D6CBFF] dark:border-white/15 shadow-[0_8px_24px_rgba(24,15,46,0.15)] flex items-center gap-2 text-xs font-sora tracking-wider uppercase text-[#180F2E] dark:text-white font-medium">
+            <div className="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out px-4 py-2 rounded-full bg-white/95 dark:bg-[#181622]/90 backdrop-blur-md border border-[#D6CBFF] dark:border-white/15 shadow-[0_8px_24px_rgba(24,15,46,0.15)] flex items-center gap-2 text-xs font-sora tracking-wider uppercase text-[#34154E] dark:text-white font-medium">
               <span>View Case Study</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#423764] dark:text-[#C4B5FD]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#583C7E] dark:text-[#C4B5FD]" />
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
       >
         {/* Index and Year */}
         <div className="flex items-center gap-3 font-sora text-xs text-[#7E788B] dark:text-[#888295] tracking-widest uppercase mb-3">
-          <span className="font-semibold text-[#180F2E] dark:text-white">
+          <span className="font-semibold text-[#34154E] dark:text-white">
             {formattedIndex}
           </span>
           <span>/</span>
@@ -78,13 +78,13 @@ export function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
         </div>
 
         {/* Project Title */}
-        <h3 className="font-fraunces text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold tracking-tight text-[#180F2E] dark:text-[#F5F3FA] leading-[1.1] group-hover:text-[#423764] dark:group-hover:text-[#C4B5FD] transition-colors duration-200">
+        <h3 className="font-fraunces text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.1] group-hover:text-[#583C7E] dark:group-hover:text-[#C4B5FD] transition-colors duration-200">
           {project.title}
         </h3>
 
         {/* Category & Client */}
-        <p className="mt-2 text-sm sm:text-base text-[#423764]/90 dark:text-[#A099AD] font-medium font-sora">
-          <span className="font-fraunces italic font-normal text-[#180F2E] dark:text-[#DDD6FE]">
+        <p className="mt-2 text-sm sm:text-base text-[#583C7E]/90 dark:text-[#A099AD] font-medium font-sora">
+          <span className="font-fraunces italic font-normal text-[#34154E] dark:text-[#DDD6FE]">
             {project.category}
           </span>
           <span className="mx-2 text-[#D6CBFF] dark:text-[#4B4557]">—</span>
@@ -92,7 +92,7 @@ export function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
         </p>
 
         {/* Project Narrative */}
-        <p className="mt-4 text-sm sm:text-base text-[#423764]/75 dark:text-[#8E879B] leading-relaxed line-clamp-3 font-sora">
+        <p className="mt-4 text-sm sm:text-base text-[#583C7E]/80 dark:text-[#8E879B] leading-relaxed line-clamp-3 font-sora">
           {project.brief}
         </p>
 
@@ -112,7 +112,7 @@ export function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
 
         {/* Minimal Text Action */}
         <div className="mt-8 pt-4">
-          <span className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-[#180F2E] dark:text-white border-b border-[#180F2E] dark:border-white pb-1 group-hover:border-[#423764] dark:group-hover:border-[#C4B5FD] group-hover:text-[#423764] dark:group-hover:text-[#C4B5FD] transition-colors duration-200">
+          <span className="inline-block text-xs font-semibold uppercase tracking-[0.18em] text-[#34154E] dark:text-white border-b border-[#34154E] dark:border-white pb-1 group-hover:border-[#583C7E] dark:group-hover:border-[#C4B5FD] group-hover:text-[#583C7E] dark:group-hover:text-[#C4B5FD] transition-colors duration-200">
             View Case Study
           </span>
         </div>

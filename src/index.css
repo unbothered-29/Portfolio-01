@@ -5,16 +5,16 @@
 @layer base {
   :root {
     --bg-canvas: #FAFAFA;
-    --text-primary: #180F2E;
-    --text-secondary: #423764;
+    --text-primary: #34154E;
+    --text-secondary: #583C7E;
     --color-primary: #C4B5FD;
-    --color-accent: #423764;
+    --color-accent: #583C7E;
     --color-surface: #FFFFFF;
     --color-border: #D6CBFF;
     --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(214, 203, 255, 0.75);
     --glass-shadow: 0 20px 60px rgba(66, 55, 100, 0.08);
-    --violet-deep: #423764;
+    --violet-deep: #583C7E;
     --purple-electric: #8B5CF6;
     --lavender-soft: #C4B5FD;
     --pink-violet: #D6CBFF;
