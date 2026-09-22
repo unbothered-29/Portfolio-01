@@ -160,7 +160,7 @@ export default experience;`;
     <section
       id="experience"
       aria-label="Professional Experience"
-      className="relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-8 md:px-12 py-16 sm:py-24 md:py-32"
+      className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-16 sm:py-24 md:py-32"
     >
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           1. SECTION INTRO: Consistent with portfolio hierarchy
@@ -287,9 +287,6 @@ export default experience;`;
                     )}
                   />
                   <span>{exp.fileName}</span>
-                  {isOpen && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]/60 dark:bg-[#C4B5FD]/60" />
-                  )}
                 </button>
               );
             })}
@@ -361,17 +358,7 @@ export default experience;`;
                               : "border-transparent text-[#58506E] dark:text-[#9F94B8] hover:bg-[#F4EFFC] dark:hover:bg-[#1A1428] hover:text-[#34154E] dark:hover:text-white"
                           )}
                         >
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span
-                              className={cn(
-                                "w-1.5 h-1.5 rounded-full transition-all duration-200",
-                                isActive
-                                  ? "bg-[#7C3AED] dark:bg-[#C4B5FD] scale-125"
-                                  : isOpen
-                                  ? "bg-[#A78BFA]/50"
-                                  : "bg-transparent group-hover:bg-[#C4B5FD]/60"
-                              )}
-                            />
+                          <div className="flex items-center gap-2.5 min-w-0">
                             <FileCode
                               className={cn(
                                 "w-3.5 h-3.5 stroke-[2] shrink-0",
@@ -484,7 +471,7 @@ export default experience;`;
                       className="font-mono text-xs sm:text-[13.5px] leading-relaxed flex items-start"
                     >
                       {/* Line Numbers Column */}
-                      <div className="select-none text-[#A9A0BF] dark:text-[#524968] text-right pr-4 sm:pr-6 shrink-0 space-y-1 font-mono">
+                      <div className="select-none text-[#94A3B8] dark:text-[#524968] text-right pr-4 sm:pr-6 shrink-0 space-y-1 font-mono">
                         {Array.from({ length: totalCodeLines }).map((_, idx) => (
                           <div key={idx} className="leading-relaxed">
                             {String(idx + 1).padStart(2, "0")}
@@ -495,87 +482,87 @@ export default experience;`;
                       {/* Syntax Code Body */}
                       <div className="flex-1 space-y-1 overflow-x-auto text-[#34154E] dark:text-[#F5F3FA]">
                         {/* Line 01: Comment */}
-                        <div className="text-[#8D82A7] dark:text-[#766A92] italic leading-relaxed">
+                        <div className="text-[#16A34A] dark:text-[#6A9955] italic leading-relaxed">
                           // Professional Experience · {activeExp.company}
                         </div>
 
                         {/* Line 02: Declaration */}
                         <div className="leading-relaxed">
-                          <span className="text-[#7C3AED] dark:text-[#C4B5FD] font-semibold">
+                          <span className="text-[#AF00DB] dark:text-[#C586C0] font-semibold">
                             const
                           </span>{" "}
-                          <span className="text-[#34154E] dark:text-[#F5F3FA] font-medium">
+                          <span className="text-[#001080] dark:text-[#4FC1FF] font-medium">
                             experience
                           </span>{" "}
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#CBD5E1]">
                             =
                           </span>{" "}
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#D97706] dark:text-[#FFD700] font-bold">
                             &#123;
                           </span>
                         </div>
 
                         {/* Line 03: Company */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0284C7] dark:text-[#9CDCFE]">
                             company:
                           </span>{" "}
-                          <span className="text-[#4C2882] dark:text-[#E8E1F8]">
+                          <span className="text-[#B91C1C] dark:text-[#CE9178]">
                             "{activeExp.company}"
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
 
                         {/* Line 04: Role */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0284C7] dark:text-[#9CDCFE]">
                             role:
                           </span>{" "}
-                          <span className="text-[#4C2882] dark:text-[#E8E1F8] font-medium">
+                          <span className="text-[#B91C1C] dark:text-[#CE9178] font-medium">
                             "{activeExp.role}"
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
 
                         {/* Line 05: Type */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0284C7] dark:text-[#9CDCFE]">
                             type:
                           </span>{" "}
-                          <span className="text-[#4C2882] dark:text-[#E8E1F8]">
+                          <span className="text-[#B91C1C] dark:text-[#CE9178]">
                             "{activeExp.type}"
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
 
                         {/* Line 06: Duration */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0284C7] dark:text-[#9CDCFE]">
                             duration:
                           </span>{" "}
-                          <span className="text-[#4C2882] dark:text-[#E8E1F8]">
+                          <span className="text-[#B91C1C] dark:text-[#CE9178]">
                             "{activeExp.duration}"
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
 
                         {/* Line 07: Location */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0284C7] dark:text-[#9CDCFE]">
                             location:
                           </span>{" "}
-                          <span className="text-[#4C2882] dark:text-[#E8E1F8]">
+                          <span className="text-[#B91C1C] dark:text-[#CE9178]">
                             "{activeExp.location}"
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
@@ -583,17 +570,17 @@ export default experience;`;
                         {/* Line 08: Empty separator */}
                         <div className="leading-relaxed">&nbsp;</div>
 
-                        {/* Line 09: Overview Key */}
+                        {/* Line 09: Overview Key (Warm Amber / Gold Highlight) */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#D97706] dark:text-[#FBBF24] font-semibold">
                             overview:
                           </span>
                         </div>
 
-                        {/* Line 10: Overview Value */}
-                        <div className="pl-8 sm:pl-10 leading-relaxed text-[#4C2882] dark:text-[#E8E1F8]">
+                        {/* Line 10: Overview Value (Warm Amber String) */}
+                        <div className="pl-8 sm:pl-10 leading-relaxed text-[#B45309] dark:text-[#FCD34D]">
                           "{activeExp.overview}"
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ,
                           </span>
                         </div>
@@ -601,25 +588,25 @@ export default experience;`;
                         {/* Line 11: Empty separator */}
                         <div className="leading-relaxed">&nbsp;</div>
 
-                        {/* Line 12: Responsibilities array opening */}
+                        {/* Line 12: Responsibilities array opening (Fuchsia / Purple Highlight) */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#9333EA] dark:text-[#E879F9] font-semibold">
                             responsibilities:
                           </span>{" "}
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#9333EA] dark:text-[#DA70D6] font-bold">
                             [
                           </span>
                         </div>
 
-                        {/* Lines 13-15: Responsibilities items */}
+                        {/* Lines 13-15: Responsibilities items (Vibrant Emerald / Mint Green Impact Strings) */}
                         {activeExp.responsibilities.map((resp, rIdx) => (
                           <div
                             key={rIdx}
-                            className="pl-8 sm:pl-10 leading-relaxed text-[#4C2882] dark:text-[#E8E1F8]"
+                            className="pl-8 sm:pl-10 leading-relaxed text-[#15803D] dark:text-[#4ADE80]"
                           >
                             "{resp}"
                             {rIdx < activeExp.responsibilities.length - 1 && (
-                              <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                              <span className="text-[#64748B] dark:text-[#94A3B8]">
                                 ,
                               </span>
                             )}
@@ -627,32 +614,37 @@ export default experience;`;
                         ))}
 
                         {/* Line 16: Responsibilities closing */}
-                        <div className="pl-4 sm:pl-6 leading-relaxed text-[#8A7EAA] dark:text-[#8E82A8]">
-                          ],
+                        <div className="pl-4 sm:pl-6 leading-relaxed">
+                          <span className="text-[#9333EA] dark:text-[#DA70D6] font-bold">
+                            ]
+                          </span>
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
+                            ,
+                          </span>
                         </div>
 
                         {/* Line 17: Empty separator */}
                         <div className="leading-relaxed">&nbsp;</div>
 
-                        {/* Line 18: Skills array opening */}
+                        {/* Line 18: Skills array opening (Electric Teal / Cyan Highlight) */}
                         <div className="pl-4 sm:pl-6 leading-relaxed">
-                          <span className="text-[#5B4884] dark:text-[#BCAEE0]">
+                          <span className="text-[#0D9488] dark:text-[#2DD4BF] font-semibold">
                             skills:
                           </span>{" "}
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#0284C7] dark:text-[#60A5FA] font-bold">
                             [
                           </span>
                         </div>
 
-                        {/* Lines 19-22: Skills items */}
+                        {/* Lines 19-22: Skills items (Electric Sky Blue Strings) */}
                         {activeExp.skills.map((skill, sIdx) => (
                           <div
                             key={sIdx}
-                            className="pl-8 sm:pl-10 leading-relaxed text-[#4C2882] dark:text-[#E8E1F8]"
+                            className="pl-8 sm:pl-10 leading-relaxed text-[#0284C7] dark:text-[#38BDF8]"
                           >
                             "{skill}"
                             {sIdx < activeExp.skills.length - 1 && (
-                              <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                              <span className="text-[#64748B] dark:text-[#94A3B8]">
                                 ,
                               </span>
                             )}
@@ -660,13 +652,20 @@ export default experience;`;
                         ))}
 
                         {/* Line 23: Skills closing */}
-                        <div className="pl-4 sm:pl-6 leading-relaxed text-[#8A7EAA] dark:text-[#8E82A8]">
-                          ]
+                        <div className="pl-4 sm:pl-6 leading-relaxed">
+                          <span className="text-[#0284C7] dark:text-[#60A5FA] font-bold">
+                            ]
+                          </span>
                         </div>
 
-                        {/* Line 24: Object closing */}
-                        <div className="leading-relaxed text-[#8A7EAA] dark:text-[#8E82A8]">
-                          &#125;;
+                        {/* Line 24: Object closing (Gold outer bracket matching opening) */}
+                        <div className="leading-relaxed">
+                          <span className="text-[#D97706] dark:text-[#FFD700] font-bold">
+                            &#125;
+                          </span>
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
+                            ;
+                          </span>
                         </div>
 
                         {/* Line 25: Empty separator */}
@@ -674,13 +673,13 @@ export default experience;`;
 
                         {/* Line 26: Export default */}
                         <div className="leading-relaxed">
-                          <span className="text-[#7C3AED] dark:text-[#C4B5FD] font-semibold">
+                          <span className="text-[#AF00DB] dark:text-[#C586C0] font-semibold">
                             export default
                           </span>{" "}
-                          <span className="text-[#34154E] dark:text-[#F5F3FA] font-medium">
+                          <span className="text-[#001080] dark:text-[#4FC1FF] font-medium">
                             experience
                           </span>
-                          <span className="text-[#8A7EAA] dark:text-[#8E82A8]">
+                          <span className="text-[#64748B] dark:text-[#94A3B8]">
                             ;
                           </span>
                         </div>

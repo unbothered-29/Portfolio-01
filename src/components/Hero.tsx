@@ -113,15 +113,6 @@ export function Hero({
 
       </div>
 
-      {/* Small Supporting Metadata */}
-      <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-5 sm:left-8 md:left-12 lg:left-16 z-20 text-left pointer-events-none select-none">
-        <div className="font-sora text-[9.5px] sm:text-[10px] md:text-[10.5px] leading-[1.65] tracking-[0.2em] uppercase font-medium text-[#583C7E]/75 dark:text-[#8E879B] flex flex-col">
-          <span>FRONT-END DEVELOPER</span>
-          <span>MUMBAI / INDIA</span>
-          <span>2026</span>
-        </div>
-      </div>
-
       {/* Interactive Liquid Glass Tile Grid (Hidden at rest, illuminates on mouse hover) */}
       <InteractiveGlassGrid />
     </section>
