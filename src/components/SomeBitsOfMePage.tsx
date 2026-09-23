@@ -19,8 +19,8 @@ interface SomeBitsOfMePageProps {
   onOpenContact?: () => void;
 }
 
-// Default background image (photographic aurora)
-const DEFAULT_BG_IMAGE = "/aurora.jpg";
+// Default background image (flower.jpg)
+const DEFAULT_BG_IMAGE = "/flower.jpg";
 
 export function SomeBitsOfMePage({
   onBackToHome,
@@ -32,13 +32,15 @@ export function SomeBitsOfMePage({
   const [isDragOverCanvas, setIsDragOverCanvas] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Background image state initialized with default photographic aurora
+  // Background image state initialized with flower.jpg
   const [bgImage, setBgImage] = useState<string>(DEFAULT_BG_IMAGE);
+  const [topCardId, setTopCardId] = useState<string | null>(null);
 
-  // Load custom saved aurora image from IndexedDB / localStorage on mount
+  // Load custom saved background image from IndexedDB / localStorage on mount
   useEffect(() => {
     getAuroraImage().then((saved) => {
-      if (saved) {
+      // If a custom image exists and is not the previous aurora wallpaper, use it; otherwise use flower.jpg
+      if (saved && !saved.includes("aurora") && saved !== "/aurora.jpg") {
         setBgImage(saved);
       } else {
         setBgImage(DEFAULT_BG_IMAGE);
@@ -218,7 +220,7 @@ export function SomeBitsOfMePage({
       if (result) {
         setBgImage(result);
         await saveAuroraImage(result);
-        showToast("✨ aurora.jpg applied and permanently saved!");
+        showToast("✨ Background image applied and saved!");
       }
     };
     reader.readAsDataURL(file);
@@ -255,8 +257,7 @@ export function SomeBitsOfMePage({
     >
       {/* 
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        PURPLE AURORA BOREALIS NIGHT SKY BACKGROUND
-        Vibrant purple rays + emerald flare + starry skies + snowy pines & ski lift
+        FLOWER BACKGROUND (flower.jpg)
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
       */}
       <div
@@ -265,11 +266,11 @@ export function SomeBitsOfMePage({
       >
         <img
           src={bgImage}
-          alt="Purple Aurora Borealis over Snowy Ridge"
+          alt="Flower background for Some Bits of Me"
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover object-center scale-[1.01] transition-all duration-700 ease-out"
         />
-        {/* Subtle dark vignette allowing the vibrant purple pillars & stars to pop */}
+        {/* Subtle dark vignette allowing the cards & text to pop */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/55 pointer-events-none" />
       </div>
 
@@ -278,7 +279,7 @@ export function SomeBitsOfMePage({
         <div className="absolute inset-0 z-50 pointer-events-none border-2 border-dashed border-[#C4B5FD] bg-[#7C3AED]/35 flex items-center justify-center backdrop-blur-sm">
           <div className="bg-black/90 px-7 py-4 rounded-xl border border-white/25 text-white font-mono text-sm flex items-center gap-3 shadow-2xl">
             <Upload className="w-6 h-6 text-[#C4B5FD] animate-bounce" />
-            <span>Drop your aurora.jpg file here to set as background</span>
+            <span>Drop your image file here to set as background</span>
           </div>
         </div>
       )}
@@ -368,8 +369,9 @@ export function SomeBitsOfMePage({
               : "hover:ring-1 hover:ring-white/25"
           }`}
         >
-          {/* Liquid glassy transparent backdrop letting the aurora shine through */}
-          <div className="absolute inset-0 bg-white/[0.06] backdrop-blur-[20px] backdrop-saturate-[200%] border border-white/[0.28] shadow-[0_16px_40px_rgba(0,0,0,0.5),_inset_0_1.5px_1px_0_rgba(255,255,255,0.6)] rounded-[3px] -z-10" />
+          {/* Liquid optical glass lens squircle backdrop (Crystal clear, zero blur) */}
+          <div className="absolute inset-0 bg-white/[0.06] backdrop-saturate-[120%] backdrop-contrast-[104%] border border-white/60 shadow-[0_24px_50px_-10px_rgba(0,0,0,0.65),_inset_0_1.5px_2px_0_rgba(255,255,255,0.85),_inset_0_0_24px_0_rgba(255,255,255,0.18)] rounded-[32px] sm:rounded-[36px] -z-10" />
+          <div className="absolute inset-[2.5px] rounded-[30px] sm:rounded-[34px] pointer-events-none border border-white/35 shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)] -z-10" />
 
           {/* 8 Figma-style Transform Handles (Visible only when selected) */}
           {isSelected && (
@@ -445,6 +447,7 @@ export function SomeBitsOfMePage({
         */}
         {PERSONAL_BITS_DATA.map((card, index) => {
           const layout = card.layout;
+          const isTop = topCardId === card.id;
           return (
             <div
               key={card.id}
@@ -454,16 +457,19 @@ export function SomeBitsOfMePage({
                 left: layout?.left,
                 right: layout?.right,
                 bottom: layout?.bottom,
-                zIndex: layout?.zIndex || 10,
+                zIndex: isTop ? 50 : (layout?.zIndex || 10),
               }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                setTopCardId(card.id);
+              }}
               className="pointer-events-auto"
             >
               <SomeBitsOfMeCard
                 card={card}
                 index={index}
-                mouseOffset={mousePos}
                 isMobile={false}
+                onBringToFront={() => setTopCardId(card.id)}
               />
             </div>
           );
@@ -482,7 +488,7 @@ export function SomeBitsOfMePage({
       <div className="lg:hidden h-full overflow-y-auto px-4 sm:px-6 pt-24 pb-20 space-y-6">
         {/* Prominent Editorial Header */}
         <div className="flex flex-col items-center justify-center pt-2 pb-2">
-          <div className="relative border border-white/[0.30] px-5 py-3.5 bg-white/[0.08] backdrop-blur-[24px] backdrop-saturate-[200%] rounded-[3px] text-center shadow-[0_16px_40px_rgba(0,0,0,0.6),_inset_0_1.5px_1px_0_rgba(255,255,255,0.65)]">
+          <div className="relative border border-white/60 px-6 py-4 bg-white/[0.06] backdrop-saturate-[120%] backdrop-contrast-[104%] rounded-[28px] sm:rounded-[32px] text-center shadow-[0_20px_45px_rgba(0,0,0,0.65),_inset_0_1.5px_2px_0_rgba(255,255,255,0.85),_inset_0_0_20px_0_rgba(255,255,255,0.18)]">
             <h1 className="font-fraunces text-[34px] sm:text-[40px] font-bold text-white leading-[0.95] drop-shadow-md">
               Some Bits
               <br />

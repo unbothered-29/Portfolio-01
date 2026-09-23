@@ -9,182 +9,161 @@ interface SomeBitsOfMeCardProps {
   className?: string;
   mouseOffset?: { x: number; y: number };
   isMobile?: boolean;
+  onBringToFront?: () => void;
 }
 
 export function SomeBitsOfMeCard({
   card,
   index,
   className,
-  mouseOffset = { x: 0, y: 0 },
   isMobile = false,
+  onBringToFront,
 }: SomeBitsOfMeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  // Subtle desktop parallax when not dragging
-  const pFactor = card.parallaxFactor ?? 0.015;
-  const parallaxX = !isMobile && !isDragging ? mouseOffset.x * pFactor * 14 : 0;
-  const parallaxY = !isMobile && !isDragging ? mouseOffset.y * pFactor * 14 : 0;
-
   const rotation = card.layout?.rotation ?? card.rotationDeg ?? 0;
-  const initialOffset = card.layout?.initialOffset ?? { x: 0, y: 20 };
 
   return (
     <motion.div
-      drag={!isMobile}
+      drag
       dragMomentum={false}
-      dragElastic={0.08}
-      onDragStart={() => setIsDragging(true)}
+      dragElastic={0}
+      whileDrag={{ scale: 1.03, cursor: "grabbing" }}
+      whileHover={{ scale: 1.015 }}
+      onPointerDown={() => onBringToFront?.()}
+      onDragStart={() => {
+        setIsDragging(true);
+        onBringToFront?.();
+      }}
       onDragEnd={() => setIsDragging(false)}
       initial={{
         opacity: 0,
-        x: initialOffset.x,
-        y: initialOffset.y,
-        scale: 0.95,
+        scale: 0.94,
       }}
-      whileInView={{
+      animate={{
         opacity: 1,
-        x: 0,
-        y: 0,
         scale: 1,
       }}
-      viewport={{ once: true, margin: "-20px" }}
       transition={{
-        duration: 0.45,
-        delay: index * 0.06,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      style={{
-        transform: `translate3d(${parallaxX}px, ${parallaxY}px, 0)`,
+        duration: 0.4,
+        delay: index * 0.08,
+        ease: "easeOut",
       }}
       className={cn(
-        "select-none transition-transform duration-200 ease-out",
-        !isMobile ? "cursor-grab active:cursor-grabbing" : "cursor-default",
-        isDragging ? "z-50 scale-[1.02]" : "",
+        "select-none cursor-grab active:cursor-grabbing touch-none",
+        isDragging ? "z-50" : "",
         className
       )}
     >
       {/* 
-        LIQUID GLASSY TRANSPARENT CARD CONTAINER 
-        - High optical clarity & transparency letting aurora borealis shine through
-        - Architectural sharp corners: rounded-[3px] (2px–6px max)
-        - Intense refraction: backdrop-blur-[24px] backdrop-saturate-[220%]
-        - Specular bevel, top-edge prism glint, and liquid ambient shadows
+        LIQUID OPTICAL GLASS LENS SQUIRCLE (Inspired by Apple iOS "Clear" Glass Lens)
+        - Ultra-rounded squircle radius (rounded-[32px] sm:rounded-[36px] md:rounded-[38px])
+        - Dual-rim specular bevel: crisp outer border + inner 3D refraction rim
+        - Chromatic edge dispersion & specular catch-light
+        - Crystal-clear optical transparency (letting flower.jpg shine through with refraction)
+        - Clean layout without any editable lines
       */}
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{
           transform: isDragging
-            ? "rotate(0deg) translateY(-4px)"
+            ? "rotate(0deg)"
             : isHovered
-            ? `rotate(${rotation * 0.3}deg) translateY(-2px)`
-            : `rotate(${rotation}deg) translateY(0px)`,
+            ? `rotate(${rotation * 0.3}deg)`
+            : `rotate(${rotation}deg)`,
           width: !isMobile && card.layout?.width ? `${card.layout.width}px` : undefined,
           minHeight: !isMobile && card.layout?.minHeight ? `${card.layout.minHeight}px` : undefined,
         }}
         className={cn(
-          "relative group overflow-hidden p-3.5 sm:p-4 rounded-[3px] border transition-all duration-200 ease-out flex flex-col justify-between",
-          // Liquid Glassy Transparent background (letting the background shine through clearly)
-          "bg-white/[0.08] dark:bg-white/[0.07]",
-          "backdrop-blur-[24px] backdrop-saturate-[220%]",
-          "border-white/[0.32] dark:border-white/[0.28]",
-          // Specular highlights & ambient glass shadow
+          "relative group overflow-hidden p-5 sm:p-6 rounded-[32px] sm:rounded-[36px] md:rounded-[38px] transition-shadow duration-300 ease-out flex flex-col justify-between select-none",
+          // Crystal Clear Optical Glass (No blur - 100% sharp background visibility)
+          "bg-white/[0.06] hover:bg-white/[0.10] dark:bg-black/[0.12] dark:hover:bg-black/[0.18]",
+          "backdrop-saturate-[120%] backdrop-contrast-[104%]",
+          "border border-white/70 dark:border-white/55",
+          // Specular highlights & deep ambient floating shadow
           isDragging || isHovered
-            ? "border-white/[0.60] bg-white/[0.14] dark:bg-white/[0.12] shadow-[0_24px_50px_-8px_rgba(0,0,0,0.82),_0_8px_20px_rgba(0,0,0,0.4),_inset_0_2px_1.5px_0_rgba(255,255,255,0.85),_inset_0_-1px_2px_0_rgba(255,255,255,0.25)]"
-            : "shadow-[0_16px_40px_-10px_rgba(0,0,0,0.65),_0_4px_16px_rgba(0,0,0,0.3),_inset_0_1.5px_1px_0_rgba(255,255,255,0.65),_inset_0_-1px_1.5px_0_rgba(255,255,255,0.18)]",
+            ? "shadow-[0_32px_70px_-10px_rgba(0,0,0,0.75),_0_16px_32px_-8px_rgba(0,0,0,0.45),_inset_0_2px_3px_0_rgba(255,255,255,0.95),_inset_0_0_24px_2px_rgba(255,255,255,0.2),_inset_0_-2px_4px_0_rgba(0,0,0,0.3)] border-white/90"
+            : "shadow-[0_24px_50px_-10px_rgba(0,0,0,0.65),_0_10px_20px_-6px_rgba(0,0,0,0.35),_inset_0_1.5px_2px_0_rgba(255,255,255,0.85),_inset_0_0_16px_0_rgba(255,255,255,0.15),_inset_0_-2px_4px_0_rgba(0,0,0,0.25)]",
           card.widthClass || "w-full"
         )}
       >
-        {/* Top edge liquid prism glint */}
+        {/* 1. Inner Curved Bevel Rim (Simulating thick acrylic edge refraction) */}
         <div
           aria-hidden="true"
-          className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/85 to-transparent pointer-events-none z-20"
+          className="absolute inset-[2.5px] rounded-[30px] sm:rounded-[34px] md:rounded-[36px] pointer-events-none border border-white/40 shadow-[inset_0_2px_4px_rgba(255,255,255,0.65),_inset_0_-2px_4px_rgba(0,0,0,0.25)] z-20"
         />
 
-        {/* Specular internal gradient reflection */}
+        {/* 2. Top-Left Specular Glass Catch-Light */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-br from-white/[0.18] via-transparent to-white/[0.02] pointer-events-none"
+          className="absolute -top-10 -left-10 w-36 h-36 rounded-full bg-white/20 blur-xl pointer-events-none z-10"
         />
 
-        {/* Dynamic liquid light sheen across glass on hover */}
+        {/* 3. Top-edge curved prism glint */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none bg-gradient-to-r from-transparent via-white/[0.22] to-transparent skew-x-[-20deg]"
+          className="absolute top-0 inset-x-8 h-[1.5px] bg-gradient-to-r from-transparent via-white/90 to-transparent pointer-events-none z-20"
+        />
+
+        {/* 4. Specular diagonal light reflection across lens */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 rounded-[32px] sm:rounded-[36px] md:rounded-[38px] bg-gradient-to-br from-white/[0.22] via-transparent to-white/[0.04] pointer-events-none z-10"
+        />
+
+        {/* 5. Dynamic liquid light sheen across glass on hover */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none bg-gradient-to-r from-transparent via-white/[0.28] to-transparent skew-x-[-20deg] z-10"
         />
 
         {/* Content Area */}
-        <div className="relative z-10 flex flex-col flex-1">
-          {/* 1. Header: Monospace Category Pill with sharp corners + sparkle */}
-          <div className="flex items-center justify-between gap-1.5 mb-1.5 pb-1 border-b border-white/[0.15]">
-            <span className="font-mono text-[8.5px] font-semibold tracking-[0.16em] uppercase px-1.5 py-0.5 rounded-[2px] bg-white/[0.16] text-white border border-white/[0.38] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]">
+        <div className="relative z-20 flex flex-col flex-1">
+          {/* Header: iOS Glass Pill Category Tag */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <span className="font-sora text-[9px] sm:text-[9.5px] font-semibold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full bg-white/20 text-white border border-white/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
               {card.category}
             </span>
-            <span className="text-white/80 text-[9.5px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">✦</span>
+            <span className="text-white/90 text-[11px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">✦</span>
           </div>
 
-          {/* 2. Headline */}
-          <h3 className="font-fraunces text-[15px] sm:text-[16px] font-medium text-white leading-[1.22] tracking-tight mb-1.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.92)]">
+          {/* Primary Title (Styled with "Clear" prominent clarity) */}
+          <h3 className="font-sora text-[17px] sm:text-[18.5px] font-semibold text-white leading-tight tracking-[-0.015em] mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
             {card.title}
           </h3>
 
-          {/* 3. Statement Quote (if present) */}
+          {/* Statement Quote (if present) */}
           {card.statement && (
-            <p className="font-fraunces italic text-[11.5px] sm:text-[12px] text-[#F3E8FF] leading-snug mb-2 pl-2 border-l-[1.5px] border-white/70 drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.92)]">
+            <p className="font-sora italic text-[11.5px] sm:text-[12px] text-white/95 leading-relaxed mb-2.5 px-3 py-2 rounded-2xl bg-white/[0.12] border border-white/25 drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.8)]">
               {card.statement}
             </p>
           )}
 
-          {/* 4. Description */}
+          {/* Description */}
           {card.description && (
-            <p className="font-sora text-[11px] sm:text-[11.5px] text-white/95 leading-[1.6] font-normal drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.9)]">
+            <p className="font-sora text-[11.5px] sm:text-[12px] text-white/90 leading-[1.65] font-normal drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.85)]">
               {card.description}
             </p>
           )}
 
-          {/* 5. Bullet List (if present) */}
+          {/* Bullet List (if present) */}
           {card.items && card.items.length > 0 && (
-            <ul className="mt-1 space-y-0.5 font-sora text-[10.5px] sm:text-[11px] text-white/90">
-              {card.items.map((item, idx) => {
-                const isPlaceholder = item.startsWith("[");
-                return (
-                  <li
-                    key={idx}
-                    className={cn(
-                      "flex items-start gap-1.5 leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]",
-                      isPlaceholder
-                        ? "text-white/60 italic text-[10px] pt-0.5"
-                        : "text-white/95"
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "select-none shrink-0 text-[8.5px] mt-0.5",
-                        isPlaceholder
-                          ? "text-white/40"
-                          : "text-[#C4B5FD]"
-                      )}
-                    >
-                      •
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                );
-              })}
+            <ul className="mt-2 space-y-1 font-sora text-[11px] sm:text-[11.5px] text-white/95">
+              {card.items.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-start gap-2 leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] text-white/95"
+                >
+                  <span className="select-none shrink-0 text-[10px] mt-0.5 text-white/80">
+                    •
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           )}
-        </div>
-
-        {/* 6. Subtle Monospace Placeholder / Move hint */}
-        <div className="relative z-10 mt-2.5 pt-1 border-t border-white/[0.12] flex items-center justify-between">
-          <span className="font-mono text-[8px] text-white/70 italic tracking-tight truncate max-w-[200px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-            {card.placeholderNote || "Drag to rearrange"}
-          </span>
-          <span className="font-mono text-[7.5px] text-white/75 uppercase tracking-wider pl-1.5 flex items-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-            <span className="w-1 h-1 rounded-full bg-[#C4B5FD] shadow-[0_0_6px_#C4B5FD]" />
-            MOVE
-          </span>
         </div>
       </div>
     </motion.div>

@@ -20,10 +20,12 @@ function saveAuroraPlugin(): Plugin {
               if (data.image) {
                 const base64Data = data.image.replace(/^data:image\/\w+;base64,/, '');
                 const buffer = Buffer.from(base64Data, 'base64');
-                const outPath = path.resolve(__dirname, 'public/aurora.jpg');
-                fs.writeFileSync(outPath, buffer);
+                const outPathFlower = path.resolve(__dirname, 'public/flower.jpg');
+                fs.writeFileSync(outPathFlower, buffer);
+                const outPathAurora = path.resolve(__dirname, 'public/aurora.jpg');
+                fs.writeFileSync(outPathAurora, buffer);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true, path: '/aurora.jpg' }));
+                res.end(JSON.stringify({ success: true, path: '/flower.jpg' }));
                 return;
               }
             } catch (err: any) {
