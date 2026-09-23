@@ -78,12 +78,12 @@ export function SomeBitsOfMeCard({
         }}
         className={cn(
           "relative group overflow-hidden p-5 sm:p-6 rounded-[32px] sm:rounded-[36px] md:rounded-[38px] transition-shadow duration-300 ease-out flex flex-col justify-between select-none",
-          // Crystal Clear Optical Glass (No blur - 100% sharp background visibility)
-          "bg-white/[0.06] hover:bg-white/[0.10] dark:bg-black/[0.12] dark:hover:bg-black/[0.18]",
+          // Crystal Clear Optical Glass (No blur - 100% sharp background visibility, stable on hover)
+          "bg-white/[0.06] dark:bg-black/[0.12]",
           "backdrop-saturate-[120%] backdrop-contrast-[104%]",
           "border border-white/70 dark:border-white/55",
           // Specular highlights & deep ambient floating shadow
-          isDragging || isHovered
+          isDragging
             ? "shadow-[0_32px_70px_-10px_rgba(0,0,0,0.75),_0_16px_32px_-8px_rgba(0,0,0,0.45),_inset_0_2px_3px_0_rgba(255,255,255,0.95),_inset_0_0_24px_2px_rgba(255,255,255,0.2),_inset_0_-2px_4px_0_rgba(0,0,0,0.3)] border-white/90"
             : "shadow-[0_24px_50px_-10px_rgba(0,0,0,0.65),_0_10px_20px_-6px_rgba(0,0,0,0.35),_inset_0_1.5px_2px_0_rgba(255,255,255,0.85),_inset_0_0_16px_0_rgba(255,255,255,0.15),_inset_0_-2px_4px_0_rgba(0,0,0,0.25)]",
           card.widthClass || "w-full"
@@ -113,20 +113,13 @@ export function SomeBitsOfMeCard({
           className="absolute inset-0 rounded-[32px] sm:rounded-[36px] md:rounded-[38px] bg-gradient-to-br from-white/[0.22] via-transparent to-white/[0.04] pointer-events-none z-10"
         />
 
-        {/* 5. Dynamic liquid light sheen across glass on hover */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none bg-gradient-to-r from-transparent via-white/[0.28] to-transparent skew-x-[-20deg] z-10"
-        />
-
         {/* Content Area */}
         <div className="relative z-20 flex flex-col flex-1">
           {/* Header: iOS Glass Pill Category Tag */}
-          <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center mb-3">
             <span className="font-sora text-[9px] sm:text-[9.5px] font-semibold tracking-[0.16em] uppercase px-2.5 py-1 rounded-full bg-white/20 text-white border border-white/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]">
               {card.category}
             </span>
-            <span className="text-white/90 text-[11px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">✦</span>
           </div>
 
           {/* Primary Title (Styled with "Clear" prominent clarity) */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Upload, Check } from "lucide-react";
+import { Upload, Check } from "lucide-react";
 import { GlassNavbar } from "./GlassNavbar";
 import { FullscreenNavOverlay } from "./FullscreenNavOverlay";
 import { GlassCursor } from "./GlassCursor";
@@ -317,18 +317,6 @@ export function SomeBitsOfMePage({
         }}
       />
 
-      {/* Top Bar Controls - Back to Home */}
-      <div className="absolute top-5 left-4 sm:left-8 z-40 flex items-center">
-        <button
-          type="button"
-          onClick={onBackToHome}
-          className="group inline-flex items-center gap-2 text-[12px] font-medium text-white/95 hover:text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] transition-all cursor-pointer select-none font-sora py-1.5 px-3.5 rounded-full bg-black/50 backdrop-blur-xl border border-white/20 hover:border-white/45 hover:bg-black/70 shadow-lg"
-        >
-          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-1" />
-          <span>Back to home</span>
-        </button>
-      </div>
-
       {/* 
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         FREEFORM DESKTOP EDITORIAL CANVAS
@@ -363,61 +351,57 @@ export function SomeBitsOfMePage({
             e.stopPropagation();
             setIsSelected(true);
           }}
-          className={`group/title absolute select-none flex flex-col items-center justify-center cursor-move transition-shadow duration-200 ${
-            isSelected
-              ? "ring-1 ring-[#C4B5FD]/80 shadow-[0_0_30px_rgba(196,181,253,0.18)]"
-              : "hover:ring-1 hover:ring-white/25"
-          }`}
+          className="group/title absolute select-none flex flex-col items-center justify-center cursor-move"
         >
           {/* Liquid optical glass lens squircle backdrop (Crystal clear, zero blur) */}
           <div className="absolute inset-0 bg-white/[0.06] backdrop-saturate-[120%] backdrop-contrast-[104%] border border-white/60 shadow-[0_24px_50px_-10px_rgba(0,0,0,0.65),_inset_0_1.5px_2px_0_rgba(255,255,255,0.85),_inset_0_0_24px_0_rgba(255,255,255,0.18)] rounded-[32px] sm:rounded-[36px] -z-10" />
           <div className="absolute inset-[2.5px] rounded-[30px] sm:rounded-[34px] pointer-events-none border border-white/35 shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)] -z-10" />
 
-          {/* 8 Figma-style Transform Handles (Visible only when selected) */}
+          {/* 8 Transform Handles for Adjusting (Clean, borderless handles visible when selected) */}
           {isSelected && (
             <>
               {/* Corner Handles */}
               <span
                 onPointerDown={(e) => handleStartResize(e, "nw")}
                 title="Resize Top-Left"
-                className="absolute -top-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-nwse-resize hover:scale-125 transition-transform z-30"
+                className="absolute -top-1 -left-1 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-nwse-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "ne")}
                 title="Resize Top-Right"
-                className="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-nesw-resize hover:scale-125 transition-transform z-30"
+                className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-nesw-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "sw")}
                 title="Resize Bottom-Left"
-                className="absolute -bottom-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-nesw-resize hover:scale-125 transition-transform z-30"
+                className="absolute -bottom-1 -left-1 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-nesw-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "se")}
                 title="Resize Bottom-Right"
-                className="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-nwse-resize hover:scale-125 transition-transform z-30"
+                className="absolute -bottom-1 -right-1 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-nwse-resize hover:scale-125 transition-transform z-30"
               />
 
               {/* Edge Handles */}
               <span
                 onPointerDown={(e) => handleStartResize(e, "n")}
                 title="Resize Top"
-                className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-ns-resize hover:scale-125 transition-transform z-30"
+                className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-ns-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "s")}
                 title="Resize Bottom"
-                className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-ns-resize hover:scale-125 transition-transform z-30"
+                className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-ns-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "w")}
                 title="Resize Left"
-                className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-ew-resize hover:scale-125 transition-transform z-30"
+                className="absolute top-1/2 -left-1 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-ew-resize hover:scale-125 transition-transform z-30"
               />
               <span
                 onPointerDown={(e) => handleStartResize(e, "e")}
                 title="Resize Right"
-                className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-2.5 h-2.5 bg-white border border-[#110D20] shadow-sm cursor-ew-resize hover:scale-125 transition-transform z-30"
+                className="absolute top-1/2 -right-1 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.45)] cursor-ew-resize hover:scale-125 transition-transform z-30"
               />
             </>
           )}
@@ -432,10 +416,6 @@ export function SomeBitsOfMePage({
               <br />
               Of Me
             </h1>
-
-            <p className="mt-1.5 text-center font-mono text-[9px] text-[#DDD6FE]/80 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-[0.2em] uppercase select-none pointer-events-none">
-              {PERSONAL_BITS_INTRO.sectionNumber} • EDITORIAL SCRAPBOOK
-            </p>
           </div>
         </div>
 

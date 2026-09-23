@@ -53,27 +53,35 @@ export function AtmosphericBackground() {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 select-none transition-opacity duration-700">
-      {/* Mid-page Work Section Soft Glow - only below 100vh */}
+      {/* Top / Hero Transition Soft Ambient Glow (connects hero aura seamlessly to work section) */}
       <div
         className={cn(
-          "absolute top-[130vh] -left-36 w-[550px] h-[550px] rounded-full blur-[160px] transform-gpu transition-all duration-700",
-          isDark ? "bg-[#7C3AED]/12" : "bg-[#B9A7FF]/10"
+          "absolute top-[75vh] left-1/2 -translate-x-1/2 w-[700px] sm:w-[900px] h-[450px] rounded-full blur-[170px] transform-gpu pointer-events-none transition-all duration-700",
+          isDark ? "bg-[#7C3AED]/[0.08]" : "bg-[#DDD0FC]/[0.28]"
+        )}
+      />
+
+      {/* Mid-page Work Section Soft Glow */}
+      <div
+        className={cn(
+          "absolute top-[135vh] -left-28 w-[550px] sm:w-[650px] h-[550px] rounded-full blur-[160px] transform-gpu pointer-events-none transition-all duration-700",
+          isDark ? "bg-[#7C3AED]/12" : "bg-[#B9A7FF]/[0.18]"
         )}
       />
 
       {/* About/Capabilities Soft Blue/Indigo Glow */}
       <div
         className={cn(
-          "absolute top-[230vh] -right-28 w-[580px] h-[580px] rounded-full blur-[160px] transform-gpu transition-all duration-700",
-          isDark ? "bg-[#4F46E5]/10" : "bg-[#C8D5FF]/12"
+          "absolute top-[230vh] -right-28 w-[580px] sm:w-[680px] h-[580px] rounded-full blur-[160px] transform-gpu pointer-events-none transition-all duration-700",
+          isDark ? "bg-[#4F46E5]/10" : "bg-[#C8D5FF]/[0.20]"
         )}
       />
 
       {/* Footer Subtle Violet Glow */}
       <div
         className={cn(
-          "absolute bottom-20 left-[25%] w-[600px] h-[400px] rounded-full blur-[170px] transform-gpu transition-all duration-700",
-          isDark ? "bg-[#8B5CF6]/10" : "bg-[#B9A7FF]/8"
+          "absolute bottom-20 left-[25%] w-[600px] h-[400px] rounded-full blur-[170px] transform-gpu pointer-events-none transition-all duration-700",
+          isDark ? "bg-[#8B5CF6]/10" : "bg-[#B9A7FF]/[0.15]"
         )}
       />
     </div>

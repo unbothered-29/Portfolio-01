@@ -1,6 +1,5 @@
 import React from "react";
 import { HeroAtmosphere } from "./HeroAtmosphere";
-import { InteractiveGlassGrid } from "./InteractiveGlassGrid";
 import { useTheme } from "../context/ThemeContext";
 
 interface HeroProps {
@@ -15,8 +14,8 @@ export function Hero({
   const isDark = theme === "obsidian";
 
   return (
-    <section className="relative min-h-screen min-h-[100dvh] w-full flex flex-col justify-center items-center text-center px-5 sm:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 overflow-hidden select-none font-helvetica">
-      {/* Clean Background Canvas & Bottom Fade */}
+    <section className="relative min-h-screen min-h-[100dvh] w-full flex flex-col justify-center items-center text-center px-5 sm:px-8 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 md:pb-28 overflow-x-clip select-none font-helvetica">
+      {/* Clean Background Canvas */}
       <HeroAtmosphere />
 
       {/* Main Centered Typography & Content Container */}
@@ -112,9 +111,6 @@ export function Hero({
         </div>
 
       </div>
-
-      {/* Interactive Liquid Glass Tile Grid (Hidden at rest, illuminates on mouse hover) */}
-      <InteractiveGlassGrid />
     </section>
   );
 }
