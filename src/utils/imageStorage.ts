@@ -1,8 +1,8 @@
 // Persistent Image Storage using IndexedDB (no 5MB storage limit) + API sync
 const DB_NAME = "portfolio_wallpaper_store";
-const DB_VERSION = 2;
+const DB_VERSION = 4;
 const STORE_NAME = "wallpapers";
-const BG_KEY = "some_bits_flower_bg";
+const BG_KEY = "some_bits_flower_bg_v2";
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
