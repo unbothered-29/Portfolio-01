@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
 import { ContactSection } from "./ContactSection";
 import { WavingGirlCharacter } from "./WavingGirlCharacter";
+import { CelestialOrb } from "./CelestialOrb";
 
 export type WindowColor = "blue" | "green" | "yellow" | "red";
 
@@ -348,9 +349,13 @@ export function CinematicBuildingFacade({
         aria-hidden="true"
         className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-all duration-700"
       >
-        {isDark ? (
-          <>
-            {/* 1. Deep Atmospheric Night Sky Gradient */}
+        {/* 1. DEEP ATMOSPHERIC NIGHT SKY LAYER (Fades smoothly across modes) */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            isDark ? "opacity-100 pointer-events-none" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          {/* 1. Deep Atmospheric Night Sky Gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#030206] via-[#080612] to-[#120D1F]" />
 
             {/* 2. Soft Ambient City Glow on Horizon */}
@@ -472,193 +477,7 @@ export function CinematicBuildingFacade({
               <div className="w-14 h-32 bg-[#080610] border-t border-white/5" />
             </div>
 
-            {/* 6. Realistic Glowing Celestial Moon with Lunar Maria & Soft Halo */}
-            <div className="absolute top-6 sm:top-8 md:top-10 right-4 sm:right-12 md:right-20 lg:right-28 pointer-events-none select-none z-[1]">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="relative flex items-center justify-center"
-              >
-                {/* Outermost Diffuse Atmospheric Radiance */}
-                <motion.div
-                  animate={{
-                    opacity: [0.7, 0.92, 0.7],
-                    scale: [0.96, 1.04, 0.96],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -inset-16 sm:-inset-20 rounded-full bg-[radial-gradient(circle,_rgba(254,243,199,0.22)_0%,_rgba(251,191,36,0.09)_40%,_transparent_75%)] blur-xl pointer-events-none"
-                />
-
-                {/* Inner Lunar Corona Ring */}
-                <div className="absolute -inset-3 sm:-inset-4 rounded-full bg-[radial-gradient(circle,_rgba(255,253,245,0.45)_0%,_rgba(254,243,199,0.18)_55%,_transparent_72%)] blur-md pointer-events-none" />
-
-                {/* High-Fidelity Vector Moon Disc */}
-                <svg
-                  viewBox="0 0 72 72"
-                  className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_0_24px_rgba(254,243,199,0.7)]"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    {/* Spherical illumination gradient: bright silver highlight to soft lunar amber-gray */}
-                    <radialGradient id="moonSurface" cx="38%" cy="36%" r="62%">
-                      <stop offset="0%" stopColor="#FFFFFF" />
-                      <stop offset="30%" stopColor="#FFFDF5" />
-                      <stop offset="65%" stopColor="#FEF3C7" />
-                      <stop offset="85%" stopColor="#F5E4B5" />
-                      <stop offset="100%" stopColor="#E2CCA0" />
-                    </radialGradient>
-
-                    {/* Mare / Crater basalt shading */}
-                    <radialGradient id="mareTone" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#8C7862" stopOpacity="0.45" />
-                      <stop offset="70%" stopColor="#9C876E" stopOpacity="0.32" />
-                      <stop offset="100%" stopColor="#AFA089" stopOpacity="0" />
-                    </radialGradient>
-
-                    {/* Subtle limb darkening shadow along eastern edge */}
-                    <linearGradient id="limbDarkening" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="70%" stopColor="transparent" />
-                      <stop offset="100%" stopColor="#2E2419" stopOpacity="0.35" />
-                    </linearGradient>
-
-                    {/* Mask to keep craters inside the moon circle */}
-                    <clipPath id="moonClip">
-                      <circle cx="36" cy="36" r="34" />
-                    </clipPath>
-                  </defs>
-
-                  {/* Main Celestial Disc */}
-                  <circle
-                    cx="36"
-                    cy="36"
-                    r="34"
-                    fill="url(#moonSurface)"
-                  />
-
-                  {/* Craters & Maria Topography (clipped to moon sphere) */}
-                  <g clipPath="url(#moonClip)">
-                    {/* Oceanus Procellarum & Mare Imbrium (Upper-Left Dark Basalt Region) */}
-                    <path
-                      d="M 18 22 C 20 16 29 14 34 18 C 37 21 34 27 28 29 C 22 30 16 26 18 22 Z"
-                      fill="url(#mareTone)"
-                    />
-                    <path
-                      d="M 23 20 C 26 18 31 19 33 23 C 32 26 27 27 24 25 C 22 23 22 21 23 20 Z"
-                      fill="#7C6850"
-                      opacity="0.35"
-                    />
-
-                    {/* Mare Serenitatis & Mare Tranquillitatis (Upper-Right Plains) */}
-                    <ellipse
-                      cx="46"
-                      cy="26"
-                      rx="7.5"
-                      ry="6.5"
-                      fill="url(#mareTone)"
-                    />
-                    <ellipse
-                      cx="51"
-                      cy="34"
-                      rx="6.5"
-                      ry="6"
-                      fill="url(#mareTone)"
-                    />
-                    <path
-                      d="M 43 27 C 46 25 50 28 49 32 C 46 34 42 32 43 27 Z"
-                      fill="#74604A"
-                      opacity="0.25"
-                    />
-
-                    {/* Mare Fecunditatis & Mare Nectaris (Lower-Right Plains) */}
-                    <ellipse
-                      cx="47"
-                      cy="44"
-                      rx="6"
-                      ry="5"
-                      fill="url(#mareTone)"
-                    />
-                    <ellipse
-                      cx="41"
-                      cy="48"
-                      rx="5"
-                      ry="4"
-                      fill="url(#mareTone)"
-                    />
-
-                    {/* Mare Nubium & Mare Humorum (Lower-Left Plains) */}
-                    <ellipse
-                      cx="27"
-                      cy="43"
-                      rx="6"
-                      ry="4.5"
-                      fill="url(#mareTone)"
-                    />
-                    <circle
-                      cx="20"
-                      cy="41"
-                      r="3.5"
-                      fill="url(#mareTone)"
-                    />
-
-                    {/* Tycho Crater & Ejecta Rays (Lower South bright impact site) */}
-                    <g opacity="0.6">
-                      <line x1="33" y1="56" x2="16" y2="46" stroke="#FFFDF8" strokeWidth="0.5" strokeOpacity="0.5" />
-                      <line x1="33" y1="56" x2="24" y2="64" stroke="#FFFDF8" strokeWidth="0.5" strokeOpacity="0.5" />
-                      <line x1="33" y1="56" x2="45" y2="52" stroke="#FFFDF8" strokeWidth="0.5" strokeOpacity="0.5" />
-                      <line x1="33" y1="56" x2="35" y2="38" stroke="#FFFDF8" strokeWidth="0.6" strokeOpacity="0.4" />
-                      <circle cx="33" cy="56" r="2.2" fill="#EAD7B0" stroke="#FFFDF5" strokeWidth="0.5" />
-                      <circle cx="33" cy="56" r="1.1" fill="#7A6852" opacity="0.45" />
-                    </g>
-
-                    {/* Copernicus Crater */}
-                    <circle cx="28" cy="33" r="1.8" fill="#F0DFC0" stroke="#FFFDF5" strokeWidth="0.4" opacity="0.8" />
-                    <circle cx="28" cy="33" r="0.9" fill="#7A6852" opacity="0.4" />
-
-                    {/* Kepler Crater */}
-                    <circle cx="19" cy="32" r="1.3" fill="#F0DFC0" opacity="0.75" />
-
-                    {/* Limb Darkening Sphere Contour */}
-                    <circle
-                      cx="36"
-                      cy="36"
-                      r="34"
-                      fill="url(#limbDarkening)"
-                    />
-                  </g>
-
-                  {/* Luminous Specular Rim Halo */}
-                  <circle
-                    cx="36"
-                    cy="36"
-                    r="33.5"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.7)"
-                    strokeWidth="0.8"
-                  />
-                </svg>
-
-                {/* Wispy Atmospheric Cloud Drift passing across the moon base */}
-                <motion.div
-                  animate={{
-                    x: [-4, 6, -4],
-                    opacity: [0.25, 0.45, 0.25],
-                  }}
-                  transition={{
-                    duration: 9,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -bottom-1 left-2 w-20 sm:w-24 h-4 bg-gradient-to-r from-transparent via-[#EDE9FE]/20 to-transparent blur-sm rounded-full pointer-events-none"
-                />
-              </motion.div>
-            </div>
-
-            {/* 7. Subtle Stars in Upper Atmosphere */}
+            {/* Subtle Stars in Upper Atmosphere */}
             <div className="absolute inset-0 opacity-45 pointer-events-none">
               <div className="absolute top-[8%] left-[12%] w-[1.5px] h-[1.5px] rounded-full bg-white/70 shadow-[0_0_4px_white]" />
               <div className="absolute top-[14%] left-[26%] w-[1px] h-[1px] rounded-full bg-white/50" />
@@ -674,16 +493,18 @@ export function CinematicBuildingFacade({
             {/* 7. Realistic Film Grain / Nocturnal Haze */}
             <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none" />
             <div className="absolute inset-0 bg-radial-vignette pointer-events-none shadow-[inset_0_0_160px_rgba(0,0,0,0.85)]" />
-          </>
-        ) : (
-          <>
+        </div>
+
+        {/* 2. REALISTIC DAYLIGHT SKY LAYER (Fades smoothly across modes) */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            !isDark ? "opacity-100 pointer-events-none" : "opacity-0 pointer-events-none"
+          }`}
+        >
             {/* 1. Realistic Daylight Sky Gradient (Soft Morning Atmosphere) */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#B8D5FA]/60 via-[#DDE9F8] to-[#F5F2FC]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#B8D5FA] via-[#DCE8F7] to-[#EAE4F5]" />
 
-            {/* 2. Soft Morning Sun Radiance */}
-            <div className="absolute -top-32 right-1/4 w-[700px] h-[700px] bg-[radial-gradient(circle,_rgba(255,255,255,0.95)_0%,_rgba(254,243,199,0.35)_35%,_transparent_70%)]" />
-
-            {/* 3. REALISTIC DAYTIME NEIGHBORING BUILDINGS */}
+            {/* 2. REALISTIC DAYTIME NEIGHBORING BUILDINGS */}
             <div className="absolute bottom-28 inset-x-0 h-[480px] pointer-events-none flex justify-between px-2 sm:px-6 md:px-10 opacity-35 blur-[0.6px]">
               {/* Left Background Townhouse */}
               <div className="w-32 sm:w-48 md:w-60 h-full flex flex-col justify-end">
@@ -740,11 +561,14 @@ export function CinematicBuildingFacade({
               <div className="w-20 h-44 bg-[#7D6F96] border-t border-[#6B5D84]" />
               <div className="w-14 h-32 bg-[#8F82A8] border-t border-[#7A6D92]" />
             </div>
+        </div>
 
-            {/* 5. Horizon Cloud haze */}
-            <div className="absolute top-[30%] inset-x-0 h-24 bg-gradient-to-b from-white/30 via-white/10 to-transparent blur-md pointer-events-none" />
-          </>
-        )}
+        {/* 
+          3. CELESTIAL ORB (MOON IN DARK MODE / SUN IN LIGHT MODE)
+          Exact same celestial position in both modes, with ultra-smooth cross-fade, 
+          scale, and gentle rise/fall parallax transitions when switching modes!
+        */}
+        <CelestialOrb isDark={isDark} />
       </div>
 
       {/* 
@@ -2503,26 +2327,28 @@ function BuildingWideWindow({
             isActive && config
               ? config.borderActive
               : isDark
-              ? "rgba(0,0,0,0.95)"
+              ? "rgba(142,126,168,0.35)"
               : "rgba(109,85,138,0.45)",
         }}
         className={`absolute inset-0 rounded-[4px] transition-all duration-700 ease-out border-[2px] ${
           isActive
             ? "border-opacity-100"
             : isDark
-            ? "border-black/95 shadow-[inset_0_4px_10px_rgba(0,0,0,0.95),_0_2px_5px_rgba(0,0,0,0.8)]"
+            ? "border-[#4A3D63] shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),_0_1px_3px_rgba(255,255,255,0.05)]"
             : "border-[#85769D] shadow-[inset_0_3px_8px_rgba(52,21,78,0.2)]"
         }`}
       />
 
       {/* 2. GLASS SURFACE & ROOM INTERIOR */}
       <div
-        className={`absolute inset-[3px] rounded-[3px] overflow-hidden transition-all duration-700 ease-out ${
+        className={`absolute inset-[3px] rounded-[3px] overflow-hidden transition-all duration-700 ease-out border ${
           isActive && config
-            ? ""
+            ? isDark
+              ? "border-[#A798C5]/60"
+              : "border-[#4C3F6D]/50"
             : isDark
-            ? "bg-[#090810] opacity-95 shadow-[inset_0_2px_8px_rgba(0,0,0,0.9)]"
-            : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-95 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)]"
+            ? "bg-[#090810] opacity-95 shadow-[inset_0_2px_8px_rgba(0,0,0,0.9)] border-[#8E7EA8]/45"
+            : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-95 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)] border-[#5E4F77]/60"
         }`}
         style={{
           backgroundColor: isActive && config ? config.wallBackground : undefined,
@@ -2579,16 +2405,16 @@ function BuildingWideWindow({
             {detail.blindStyle === "blinds-half" && (
               <div
                 className={`absolute top-0 inset-x-0 h-1/2 z-10 transition-opacity duration-500 ${
-                  isDark ? "opacity-30" : "opacity-45"
-                } bg-[repeating-linear-gradient(to_bottom,transparent,transparent_4px,rgba(255,255,255,0.2)_4px,rgba(255,255,255,0.2)_5px)] border-b border-black/40`}
+                  isDark ? "opacity-60" : "opacity-45"
+                } bg-[repeating-linear-gradient(to_bottom,transparent,transparent_4px,rgba(255,255,255,0.45)_4px,rgba(255,255,255,0.45)_5px)] border-b border-[#8E7EA8]/40`}
               />
             )}
 
             {detail.blindStyle === "blinds-three-quarter" && (
               <div
                 className={`absolute top-0 inset-x-0 h-3/4 z-10 transition-opacity duration-500 ${
-                  isDark ? "opacity-30" : "opacity-45"
-                } bg-[repeating-linear-gradient(to_bottom,transparent,transparent_4px,rgba(255,255,255,0.2)_4px,rgba(255,255,255,0.2)_5px)] border-b border-black/40`}
+                  isDark ? "opacity-60" : "opacity-45"
+                } bg-[repeating-linear-gradient(to_bottom,transparent,transparent_4px,rgba(255,255,255,0.45)_4px,rgba(255,255,255,0.45)_5px)] border-b border-[#8E7EA8]/40`}
               />
             )}
 
@@ -2763,22 +2589,26 @@ function BuildingWideWindow({
 
         {/* 3. DOUBLE-HUNG SASH MUNTINS & CHECK RAIL */}
         <div
-          className={`absolute inset-0 pointer-events-none flex flex-col divide-y-[1.5px] z-10 transition-colors duration-700 ${
+          className={`absolute inset-0 pointer-events-none flex flex-col divide-y-[2px] z-10 transition-colors duration-700 ${
             isActive && !isDark
-              ? "divide-[#4C3F6D]/50"
-              : isActive || isDark
-              ? "divide-black/90"
-              : "divide-[#5E4F77]/75"
+              ? "divide-[#4C3F6D]/60"
+              : isActive
+              ? "divide-[#A798C5]"
+              : isDark
+              ? "divide-[#8E7EA8] shadow-[0_0_2px_rgba(0,0,0,0.95)]"
+              : "divide-[#5E4F77]/80"
           }`}
         >
           {/* Upper Sash with Central Muntin */}
           <div
-            className={`flex-1 flex divide-x-[1.5px] relative ${
+            className={`flex-1 flex divide-x-[2px] relative ${
               isActive && !isDark
-                ? "divide-[#4C3F6D]/50"
-                : isActive || isDark
-                ? "divide-black/90"
-                : "divide-[#5E4F77]/75"
+                ? "divide-[#4C3F6D]/60"
+                : isActive
+                ? "divide-[#A798C5]"
+                : isDark
+                ? "divide-[#8E7EA8]"
+                : "divide-[#5E4F77]/80"
             }`}
           >
             <div className="flex-1" />
@@ -2787,16 +2617,18 @@ function BuildingWideWindow({
 
           {/* Lower Sash with Meeting Check Rail & Central Muntin */}
           <div
-            className={`flex-1 flex divide-x-[1.5px] relative ${
+            className={`flex-1 flex divide-x-[2px] relative ${
               isActive && !isDark
-                ? "divide-[#4C3F6D]/50"
-                : isActive || isDark
-                ? "divide-black/90"
-                : "divide-[#5E4F77]/75"
+                ? "divide-[#4C3F6D]/60"
+                : isActive
+                ? "divide-[#A798C5]"
+                : isDark
+                ? "divide-[#8E7EA8]"
+                : "divide-[#5E4F77]/80"
             }`}
           >
             {/* Center Brass Sash Cam Lock Accent */}
-            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1 rounded-full bg-amber-400/80 shadow-[0_0_2px_black] z-20 pointer-events-none" />
+            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1 rounded-full bg-amber-400/90 shadow-[0_0_3px_black] z-20 pointer-events-none" />
             <div className="flex-1" />
             <div className="flex-1" />
           </div>

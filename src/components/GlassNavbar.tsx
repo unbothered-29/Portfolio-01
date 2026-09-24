@@ -74,68 +74,68 @@ export function GlassNavbar({ onNavigate, isMenuOpen, onToggleMenu }: GlassNavba
               : "bg-white/75 dark:bg-[#12101D]/75"
           )}
         >
-        {/* Brand Logo / Monogram */}
-        <button
-          id="navbar-brand-button"
-          onClick={() => {
-            if (isMenuOpen) onToggleMenu();
-            onNavigate("top");
-          }}
-          className="relative z-10 font-lobster-two text-sm sm:text-[15.5px] font-normal tracking-wide text-[#34154E] dark:text-[#F5F3FA] hover:text-[#583C7E] dark:hover:text-[#C4B5FD] transition-colors select-none focus-visible:outline-none rounded-full cursor-pointer py-0.5"
-        >
-          {DESIGNER_NAME}
-        </button>
+          {/* Brand Logo / Monogram */}
+          <button
+            id="navbar-brand-button"
+            onClick={() => {
+              if (isMenuOpen) onToggleMenu();
+              onNavigate("top");
+            }}
+            className="relative z-10 font-lobster-two text-sm sm:text-[15.5px] font-normal tracking-wide text-[#34154E] dark:text-[#F5F3FA] hover:text-[#583C7E] dark:hover:text-[#C4B5FD] transition-colors select-none focus-visible:outline-none rounded-full cursor-pointer py-0.5"
+          >
+            {DESIGNER_NAME}
+          </button>
 
-        {/* Subtle Separator */}
-        <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
-          |
-        </span>
+          {/* Subtle Separator */}
+          <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
+            |
+          </span>
 
-        {/* Theme Atmosphere Toggle */}
-        <div className="relative z-10 flex items-center">
-          <ThemeToggle />
-        </div>
-
-        {/* Subtle Separator */}
-        <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
-          |
-        </span>
-
-        {/* 
-          MINIMAL MENU TRIGGER BUTTON
-          Keeps the portfolio understated and minimal when closed.
-          Features a polished 150-250ms hover interaction.
-          Morphs into close state when the menu is open.
-        */}
-        <button
-          id="navbar-menu-trigger"
-          onClick={onToggleMenu}
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isMenuOpen}
-          className="group/trigger relative z-10 p-1.5 sm:p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full text-[#34154E] dark:text-[#F5F3FA] hover:bg-[#34154E]/[0.06] dark:hover:bg-white/10 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none"
-        >
-          <div className="relative w-4 h-3.5 flex flex-col justify-between items-center overflow-hidden">
-            {/* Top bar / diagonal line */}
-            <span
-              className={cn(
-                "h-[1.75px] bg-current rounded-full transition-all duration-300 ease-out origin-center",
-                isMenuOpen
-                  ? "w-4 translate-y-[5.8px] rotate-45"
-                  : "w-4 group-hover/trigger:w-3.5"
-              )}
-            />
-            {/* Bottom bar / diagonal line */}
-            <span
-              className={cn(
-                "h-[1.75px] bg-current rounded-full transition-all duration-300 ease-out origin-center",
-                isMenuOpen
-                  ? "w-4 -translate-y-[5.8px] -rotate-45"
-                  : "w-3 group-hover/trigger:w-4"
-              )}
-            />
+          {/* Theme Atmosphere Toggle */}
+          <div className="relative z-10 flex items-center">
+            <ThemeToggle />
           </div>
-        </button>
-      </nav>
+
+          {/* Subtle Separator */}
+          <span className="relative z-10 text-[#583C7E]/25 dark:text-white/20 text-xs select-none">
+            |
+          </span>
+
+          {/* 
+            MINIMAL MENU TRIGGER BUTTON
+            Keeps the portfolio understated and minimal when closed.
+            Features a polished 150-250ms hover interaction.
+            Morphs into close state when the menu is open.
+          */}
+          <button
+            id="navbar-menu-trigger"
+            onClick={onToggleMenu}
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMenuOpen}
+            className="group/trigger relative z-10 p-1.5 sm:p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full text-[#34154E] dark:text-[#F5F3FA] hover:bg-[#34154E]/[0.06] dark:hover:bg-white/10 active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-none"
+          >
+            <div className="relative w-4 h-3.5 flex flex-col justify-between items-center overflow-hidden">
+              {/* Top bar / diagonal line */}
+              <span
+                className={cn(
+                  "h-[1.75px] bg-current rounded-full transition-all duration-300 ease-out origin-center",
+                  isMenuOpen
+                    ? "w-4 translate-y-[5.8px] rotate-45"
+                    : "w-4 group-hover/trigger:w-3.5"
+                )}
+              />
+              {/* Bottom bar / diagonal line */}
+              <span
+                className={cn(
+                  "h-[1.75px] bg-current rounded-full transition-all duration-300 ease-out origin-center",
+                  isMenuOpen
+                    ? "w-4 -translate-y-[5.8px] -rotate-45"
+                    : "w-3 group-hover/trigger:w-4"
+                )}
+              />
+            </div>
+          </button>
+        </nav>
       </div>
     </header>
   );
