@@ -1,273 +1,116 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
-import { ContactSection } from "./ContactSection";
 import { WavingGirlCharacter } from "./WavingGirlCharacter";
 import { CelestialOrb } from "./CelestialOrb";
-
-export type WindowColor = "blue" | "green" | "yellow" | "red";
 
 export interface InteractiveWindowData {
   id: string;
   floor: number; // 0 to 3 (0 is top floor, 3 is ground floor)
   col: number; // 0 to 3 (4 columns)
-  color: WindowColor;
-  kicker: string;
-  title: string;
-  note: string;
+  number: string;
+  label: string;
+  sentence: string;
+  accessibleLabel: string;
 }
 
 export const INTERACTIVE_WINDOWS: InteractiveWindowData[] = [
   {
-    id: "window-blue",
+    id: "window-builder",
     floor: 0, // Row 1 (Top floor), Col 1 (2nd from left)
     col: 1,
-    color: "blue",
-    kicker: "01 · FRONTEND ARCHITECTURE",
-    title: "Interface Engineering",
-    note: "Crafting fluid, physics-grounded interactions, responsive layouts, and 60fps systems in React 19 & TypeScript.",
+    number: "01",
+    label: "BUILDER",
+    sentence: "I like turning ideas into interfaces.",
+    accessibleLabel: "Discover bit 1: Builder",
   },
   {
-    id: "window-green",
+    id: "window-detail",
     floor: 1, // Row 2, Col 3 (4th from left)
     col: 3,
-    color: "green",
-    kicker: "02 · SYSTEMS & LEADERSHIP",
-    title: "Executive Operations",
-    note: "Directed operations for 30+ team members at RGIT FE-SAHYOG; crafted brand narratives for Roamevo.",
+    number: "02",
+    label: "DETAIL",
+    sentence: "I care about the little things people notice later.",
+    accessibleLabel: "Discover bit 2: Detail",
   },
   {
-    id: "window-yellow",
+    id: "window-collaborator",
     floor: 2, // Row 3, Col 0 (1st from left)
     col: 0,
-    color: "yellow",
-    kicker: "03 · CAMPUS PATHFINDING",
-    title: "To The Exact Chair",
-    note: "“Maps ends at the gate — we take you to the chair.” Offline-first A* graph pathfinding down to individual desks.",
+    number: "03",
+    label: "COLLABORATOR",
+    sentence: "Some of my best ideas start with other people.",
+    accessibleLabel: "Discover bit 3: Collaborator",
   },
   {
-    id: "window-red",
+    id: "window-elsewhere",
     floor: 3, // Row 4 (Ground floor), Col 2 (3rd from left)
     col: 2,
-    color: "red",
-    kicker: "04 · SPATIAL OBSERVER",
-    title: "Beyond The Screen",
-    note: "Exploring how natural illumination, spatial geometry, and typography interact across physical architecture.",
+    number: "04",
+    label: "ELSEWHERE",
+    sentence: "Some ideas are found outside the screen.",
+    accessibleLabel: "Discover bit 4: Elsewhere",
   },
 ];
-
-export interface WindowColorThemeConfig {
-  wallBackground: string;
-  beamGradient: string;
-  lampBulb: string;
-  lampGlow: string;
-  railColor: string;
-  kickerColor: string;
-  titleColor: string;
-  noteColor: string;
-  borderActive: string;
-  windowGlow: string;
-  sillGlow: string;
-  badgeDot: string;
-  textCardBg: string;
-  soffitGradient: string;
-}
-
-export interface WindowColorConfig {
-  name: string;
-  dark: WindowColorThemeConfig;
-  light: WindowColorThemeConfig;
-}
-
-export const COLOR_CONFIGS: Record<WindowColor, WindowColorConfig> = {
-  blue: {
-    name: "Cerulean Blue",
-    dark: {
-      wallBackground: "#07233B",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(224, 242, 254, 0.98) 0%, rgba(56, 189, 248, 0.92) 24%, rgba(14, 165, 233, 0.85) 52%, rgba(2, 132, 199, 0.72) 78%, rgba(8, 47, 73, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(56, 189, 248, 0.95)",
-      railColor: "#0C4A6E",
-      kickerColor: "#7DD3FC",
-      titleColor: "#FFFFFF",
-      noteColor: "rgba(255, 255, 255, 0.95)",
-      borderActive: "rgba(56, 189, 248, 0.85)",
-      windowGlow: "0 0 35px 8px rgba(56, 189, 248, 0.45)",
-      sillGlow: "#0284C7",
-      badgeDot: "#38BDF8",
-      textCardBg: "bg-gradient-to-t from-black/85 via-black/45 to-transparent",
-      soffitGradient: "from-black/60 to-transparent",
-    },
-    light: {
-      wallBackground: "#F0F9FF",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(255, 255, 255, 1) 0%, rgba(224, 242, 254, 0.96) 28%, rgba(186, 230, 253, 0.88) 55%, rgba(125, 211, 252, 0.65) 80%, rgba(240, 249, 255, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(56, 189, 248, 0.55)",
-      railColor: "#0284C7",
-      kickerColor: "#0369A1",
-      titleColor: "#0C4A6E",
-      noteColor: "#1E293B",
-      borderActive: "rgba(14, 165, 233, 0.9)",
-      windowGlow: "0 0 24px 4px rgba(56, 189, 248, 0.3)",
-      sillGlow: "#0284C7",
-      badgeDot: "#0284C7",
-      textCardBg: "bg-gradient-to-t from-white/95 via-white/80 to-transparent",
-      soffitGradient: "from-black/15 to-transparent",
-    },
-  },
-  green: {
-    name: "Emerald Green",
-    dark: {
-      wallBackground: "#022C22",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(236, 253, 245, 0.98) 0%, rgba(52, 211, 153, 0.92) 24%, rgba(16, 185, 129, 0.85) 52%, rgba(5, 150, 105, 0.72) 78%, rgba(2, 44, 34, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(52, 211, 153, 0.95)",
-      railColor: "#064E3B",
-      kickerColor: "#6EE7B7",
-      titleColor: "#FFFFFF",
-      noteColor: "rgba(255, 255, 255, 0.95)",
-      borderActive: "rgba(52, 211, 153, 0.85)",
-      windowGlow: "0 0 35px 8px rgba(52, 211, 153, 0.45)",
-      sillGlow: "#059669",
-      badgeDot: "#34D399",
-      textCardBg: "bg-gradient-to-t from-black/85 via-black/45 to-transparent",
-      soffitGradient: "from-black/60 to-transparent",
-    },
-    light: {
-      wallBackground: "#F0FDF4",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(255, 255, 255, 1) 0%, rgba(236, 253, 245, 0.96) 28%, rgba(167, 243, 208, 0.88) 55%, rgba(110, 231, 183, 0.65) 80%, rgba(240, 253, 244, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(52, 211, 153, 0.55)",
-      railColor: "#059669",
-      kickerColor: "#047857",
-      titleColor: "#064E3B",
-      noteColor: "#1E293B",
-      borderActive: "rgba(16, 185, 129, 0.9)",
-      windowGlow: "0 0 24px 4px rgba(52, 211, 153, 0.3)",
-      sillGlow: "#059669",
-      badgeDot: "#059669",
-      textCardBg: "bg-gradient-to-t from-white/95 via-white/80 to-transparent",
-      soffitGradient: "from-black/15 to-transparent",
-    },
-  },
-  yellow: {
-    name: "Golden Amber",
-    dark: {
-      wallBackground: "#3D1704",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(254, 243, 199, 0.98) 0%, rgba(251, 191, 36, 0.94) 24%, rgba(245, 158, 11, 0.88) 52%, rgba(217, 119, 6, 0.78) 78%, rgba(69, 26, 3, 0.95) 100%)",
-      lampBulb: "#FFFBEB",
-      lampGlow: "rgba(251, 191, 36, 0.98)",
-      railColor: "#991B1B",
-      kickerColor: "#FDE047",
-      titleColor: "#FFFFFF",
-      noteColor: "rgba(255, 255, 255, 0.95)",
-      borderActive: "rgba(251, 191, 36, 0.85)",
-      windowGlow: "0 0 35px 8px rgba(251, 191, 36, 0.48)",
-      sillGlow: "#D97706",
-      badgeDot: "#FBBF24",
-      textCardBg: "bg-gradient-to-t from-black/85 via-black/45 to-transparent",
-      soffitGradient: "from-black/60 to-transparent",
-    },
-    light: {
-      wallBackground: "#FEFCE8",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(255, 255, 255, 1) 0%, rgba(254, 249, 195, 0.96) 28%, rgba(253, 224, 71, 0.88) 55%, rgba(250, 204, 21, 0.65) 80%, rgba(254, 252, 232, 0.95) 100%)",
-      lampBulb: "#FFFBEB",
-      lampGlow: "rgba(251, 191, 36, 0.55)",
-      railColor: "#B45309",
-      kickerColor: "#B45309",
-      titleColor: "#78350F",
-      noteColor: "#1E293B",
-      borderActive: "rgba(245, 158, 11, 0.9)",
-      windowGlow: "0 0 24px 4px rgba(251, 191, 36, 0.3)",
-      sillGlow: "#D97706",
-      badgeDot: "#D97706",
-      textCardBg: "bg-gradient-to-t from-white/95 via-white/80 to-transparent",
-      soffitGradient: "from-black/15 to-transparent",
-    },
-  },
-  red: {
-    name: "Ruby Red",
-    dark: {
-      wallBackground: "#3A0808",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(254, 242, 242, 0.98) 0%, rgba(248, 113, 113, 0.92) 24%, rgba(239, 68, 68, 0.85) 52%, rgba(220, 38, 38, 0.72) 78%, rgba(69, 10, 10, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(248, 113, 113, 0.95)",
-      railColor: "#7F1D1D",
-      kickerColor: "#FCA5A5",
-      titleColor: "#FFFFFF",
-      noteColor: "rgba(255, 255, 255, 0.95)",
-      borderActive: "rgba(248, 113, 113, 0.85)",
-      windowGlow: "0 0 35px 8px rgba(248, 113, 113, 0.45)",
-      sillGlow: "#DC2626",
-      badgeDot: "#F87171",
-      textCardBg: "bg-gradient-to-t from-black/85 via-black/45 to-transparent",
-      soffitGradient: "from-black/60 to-transparent",
-    },
-    light: {
-      wallBackground: "#FEF2F2",
-      beamGradient:
-        "radial-gradient(ellipse 115% 105% at 82% 14%, rgba(255, 255, 255, 1) 0%, rgba(254, 226, 226, 0.96) 28%, rgba(252, 165, 165, 0.88) 55%, rgba(248, 113, 113, 0.65) 80%, rgba(254, 242, 242, 0.95) 100%)",
-      lampBulb: "#FFFFFF",
-      lampGlow: "rgba(248, 113, 113, 0.55)",
-      railColor: "#DC2626",
-      kickerColor: "#B91C1C",
-      titleColor: "#7F1D1D",
-      noteColor: "#1E293B",
-      borderActive: "rgba(239, 68, 68, 0.9)",
-      windowGlow: "0 0 24px 4px rgba(248, 113, 113, 0.3)",
-      sillGlow: "#DC2626",
-      badgeDot: "#DC2626",
-      textCardBg: "bg-gradient-to-t from-white/95 via-white/80 to-transparent",
-      soffitGradient: "from-black/15 to-transparent",
-    },
-  },
-};
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INDIVIDUAL WINDOW ARCHITECTURAL DETAILS MATRIX (4x4)
 // Adds natural architectural variation so windows don't look robotic
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export interface WindowDetailConfig {
-  blindStyle: "drapes-split" | "drapes-left" | "blinds-half" | "blinds-three-quarter" | "shade-half" | "minimal";
-  silhouette?: "plant" | "lamp-off" | "books" | "frame";
+  blindStyle:
+    | "drapes-ochre"
+    | "drapes-emerald"
+    | "drapes-terracotta"
+    | "drapes-navy"
+    | "curtains-sheer"
+    | "curtains-cafe"
+    | "curtains-austrian"
+    | "drapes-split"
+    | "drapes-left"
+    | "blinds-half"
+    | "blinds-three-quarter"
+    | "shade-half"
+    | "minimal";
+  silhouette?:
+    | "hanging-ivy"
+    | "books-coffee"
+    | "glow-lamp"
+    | "lush-monstera"
+    | "art-easel"
+    | "clock-turntable"
+    | "flower-box";
   specularAngle: string;
 }
 
 const WINDOW_DETAILS: WindowDetailConfig[][] = [
   // Floor 0 (Top floor)
   [
-    { blindStyle: "drapes-split", silhouette: "plant", specularAngle: "125deg" },
+    { blindStyle: "drapes-ochre", silhouette: "lush-monstera", specularAngle: "125deg" }, // Royal Purple Velvet Split Drapes with Potted Monstera
     { blindStyle: "blinds-half", specularAngle: "135deg" }, // Interactive Blue
-    { blindStyle: "shade-half", silhouette: "books", specularAngle: "145deg" },
-    { blindStyle: "blinds-three-quarter", specularAngle: "130deg" },
+    { blindStyle: "shade-half", silhouette: "books-coffee", specularAngle: "145deg" }, // Minimalist Roller Shade
+    { blindStyle: "blinds-three-quarter", silhouette: "hanging-ivy", specularAngle: "130deg" }, // Architectural Horizontal Blinds
   ],
   // Floor 1
   [
-    { blindStyle: "shade-half", silhouette: "frame", specularAngle: "140deg" },
-    { blindStyle: "drapes-left", silhouette: "plant", specularAngle: "120deg" },
-    { blindStyle: "blinds-half", specularAngle: "135deg" },
-    { blindStyle: "drapes-split", specularAngle: "150deg" }, // Interactive Green
+    { blindStyle: "shade-half", silhouette: "art-easel", specularAngle: "140deg" }, // Studio Roller Shade
+    { blindStyle: "drapes-terracotta", silhouette: "lush-monstera", specularAngle: "120deg" }, // Purple Left-Swept Drape
+    { blindStyle: "blinds-half", silhouette: "glow-lamp", specularAngle: "135deg" }, // Horizontal Blinds with Warm Lamp
+    { blindStyle: "curtains-sheer", specularAngle: "150deg" }, // Interactive Green - Romantic Lavender Lace Curtains & Scalloped Pelmet
   ],
   // Floor 2
   [
-    { blindStyle: "blinds-three-quarter", silhouette: "plant", specularAngle: "130deg" }, // Interactive Yellow
-    { blindStyle: "shade-half", specularAngle: "145deg" },
-    { blindStyle: "drapes-split", silhouette: "lamp-off", specularAngle: "125deg" },
-    { blindStyle: "blinds-half", specularAngle: "140deg" },
+    { blindStyle: "blinds-three-quarter", specularAngle: "130deg" }, // Interactive Yellow
+    { blindStyle: "curtains-cafe", silhouette: "clock-turntable", specularAngle: "145deg" }, // European Bistro Half-Window Cafe Curtains
+    { blindStyle: "drapes-emerald", silhouette: "glow-lamp", specularAngle: "125deg" }, // Deep Plum Velvet Drapes with Banker's Lamp
+    { blindStyle: "blinds-half", silhouette: "hanging-ivy", specularAngle: "140deg" }, // Half Blinds
   ],
   // Floor 3 (Ground floor)
   [
-    { blindStyle: "blinds-half", specularAngle: "135deg" },
-    { blindStyle: "drapes-left", silhouette: "books", specularAngle: "120deg" },
+    { blindStyle: "blinds-half", silhouette: "flower-box", specularAngle: "135deg" }, // Flower Box Balcony
+    { blindStyle: "drapes-navy", silhouette: "books-coffee", specularAngle: "120deg" }, // Purple Right-Swept Drape
     { blindStyle: "shade-half", specularAngle: "140deg" }, // Interactive Red
-    { blindStyle: "drapes-split", silhouette: "plant", specularAngle: "130deg" },
+    { blindStyle: "curtains-austrian", silhouette: "flower-box", specularAngle: "130deg" }, // Scalloped Austrian Balloon Cloud Valance with Flowers
   ],
 ];
 
@@ -288,6 +131,7 @@ export function CinematicBuildingFacade({
   const [isDoorOpen, setIsDoorOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hoverIntentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -295,31 +139,70 @@ export function CinematicBuildingFacade({
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      if (hoverIntentTimerRef.current) {
+        clearTimeout(hoverIntentTimerRef.current);
+      }
+    };
   }, []);
 
   const handleWindowEnter = (id: string) => {
+    // Clear any existing pending hover-intent timer
+    if (hoverIntentTimerRef.current) {
+      clearTimeout(hoverIntentTimerRef.current);
+      hoverIntentTimerRef.current = null;
+    }
+
+    if (activeWindowId === id) return;
+
+    // Desktop: Enforce 400ms hover-intent delay.
+    // If user quickly sweeps cursor over window, nothing triggers.
     if (!isMobile) {
-      setActiveWindowId(id);
+      hoverIntentTimerRef.current = setTimeout(() => {
+        setActiveWindowId(id);
+        hoverIntentTimerRef.current = null;
+      }, 400);
     }
   };
 
-  const handleWindowLeave = () => {
+  const handleWindowLeave = (id?: string) => {
+    // Cancel any pending hover timer if cursor leaves before 400ms
+    if (hoverIntentTimerRef.current) {
+      clearTimeout(hoverIntentTimerRef.current);
+      hoverIntentTimerRef.current = null;
+    }
+
     if (!isMobile) {
-      setActiveWindowId(null);
+      if (!id || activeWindowId === id) {
+        setActiveWindowId(null);
+      }
     }
   };
 
   const handleWindowClick = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
+    if (hoverIntentTimerRef.current) {
+      clearTimeout(hoverIntentTimerRef.current);
+      hoverIntentTimerRef.current = null;
+    }
+    // Mobile tap or desktop click toggle
     setActiveWindowId((prev) => (prev === id ? null : id));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, id: string) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
+      if (hoverIntentTimerRef.current) {
+        clearTimeout(hoverIntentTimerRef.current);
+        hoverIntentTimerRef.current = null;
+      }
       setActiveWindowId((prev) => (prev === id ? null : id));
     } else if (e.key === "Escape") {
+      if (hoverIntentTimerRef.current) {
+        clearTimeout(hoverIntentTimerRef.current);
+        hoverIntentTimerRef.current = null;
+      }
       setActiveWindowId(null);
     }
   };
@@ -1447,7 +1330,9 @@ export function CinematicBuildingFacade({
                             onMouseEnter={() =>
                               interactiveData && handleWindowEnter(interactiveData.id)
                             }
-                            onMouseLeave={handleWindowLeave}
+                            onMouseLeave={() =>
+                              interactiveData && handleWindowLeave(interactiveData.id)
+                            }
                             onClick={(e) =>
                               interactiveData && handleWindowClick(e, interactiveData.id)
                             }
@@ -2233,18 +2118,6 @@ export function CinematicBuildingFacade({
           </div>
         </motion.div>
       </main>
-
-      {/* 
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        MAIN PAGE FOOTER SECTION (ATTACHED DIRECTLY WITH NO GAP)
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 
-      */}
-      <div className="w-full relative z-30 mt-0 pt-0">
-        <ContactSection
-          onOpenTalk={onOpenContact || (() => {})}
-          onNavigate={onNavigateSection}
-        />
-      </div>
     </div>
   );
 }
@@ -2279,27 +2152,67 @@ function BuildingWideWindow({
   onClick,
   onKeyDown,
 }: BuildingWideWindowProps) {
-  const config = data
-    ? isDark
-      ? COLOR_CONFIGS[data.color].dark
-      : COLOR_CONFIGS[data.color].light
-    : null;
+  const windowInstanceId = useId().replace(/:/g, "_");
+  const [isCurtainClosed, setIsCurtainClosed] = useState(false);
+
+  const CURTAIN_STYLES = [
+    "drapes-ochre",
+    "drapes-emerald",
+    "drapes-terracotta",
+    "drapes-navy",
+    "curtains-cafe",
+    "curtains-austrian",
+    "drapes-split",
+    "drapes-left",
+  ];
+  const hasInteractiveCurtains = !isInteractive && CURTAIN_STYLES.includes(detail.blindStyle);
+
+  const handleWindowClick = (e: React.MouseEvent) => {
+    if (isInteractive) {
+      onClick(e);
+    } else if (hasInteractiveCurtains) {
+      e.stopPropagation();
+      setIsCurtainClosed((prev) => !prev);
+    }
+  };
+
+  const handleWindowKeyDown = (e: React.KeyboardEvent) => {
+    if (isInteractive) {
+      onKeyDown(e);
+    } else if (hasInteractiveCurtains) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsCurtainClosed((prev) => !prev);
+      }
+    }
+  };
 
   return (
     <div
-      tabIndex={isInteractive ? 0 : -1}
-      role={isInteractive ? "button" : "presentation"}
+      tabIndex={isInteractive || hasInteractiveCurtains ? 0 : -1}
+      role={isInteractive || hasInteractiveCurtains ? "button" : "presentation"}
       aria-label={
-        isInteractive && data ? `${data.title} - ${data.kicker}` : "Building window"
+        isInteractive && data
+          ? data.accessibleLabel
+          : hasInteractiveCurtains
+          ? isCurtainClosed
+            ? "Open curtains"
+            : "Close curtains"
+          : "Building window"
       }
-      aria-expanded={isInteractive ? isActive : undefined}
+      aria-expanded={
+        isInteractive ? isActive : hasInteractiveCurtains ? isCurtainClosed : undefined
+      }
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
+      onClick={handleWindowClick}
+      onKeyDown={handleWindowKeyDown}
       className={`group relative w-full aspect-[1.32/1] rounded-[4px] select-none outline-none transition-all duration-700 ease-out ${
         isInteractive
           ? "cursor-pointer focus-visible:ring-2 focus-visible:ring-amber-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#12101A]"
+          : hasInteractiveCurtains
+          ? "cursor-pointer pointer-events-auto focus-visible:ring-1 focus-visible:ring-purple-400/50"
           : "pointer-events-none"
       }`}
     >
@@ -2322,13 +2235,18 @@ function BuildingWideWindow({
       {/* 1. RECESSED STONE REVEAL SPLAY & CASING */}
       <div
         style={{
-          boxShadow: isActive && config ? config.windowGlow : undefined,
-          borderColor:
-            isActive && config
-              ? config.borderActive
-              : isDark
-              ? "rgba(142,126,168,0.35)"
-              : "rgba(109,85,138,0.45)",
+          boxShadow: isActive
+            ? isDark
+              ? "0 0 24px rgba(251, 191, 36, 0.45), inset 0 0 12px rgba(251, 191, 36, 0.2)"
+              : "0 0 20px rgba(245, 158, 11, 0.35)"
+            : undefined,
+          borderColor: isActive
+            ? isDark
+              ? "rgba(251, 191, 36, 0.75)"
+              : "rgba(245, 158, 11, 0.85)"
+            : isDark
+            ? "rgba(142,126,168,0.35)"
+            : "rgba(109,85,138,0.45)",
         }}
         className={`absolute inset-0 rounded-[4px] transition-all duration-700 ease-out border-[2px] ${
           isActive
@@ -2342,17 +2260,14 @@ function BuildingWideWindow({
       {/* 2. GLASS SURFACE & ROOM INTERIOR */}
       <div
         className={`absolute inset-[3px] rounded-[3px] overflow-hidden transition-all duration-700 ease-out border ${
-          isActive && config
+          isActive
             ? isDark
-              ? "border-[#A798C5]/60"
-              : "border-[#4C3F6D]/50"
+              ? "border-amber-300/40 bg-[#16120C]"
+              : "border-amber-400/50 bg-[#FFFDF5]"
             : isDark
             ? "bg-[#090810] opacity-95 shadow-[inset_0_2px_8px_rgba(0,0,0,0.9)] border-[#8E7EA8]/45"
             : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-95 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)] border-[#5E4F77]/60"
         }`}
-        style={{
-          backgroundColor: isActive && config ? config.wallBackground : undefined,
-        }}
       >
         {/* 
           UNLIT STATE: INDIVIDUALIZED ARCHITECTURAL DETAILS PER WINDOW
@@ -2370,36 +2285,996 @@ function BuildingWideWindow({
               }}
             />
 
-            {/* A. Curtains & Blind Variations */}
+            {/* Soft room dimming when curtains are closed */}
+            {hasInteractiveCurtains && (
+              <div
+                className="absolute inset-0 pointer-events-none z-10 bg-black/45 transition-opacity duration-700"
+                style={{ opacity: isCurtainClosed ? 1 : 0 }}
+              />
+            )}
+
+            {/* A. Curtains & Blind Variations (All unified in elegant purple & lavender palette) */}
+            {/* 1. Royal Purple Velvet Drapes (Split) */}
+            {detail.blindStyle === "drapes-ochre" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                {/* Upper Curtain Rod */}
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="purpleLeftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="40%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#211833" : "#76648F"} />
+                    </linearGradient>
+                    <linearGradient id="purpleRightGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="40%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#211833" : "#76648F"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Left Gathered / Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 51 0 Q 51 42 51 54 Q 51 78 51 100 L 0 100 Z"
+                        : "M 0 0 L 37 0 Q 34 42 22 54 Q 31 78 33 100 L 0 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleLeftGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 14 0 Q 14 44 14 54 Q 14 76 14 100"
+                        : "M 12 0 Q 11 44 7 54 Q 11 76 10 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 32 0 Q 32 44 32 54 Q 32 76 32 100"
+                        : "M 25 0 Q 22 44 15 54 Q 22 76 22 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.75 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 44 0 Q 44 44 44 54 Q 44 76 44 100"
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-back Sash */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 0 53 Q 11 57 22 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.2"
+                    fill="none"
+                  />
+
+                  {/* Right Gathered / Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 100 0 L 49 0 Q 49 42 49 54 Q 49 78 49 100 L 100 100 Z"
+                        : "M 100 0 L 63 0 Q 66 42 78 54 Q 69 78 67 100 L 100 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleRightGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 86 0 Q 86 44 86 54 Q 86 76 86 100"
+                        : "M 88 0 Q 89 44 93 54 Q 89 76 90 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 68 0 Q 68 44 68 54 Q 68 76 68 100"
+                        : "M 75 0 Q 78 44 85 54 Q 78 76 78 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.75 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 56 0 Q 56 44 56 54 Q 56 76 56 100"
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-back Sash */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 100 53 Q 89 57 78 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.2"
+                    fill="none"
+                  />
+
+                  {/* Subtle Center Overlap Shadow Line when closed */}
+                  <motion.line
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.6 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    x1="49.5"
+                    y1="0"
+                    x2="49.5"
+                    y2="100"
+                    stroke={isDark ? "#0A0512" : "#382352"}
+                    strokeWidth="1.2"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 2. Deep Plum / Violet Velvet Drapes (Split) */}
+            {detail.blindStyle === "drapes-emerald" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="plumLeftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#2D2045" : "#8D7BA8"} />
+                      <stop offset="40%" stopColor={isDark ? "#3F2E5C" : "#AD9EC4"} />
+                      <stop offset="75%" stopColor={isDark ? "#302447" : "#9584AD"} />
+                      <stop offset="100%" stopColor={isDark ? "#221835" : "#796791"} />
+                    </linearGradient>
+                    <linearGradient id="plumRightGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#2D2045" : "#8D7BA8"} />
+                      <stop offset="40%" stopColor={isDark ? "#3F2E5C" : "#AD9EC4"} />
+                      <stop offset="75%" stopColor={isDark ? "#302447" : "#9584AD"} />
+                      <stop offset="100%" stopColor={isDark ? "#221835" : "#796791"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Left Gathered / Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 51 0 Q 51 44 51 55 Q 51 78 51 100 L 0 100 Z"
+                        : "M 0 0 L 35 0 Q 32 44 20 55 Q 29 78 31 100 L 0 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#plumLeftGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 14 0 Q 14 44 14 55 Q 14 76 14 100"
+                        : "M 11 0 Q 10 44 7 55 Q 11 76 10 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#5D4978" : "#C7B9DD"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 32 0 Q 32 44 32 55 Q 32 76 32 100"
+                        : "M 23 0 Q 20 44 14 55 Q 20 76 20 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.75 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 44 0 Q 44 44 44 55 Q 44 76 44 100"
+                    stroke={isDark ? "#5D4978" : "#C7B9DD"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-back Sash */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 0 54 Q 10 58 20 54"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.2"
+                    fill="none"
+                  />
+
+                  {/* Right Gathered / Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 100 0 L 49 0 Q 49 44 49 55 Q 49 78 49 100 L 100 100 Z"
+                        : "M 100 0 L 65 0 Q 68 44 80 55 Q 71 78 69 100 L 100 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#plumRightGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 86 0 Q 86 44 86 55 Q 86 76 86 100"
+                        : "M 89 0 Q 90 44 93 55 Q 89 76 90 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#5D4978" : "#C7B9DD"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 68 0 Q 68 44 68 55 Q 68 76 68 100"
+                        : "M 77 0 Q 80 44 86 55 Q 80 76 80 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.75 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 56 0 Q 56 44 56 55 Q 56 76 56 100"
+                    stroke={isDark ? "#5D4978" : "#C7B9DD"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-back Sash */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 100 54 Q 90 58 80 54"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.2"
+                    fill="none"
+                  />
+
+                  {/* Subtle Center Overlap Shadow Line when closed */}
+                  <motion.line
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.6 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    x1="49.5"
+                    y1="0"
+                    x2="49.5"
+                    y2="100"
+                    stroke={isDark ? "#0A0512" : "#382352"}
+                    strokeWidth="1.2"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 3. Purple Left-Swept Drape */}
+            {detail.blindStyle === "drapes-terracotta" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="purpleSweepLeftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="35%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#1C142B" : "#6E5B87"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Left Swept / Fully Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 100 0 Q 100 42 100 54 Q 100 78 100 100 L 0 100 Z"
+                        : "M 0 0 L 46 0 Q 40 42 26 54 Q 36 78 38 100 L 0 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleSweepLeftGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 16 0 Q 16 44 16 54 Q 16 76 16 100"
+                        : "M 13 0 Q 12 44 8 54 Q 12 76 11 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 38 0 Q 38 44 38 54 Q 38 76 38 100"
+                        : "M 26 0 Q 22 44 17 54 Q 25 76 25 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 60 0 Q 60 44 60 54 Q 60 76 60 100"
+                        : "M 36 0 Q 30 44 21 54 Q 31 76 31 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  {/* Additional closed pleats across right side */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.8 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 78 0 Q 78 44 78 54 Q 78 76 78 100"
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.7 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 92 0 Q 92 44 92 54 Q 92 76 92 100"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-Back */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 0 53 Q 14 57 26 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.5"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 4. Purple Right-Swept Drape */}
+            {detail.blindStyle === "drapes-navy" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="purpleSweepRightGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="35%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#1C142B" : "#6E5B87"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Right Swept / Fully Closed Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 100 0 L 0 0 Q 0 42 0 54 Q 0 78 0 100 L 100 100 Z"
+                        : "M 100 0 L 54 0 Q 60 42 74 54 Q 64 78 62 100 L 100 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleSweepRightGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 84 0 Q 84 44 84 54 Q 84 76 84 100"
+                        : "M 87 0 Q 88 44 92 54 Q 88 76 89 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 62 0 Q 62 44 62 54 Q 62 76 62 100"
+                        : "M 74 0 Q 78 44 83 54 Q 75 76 75 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 40 0 Q 40 44 40 54 Q 40 76 40 100"
+                        : "M 64 0 Q 70 44 79 54 Q 69 76 69 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  {/* Additional closed pleats across left side */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.8 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 22 0 Q 22 44 22 54 Q 22 76 22 100"
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.7 : 0 }}
+                    transition={{ duration: 0.4 }}
+                    d="M 8 0 Q 8 44 8 54 Q 8 76 8 100"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                  />
+                  {/* Tie-Back */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1, scale: isCurtainClosed ? 0.8 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 100 53 Q 86 57 74 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.5"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 5. European Bistro Half-Window Cafe Curtains (Purple Linen) */}
+            {detail.blindStyle === "curtains-cafe" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                {/* Mid-Height Rod & Hanging Rings */}
+                <div className="absolute top-[46%] inset-x-1 flex items-center justify-between z-30">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8E7EA8] shadow-[0_0_2px_black]" />
+                  <div className="flex-1 h-[2px] bg-gradient-to-r from-[#6D5A85] via-[#A896C2] to-[#6D5A85] shadow-[0_1px_2px_black]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8E7EA8] shadow-[0_0_2px_black]" />
+                </div>
+                {/* Cafe Curtain Panels spanning lower half in purple linen */}
+                <svg viewBox="0 0 100 54" preserveAspectRatio="none" className="absolute top-[48%] inset-x-0 w-full h-[52%] pointer-events-none">
+                  <defs>
+                    <linearGradient id="purpleCafeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#35294E" : "#9887B2"} />
+                      <stop offset="50%" stopColor={isDark ? "#453664" : "#B7A8CF"} />
+                      <stop offset="100%" stopColor={isDark ? "#2A2040" : "#8B7AA3"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Left Cafe Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 2 0 L 52 0 L 52 50 Q 42 53 32 50 Q 20 53 12 50 Q 6 53 2 50 Z"
+                        : "M 2 0 L 44 0 L 44 50 Q 36 53 28 50 Q 20 53 12 50 Q 6 53 2 50 Z",
+                    }}
+                    transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleCafeGrad)"
+                    stroke={isDark ? "#211833" : "#6E5C88"}
+                    strokeWidth="0.5"
+                    opacity="0.95"
+                  />
+                  {/* Purple accent hem on left */}
+                  <motion.line
+                    initial={false}
+                    animate={{ x2: isCurtainClosed ? 52 : 44 }}
+                    transition={{ duration: 0.6 }}
+                    x1="2"
+                    y1="44"
+                    y2="44"
+                    stroke={isDark ? "#8B7AA3" : "#563A75"}
+                    strokeWidth="0.8"
+                    opacity="0.75"
+                  />
+                  <motion.line
+                    initial={false}
+                    animate={{ x2: isCurtainClosed ? 52 : 44 }}
+                    transition={{ duration: 0.6 }}
+                    x1="2"
+                    y1="46"
+                    y2="46"
+                    stroke={isDark ? "#6D5A85" : "#4A2F68"}
+                    strokeWidth="0.6"
+                    opacity="0.75"
+                  />
+                  {/* Ruffled Pinch Pleats at top */}
+                  <path d="M 7 0 L 7 12 M 15 0 L 15 12 M 23 0 L 23 12 M 31 0 L 31 12 M 39 0 L 39 12" stroke={isDark ? "#52416C" : "#C4B6DB"} strokeWidth="0.6" opacity="0.6" />
+
+                  {/* Right Cafe Panel */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 48 0 L 98 0 L 98 50 Q 94 53 88 50 Q 80 53 70 50 Q 58 53 48 50 Z"
+                        : "M 56 0 L 98 0 L 98 50 Q 94 53 88 50 Q 80 53 72 50 Q 64 53 56 50 Z",
+                    }}
+                    transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#purpleCafeGrad)"
+                    stroke={isDark ? "#211833" : "#6E5C88"}
+                    strokeWidth="0.5"
+                    opacity="0.95"
+                  />
+                  {/* Purple accent hem on right */}
+                  <motion.line
+                    initial={false}
+                    animate={{ x1: isCurtainClosed ? 48 : 56 }}
+                    transition={{ duration: 0.6 }}
+                    x2="98"
+                    y1="44"
+                    y2="44"
+                    stroke={isDark ? "#8B7AA3" : "#563A75"}
+                    strokeWidth="0.8"
+                    opacity="0.75"
+                  />
+                  <motion.line
+                    initial={false}
+                    animate={{ x1: isCurtainClosed ? 48 : 56 }}
+                    transition={{ duration: 0.6 }}
+                    x2="98"
+                    y1="46"
+                    y2="46"
+                    stroke={isDark ? "#6D5A85" : "#4A2F68"}
+                    strokeWidth="0.6"
+                    opacity="0.75"
+                  />
+                  {/* Ruffled Pinch Pleats at top */}
+                  <path d="M 61 0 L 61 12 M 69 0 L 69 12 M 77 0 L 77 12 M 85 0 L 85 12 M 93 0 L 93 12" stroke={isDark ? "#52416C" : "#C4B6DB"} strokeWidth="0.6" opacity="0.6" />
+
+                  {/* Overlap shadow seam line */}
+                  <motion.line
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.6 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    x1="50"
+                    y1="0"
+                    x2="50"
+                    y2="50"
+                    stroke={isDark ? "#0E0717" : "#3F265C"}
+                    strokeWidth="1"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 6. Romantic Lavender Lace Curtains & Scalloped Valance Pelmet */}
+            {detail.blindStyle === "curtains-sheer" && (
+              <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-20 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  {/* Top Scalloped Lace Arch Pelmet in Lavender/Plum */}
+                  <path
+                    d="M 0 0 L 100 0 L 100 16 Q 88 22 75 14 Q 62 22 50 14 Q 38 22 25 14 Q 12 22 0 16 Z"
+                    fill={isDark ? "rgba(67, 51, 92, 0.85)" : "rgba(221, 214, 254, 0.85)"}
+                    stroke={isDark ? "#8B78A8" : "#A78BFA"}
+                    strokeWidth="0.5"
+                  />
+                  {/* Lace scallop dots */}
+                  <circle cx="25" cy="14" r="1" fill={isDark ? "#C4B5FD" : "#7C3AED"} />
+                  <circle cx="50" cy="14" r="1" fill={isDark ? "#C4B5FD" : "#7C3AED"} />
+                  <circle cx="75" cy="14" r="1" fill={isDark ? "#C4B5FD" : "#7C3AED"} />
+
+                  {/* Left Translucent Voile Curtain Body in Lavender Mist */}
+                  <path
+                    d="M 0 16 L 30 14 Q 28 46 18 55 Q 26 78 28 100 L 0 100 Z"
+                    fill={isDark ? "rgba(40, 30, 59, 0.65)" : "rgba(221, 214, 254, 0.55)"}
+                    stroke={isDark ? "#6D5A8C" : "#C4B5FD"}
+                    strokeWidth="0.4"
+                  />
+                  {/* Left Tie-Back */}
+                  <path d="M 0 54 Q 9 57 18 54" stroke={isDark ? "#F59E0B" : "#5B4379"} strokeWidth="1.8" fill="none" />
+                  <circle cx="18" cy="54" r="1.5" fill={isDark ? "#F59E0B" : "#5B4379"} />
+
+                  {/* Right Translucent Voile Curtain Body in Lavender Mist */}
+                  <path
+                    d="M 100 16 L 70 14 Q 72 46 82 55 Q 74 78 72 100 L 100 100 Z"
+                    fill={isDark ? "rgba(40, 30, 59, 0.65)" : "rgba(221, 214, 254, 0.55)"}
+                    stroke={isDark ? "#6D5A8C" : "#C4B5FD"}
+                    strokeWidth="0.4"
+                  />
+                  {/* Right Tie-Back */}
+                  <path d="M 100 54 Q 91 57 82 54" stroke={isDark ? "#F59E0B" : "#5B4379"} strokeWidth="1.8" fill="none" />
+                  <circle cx="82" cy="54" r="1.5" fill={isDark ? "#F59E0B" : "#5B4379"} />
+                </svg>
+              </div>
+            )}
+
+            {/* 7. Scalloped Austrian Balloon Cloud Valance (Purple Silk) */}
+            {detail.blindStyle === "curtains-austrian" && (
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="austrianPurpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#43335A" : "#8A76A6"} />
+                      <stop offset="50%" stopColor={isDark ? "#5D497B" : "#B2A3CC"} />
+                      <stop offset="100%" stopColor={isDark ? "#352749" : "#6E5B87"} />
+                    </linearGradient>
+                  </defs>
+                  {/* Cloud Balloon Swags - expands down when closed */}
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 100 0 L 100 94 Q 75 106 50 94 Q 25 106 0 94 Z"
+                        : "M 0 0 L 100 0 L 100 24 Q 75 42 50 24 Q 25 42 0 24 Z",
+                    }}
+                    transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#austrianPurpleGrad)"
+                    stroke={isDark ? "#281D3B" : "#56446E"}
+                    strokeWidth="0.6"
+                  />
+                  {/* Upper Shirring Gather Folds */}
+                  <path d="M 2 12 Q 25 22 48 12" stroke={isDark ? "#9A88BA" : "#DDD4ED"} strokeWidth="0.7" fill="none" opacity="0.8" />
+                  <path d="M 2 18 Q 25 30 48 18" stroke={isDark ? "#9A88BA" : "#DDD4ED"} strokeWidth="0.7" fill="none" opacity="0.8" />
+                  <path d="M 52 12 Q 75 22 98 12" stroke={isDark ? "#9A88BA" : "#DDD4ED"} strokeWidth="0.7" fill="none" opacity="0.8" />
+                  <path d="M 52 18 Q 75 30 98 18" stroke={isDark ? "#9A88BA" : "#DDD4ED"} strokeWidth="0.7" fill="none" opacity="0.8" />
+
+                  {/* Mid & Lower Folds that reveal when closed */}
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.8 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    d="M 2 38 Q 25 50 48 38 M 52 38 Q 75 50 98 38"
+                    stroke={isDark ? "#9A88BA" : "#DDD4ED"}
+                    strokeWidth="0.7"
+                    fill="none"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.8 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    d="M 2 58 Q 25 70 48 58 M 52 58 Q 75 70 98 58"
+                    stroke={isDark ? "#9A88BA" : "#DDD4ED"}
+                    strokeWidth="0.7"
+                    fill="none"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0.8 : 0 }}
+                    transition={{ duration: 0.5 }}
+                    d="M 2 78 Q 25 90 48 78 M 52 78 Q 75 90 98 78"
+                    stroke={isDark ? "#9A88BA" : "#DDD4ED"}
+                    strokeWidth="0.7"
+                    fill="none"
+                  />
+
+                  {/* Vertical Pull Tapes & Hanging Rosette Pompoms */}
+                  <motion.line
+                    initial={false}
+                    animate={{ y2: isCurtainClosed ? 98 : 28 }}
+                    transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                    x1="50"
+                    y1="0"
+                    x2="50"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="1"
+                  />
+                  <motion.circle
+                    initial={false}
+                    animate={{ cy: isCurtainClosed ? 98 : 28 }}
+                    transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                    cx="50"
+                    r="1.8"
+                    fill={isDark ? "#F59E0B" : "#563A75"}
+                  />
+                  <motion.circle
+                    initial={false}
+                    animate={{ cy: isCurtainClosed ? 95 : 25 }}
+                    transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                    cx="0"
+                    r="1.5"
+                    fill={isDark ? "#F59E0B" : "#563A75"}
+                  />
+                  <motion.circle
+                    initial={false}
+                    animate={{ cy: isCurtainClosed ? 95 : 25 }}
+                    transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                    cx="100"
+                    r="1.5"
+                    fill={isDark ? "#F59E0B" : "#563A75"}
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 8. Fallback Classic Drapes */}
             {detail.blindStyle === "drapes-split" && (
-              <>
-                {/* Left Drape with gentle folds */}
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
                 <div
-                  className={`absolute top-0 bottom-0 left-0 w-3 sm:w-4 z-10 transition-colors duration-500 border-r border-black/20 ${
-                    isDark
-                      ? "bg-gradient-to-r from-[#171422] via-[#14121E] to-transparent"
-                      : "bg-gradient-to-r from-[#8E7EAA] via-[#8E7EAA]/80 to-transparent"
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
                   }`}
                 />
-                {/* Right Drape with gentle folds */}
-                <div
-                  className={`absolute top-0 bottom-0 right-0 w-3 sm:w-4 z-10 transition-colors duration-500 border-l border-black/20 ${
-                    isDark
-                      ? "bg-gradient-to-l from-[#171422] via-[#14121E] to-transparent"
-                      : "bg-gradient-to-l from-[#8E7EAA] via-[#8E7EAA]/80 to-transparent"
-                  }`}
-                />
-              </>
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="curtainLeftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="40%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#211833" : "#76648F"} />
+                    </linearGradient>
+                    <linearGradient id="curtainRightGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="40%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#211833" : "#76648F"} />
+                    </linearGradient>
+                  </defs>
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 51 0 Q 51 42 51 54 Q 51 78 51 100 L 0 100 Z"
+                        : "M 0 0 L 36 0 Q 33 42 22 54 Q 30 78 32 100 L 0 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#curtainLeftGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 14 0 Q 14 44 14 54 Q 14 76 14 100"
+                        : "M 12 0 Q 11 44 8 54 Q 11 76 10 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 32 0 Q 32 44 32 54 Q 32 76 32 100"
+                        : "M 24 0 Q 21 44 15 54 Q 21 76 21 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 0 53 Q 11 57 22 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 100 0 L 49 0 Q 49 42 49 54 Q 49 78 49 100 L 100 100 Z"
+                        : "M 100 0 L 64 0 Q 67 42 78 54 Q 70 78 68 100 L 100 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#curtainRightGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 86 0 Q 86 44 86 54 Q 86 76 86 100"
+                        : "M 88 0 Q 89 44 92 54 Q 89 76 90 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 68 0 Q 68 44 68 54 Q 68 76 68 100"
+                        : "M 76 0 Q 79 44 85 54 Q 79 76 79 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 100 53 Q 89 57 78 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
             )}
 
             {detail.blindStyle === "drapes-left" && (
-              <div
-                className={`absolute top-0 bottom-0 left-0 w-4.5 sm:w-6 z-10 transition-colors duration-500 border-r border-black/20 ${
-                  isDark
-                    ? "bg-gradient-to-r from-[#1A1626] to-transparent"
-                    : "bg-gradient-to-r from-[#7D6D99]/90 to-transparent"
-                }`}
-              />
+              <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+                <div
+                  className={`absolute top-0 inset-x-0.5 h-[2px] z-30 transition-colors duration-500 rounded-full ${
+                    isDark ? "bg-[#5D4E75] shadow-[0_1px_2px_black]" : "bg-[#4D3E64]"
+                  }`}
+                />
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
+                  <defs>
+                    <linearGradient id="curtainSweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#281E3B" : "#8976A3"} />
+                      <stop offset="35%" stopColor={isDark ? "#382C50" : "#A696BF"} />
+                      <stop offset="70%" stopColor={isDark ? "#2D2242" : "#9280AC"} />
+                      <stop offset="100%" stopColor={isDark ? "#1C142B" : "#6E5B87"} />
+                    </linearGradient>
+                  </defs>
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 0 0 L 100 0 Q 100 42 100 54 Q 100 78 100 100 L 0 100 Z"
+                        : "M 0 0 L 48 0 Q 42 42 28 54 Q 38 78 40 100 L 0 100 Z",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    fill="url(#curtainSweepGrad)"
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.5"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 16 0 Q 16 44 16 54 Q 16 76 16 100"
+                        : "M 14 0 Q 13 44 9 54 Q 13 76 12 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 38 0 Q 38 44 38 54 Q 38 76 38 100"
+                        : "M 28 0 Q 24 44 18 54 Q 26 76 26 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#52416C" : "#C4B6DB"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{
+                      d: isCurtainClosed
+                        ? "M 60 0 Q 60 44 60 54 Q 60 76 60 100"
+                        : "M 38 0 Q 32 44 23 54 Q 33 76 33 100",
+                    }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
+                    stroke={isDark ? "#171024" : "#625078"}
+                    strokeWidth="0.8"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  <motion.path
+                    initial={false}
+                    animate={{ opacity: isCurtainClosed ? 0 : 1 }}
+                    transition={{ duration: 0.35 }}
+                    d="M 0 53 Q 14 57 28 53"
+                    stroke={isDark ? "#F59E0B" : "#563A75"}
+                    strokeWidth="2.5"
+                    fill="none"
+                  />
+                </svg>
+              </div>
             )}
 
             {detail.blindStyle === "blinds-half" && (
@@ -2433,161 +3308,1135 @@ function BuildingWideWindow({
               </div>
             )}
 
-            {/* B. Subtle Window Sill Silhouettes */}
-            {detail.silhouette === "plant" && (
-              <div className="absolute bottom-1 right-2 z-10 flex flex-col items-center opacity-75">
-                <div
-                  className={`w-2.5 sm:w-3 h-2 rounded-t-full ${
-                    isDark ? "bg-[#06050A]" : "bg-[#524467]"
-                  }`}
-                />
-                <div
-                  className={`w-2 sm:w-2.5 h-1.5 rounded-b-sm ${
-                    isDark ? "bg-[#161220]" : "bg-[#71618A]"
-                  }`}
-                />
+            {/* B. Varied Architectural Window Elements & Silhouettes */}
+            {/* 1. Trailing Macrame Hanging Ivy Plant */}
+            {detail.silhouette === "hanging-ivy" && (
+              <div className="absolute top-0 right-2.5 z-10 pointer-events-none opacity-95">
+                <svg viewBox="0 0 24 46" className="w-5 sm:w-6 h-10 sm:h-12 overflow-visible">
+                  {/* Hanging macrame rope cords */}
+                  <line x1="12" y1="0" x2="6" y2="16" stroke={isDark ? "#8B7AA5" : "#5D4C75"} strokeWidth="0.6" />
+                  <line x1="12" y1="0" x2="18" y2="16" stroke={isDark ? "#8B7AA5" : "#5D4C75"} strokeWidth="0.6" />
+                  <line x1="12" y1="0" x2="12" y2="17" stroke={isDark ? "#A090BA" : "#716089"} strokeWidth="0.6" />
+                  {/* Terracotta/Ceramic Pot */}
+                  <path
+                    d="M 4 16 C 4 21 20 21 20 16 Z"
+                    fill={isDark ? "#D97706" : "#C2410C"}
+                    opacity={isDark ? 0.9 : 0.8}
+                  />
+                  <circle cx="12" cy="22" r="1.5" fill={isDark ? "#F59E0B" : "#B45309"} />
+                  {/* Trailing ivy vines */}
+                  <path
+                    d="M 7 20 Q 4 28 6 36 Q 8 42 7 46"
+                    stroke={isDark ? "#34D399" : "#059669"}
+                    strokeWidth="0.9"
+                    fill="none"
+                  />
+                  <path
+                    d="M 17 20 Q 19 26 16 34 Q 14 40 16 44"
+                    stroke={isDark ? "#6EE7B7" : "#10B981"}
+                    strokeWidth="0.9"
+                    fill="none"
+                  />
+                  {/* Green leaves */}
+                  <circle cx="5" cy="26" r="2" fill={isDark ? "#10B981" : "#059669"} />
+                  <circle cx="8" cy="33" r="2.2" fill={isDark ? "#34D399" : "#10B981"} />
+                  <circle cx="5" cy="40" r="1.8" fill={isDark ? "#059669" : "#047857"} />
+                  <circle cx="18" cy="28" r="2.2" fill={isDark ? "#34D399" : "#10B981"} />
+                  <circle cx="15" cy="36" r="2" fill={isDark ? "#10B981" : "#059669"} />
+                  <circle cx="17" cy="42" r="1.5" fill={isDark ? "#059669" : "#047857"} />
+                </svg>
               </div>
             )}
 
-            {detail.silhouette === "lamp-off" && (
-              <div className="absolute bottom-1 left-2 z-10 flex flex-col items-start opacity-75">
-                <div
-                  className={`w-2 h-1.5 -rotate-12 rounded-t-sm ${
-                    isDark ? "bg-[#06050A]" : "bg-[#524467]"
-                  }`}
-                />
-                <div
-                  className={`w-[1px] h-2.5 ml-1 ${
-                    isDark ? "bg-[#161220]" : "bg-[#71618A]"
-                  }`}
-                />
+            {/* 4. Books Stack with Steaming Ceramic Coffee Cup & Saucer */}
+            {detail.silhouette === "books-coffee" && (
+              <div className="absolute bottom-1 right-1.5 z-10 pointer-events-none opacity-95">
+                <svg viewBox="0 0 44 38" className="w-9 sm:w-11 h-8 sm:h-10 overflow-visible">
+                  <defs>
+                    {/* Ceramic Glaze Gradient */}
+                    <linearGradient id="ceramicCupGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={isDark ? "#D8D3E8" : "#FFFFFF"} />
+                      <stop offset="40%" stopColor={isDark ? "#EDE8FA" : "#F8FAFC"} />
+                      <stop offset="80%" stopColor={isDark ? "#B9B0D1" : "#E2E8F0"} />
+                      <stop offset="100%" stopColor={isDark ? "#9A8FB8" : "#CBD5E1"} />
+                    </linearGradient>
+
+                    {/* Dark Roast Coffee Crema */}
+                    <radialGradient id="coffeeCremaGrad" cx="45%" cy="40%" r="55%">
+                      <stop offset="0%" stopColor="#C4844D" />
+                      <stop offset="35%" stopColor="#8A481B" />
+                      <stop offset="75%" stopColor="#45210D" />
+                      <stop offset="100%" stopColor="#2E1305" />
+                    </radialGradient>
+
+                    {/* Book Spines Gradients */}
+                    <linearGradient id="bookBottomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#1E3A8A" : "#1E40AF"} />
+                      <stop offset="50%" stopColor={isDark ? "#1D4ED8" : "#2563EB"} />
+                      <stop offset="100%" stopColor={isDark ? "#172554" : "#1E3A8A"} />
+                    </linearGradient>
+
+                    <linearGradient id="bookMidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#9A3412" : "#C2410C"} />
+                      <stop offset="50%" stopColor={isDark ? "#C2410C" : "#EA580C"} />
+                      <stop offset="100%" stopColor={isDark ? "#7C2D12" : "#9A3412"} />
+                    </linearGradient>
+
+                    <linearGradient id="bookTopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#581C87" : "#7E22CE"} />
+                      <stop offset="50%" stopColor={isDark ? "#6B21A8" : "#9333EA"} />
+                      <stop offset="100%" stopColor={isDark ? "#3B0764" : "#6B21A8"} />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Rising Steam Wisps */}
+                  <g opacity="0.65" className="animate-pulse">
+                    <path
+                      d="M 23 9 Q 21 5 24 2 Q 27 0 25 -2"
+                      stroke={isDark ? "#E2E8F0" : "#94A3B8"}
+                      strokeWidth="0.8"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                    <path
+                      d="M 27 9 Q 29 6 27 3 Q 25 1 28 -1"
+                      stroke={isDark ? "#E2E8F0" : "#94A3B8"}
+                      strokeWidth="0.7"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                  </g>
+
+                  {/* Ceramic Saucer */}
+                  <ellipse cx="25" cy="18.5" rx="10" ry="2.2" fill="url(#ceramicCupGrad)" stroke={isDark ? "#7C6F99" : "#94A3B8"} strokeWidth="0.5" />
+                  <ellipse cx="25" cy="18" rx="7.5" ry="1.4" fill={isDark ? "#AFA5C7" : "#E2E8F0"} />
+
+                  {/* Ceramic Cup Body */}
+                  <path
+                    d="M 18 11 L 32 11 Q 31 17.5 25 18 Q 19 17.5 18 11 Z"
+                    fill="url(#ceramicCupGrad)"
+                    stroke={isDark ? "#7C6F99" : "#94A3B8"}
+                    strokeWidth="0.5"
+                  />
+                  {/* Cup Rim Highlight */}
+                  <ellipse cx="25" cy="11" rx="7" ry="1.8" fill="url(#ceramicCupGrad)" stroke={isDark ? "#7C6F99" : "#94A3B8"} strokeWidth="0.4" />
+                  {/* Steaming Coffee Liquid */}
+                  <ellipse cx="25" cy="11.2" rx="6.2" ry="1.4" fill="url(#coffeeCremaGrad)" />
+                  {/* Specular Coffee Reflection */}
+                  <ellipse cx="23" cy="10.8" rx="2" ry="0.5" fill="#FFFFFF" opacity="0.45" />
+
+                  {/* Ceramic Cup Handle */}
+                  <path
+                    d="M 31 12 C 35 12 35 16.5 30 16.5"
+                    stroke="url(#ceramicCupGrad)"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+
+                  {/* ━━━━ STACK OF 3 REALISTIC HARDCOVER BOOKS ━━━━ */}
+                  {/* 1. Top Book (Purple Plum with Gold Gilded Titling) */}
+                  <g transform="rotate(-2 22 23)">
+                    {/* Shadow under book */}
+                    <rect x="6" y="21" width="32" height="4.5" rx="1" fill="#000000" opacity="0.25" />
+                    {/* Book spine */}
+                    <rect x="7" y="20.5" width="28" height="4.2" rx="1" fill="url(#bookTopGrad)" stroke={isDark ? "#2E1065" : "#581C87"} strokeWidth="0.4" />
+                    {/* Gilded spine bands & gold title emboss */}
+                    <line x1="9" y1="20.5" x2="9" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
+                    <line x1="11" y1="20.5" x2="11" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
+                    <line x1="15" y1="22.6" x2="27" y2="22.6" stroke="#FEF08A" strokeWidth="0.7" strokeDasharray="1.5,1" opacity="0.9" />
+                    <line x1="31" y1="20.5" x2="31" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
+                    {/* Pages block on right */}
+                    <rect x="34" y="21" width="3" height="3.2" rx="0.5" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="0.3" />
+                  </g>
+
+                  {/* Red Silk Ribbon Bookmark draping out */}
+                  <path
+                    d="M 17 25 Q 16 29 18 33 Q 19 35 17 37"
+                    stroke="#EF4444"
+                    strokeWidth="1.1"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+
+                  {/* 2. Middle Book (Terracotta Leather Bound) */}
+                  <g transform="rotate(1.5 22 28)">
+                    {/* Book spine */}
+                    <rect x="4" y="25" width="34" height="4.5" rx="1" fill="url(#bookMidGrad)" stroke={isDark ? "#431407" : "#7C2D12"} strokeWidth="0.4" />
+                    {/* Gold bands */}
+                    <line x1="7" y1="25" x2="7" y2="29.5" stroke="#FEF08A" strokeWidth="0.5" opacity="0.8" />
+                    <line x1="13" y1="27.2" x2="28" y2="27.2" stroke="#FEF08A" strokeWidth="0.8" strokeDasharray="2,1" opacity="0.8" />
+                    <line x1="34" y1="25" x2="34" y2="29.5" stroke="#FEF08A" strokeWidth="0.5" opacity="0.8" />
+                    {/* Pages block on right */}
+                    <rect x="36" y="25.5" width="4" height="3.5" rx="0.5" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="0.3" />
+                  </g>
+
+                  {/* 3. Bottom Book (Deep Navy Buckram Hardcover) */}
+                  <g>
+                    {/* Shadow on sill */}
+                    <rect x="2" y="33" width="38" height="2.5" rx="1" fill="#000000" opacity="0.35" />
+                    {/* Book spine */}
+                    <rect x="2" y="29.5" width="38" height="5.2" rx="1.2" fill="url(#bookBottomGrad)" stroke={isDark ? "#0F172A" : "#1E3A8A"} strokeWidth="0.5" />
+                    {/* Textured cloth spine ribbing */}
+                    <line x1="5" y1="29.5" x2="5" y2="34.7" stroke="#93C5FD" strokeWidth="0.6" opacity="0.75" />
+                    <line x1="6" y1="29.5" x2="6" y2="34.7" stroke="#60A5FA" strokeWidth="0.5" opacity="0.6" />
+                    <line x1="12" y1="32.1" x2="31" y2="32.1" stroke="#FDE047" strokeWidth="0.9" strokeDasharray="2.5,1.2" opacity="0.9" />
+                    <line x1="36" y1="29.5" x2="36" y2="34.7" stroke="#93C5FD" strokeWidth="0.6" opacity="0.75" />
+                    {/* Pages block */}
+                    <rect x="38" y="30.2" width="4.5" height="3.8" rx="0.5" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="0.3" />
+                  </g>
+                </svg>
               </div>
             )}
 
-            {detail.silhouette === "books" && (
-              <div className="absolute bottom-1 right-2 z-10 flex flex-col items-end opacity-75">
+            {/* 5. Glowing Banker's Desk Lamp */}
+            {detail.silhouette === "glow-lamp" && (
+              <div className="absolute bottom-1 left-2.5 z-10 flex flex-col items-center pointer-events-none">
+                {/* Ambient Warm Glow */}
                 <div
-                  className={`w-3.5 h-1 rounded-sm mb-0.5 ${
-                    isDark ? "bg-[#141020]" : "bg-[#6D5D85]"
+                  className={`absolute -top-1 w-10 h-10 rounded-full blur-md pointer-events-none transition-opacity duration-500 ${
+                    isDark ? "bg-amber-400/35 opacity-100" : "bg-amber-200/20 opacity-50"
                   }`}
                 />
-                <div
-                  className={`w-4 h-1 rounded-sm ${
-                    isDark ? "bg-[#0B0912]" : "bg-[#544669]"
-                  }`}
-                />
+                <svg viewBox="0 0 24 28" className="w-5 sm:w-6 h-6 sm:h-7 overflow-visible z-10">
+                  {/* Curved Emerald Banker's Shade */}
+                  <path
+                    d="M 4 8 C 4 3 20 3 20 8 Z"
+                    fill={isDark ? "#059669" : "#047857"}
+                    stroke={isDark ? "#34D399" : "#10B981"}
+                    strokeWidth="0.6"
+                  />
+                  {/* Glowing Bulb */}
+                  <circle
+                    cx="12"
+                    cy="9"
+                    r="2"
+                    fill="#FEF08A"
+                    className={isDark ? "drop-shadow-[0_0_5px_#F59E0B]" : ""}
+                  />
+                  {/* Brass Gooseneck Stand */}
+                  <path
+                    d="M 12 10 L 12 18 C 12 21 15 21 15 24"
+                    stroke={isDark ? "#F59E0B" : "#B45309"}
+                    strokeWidth="1.3"
+                    fill="none"
+                  />
+                  {/* Base */}
+                  <ellipse
+                    cx="15"
+                    cy="25"
+                    rx="5"
+                    ry="1.8"
+                    fill={isDark ? "#D97706" : "#92400E"}
+                  />
+                </svg>
               </div>
             )}
 
-            {detail.silhouette === "frame" && (
-              <div className="absolute bottom-1 left-3 z-10 opacity-75">
-                <div
-                  className={`w-2.5 h-3 rounded-[1px] border ${
-                    isDark ? "border-white/10 bg-[#07050D]" : "border-[#524467] bg-[#B0A2C3]"
-                  }`}
-                />
+            {/* 6. Lush Potted Monstera Plant */}
+            {detail.silhouette === "lush-monstera" && (
+              <div className="absolute bottom-1 right-2 z-10 flex flex-col items-center pointer-events-none opacity-95">
+                <svg viewBox="0 0 32 36" className="w-6 sm:w-7 h-7 sm:h-8 overflow-visible">
+                  {/* Terracotta Pot */}
+                  <polygon
+                    points="10,24 22,24 20,34 12,34"
+                    fill={isDark ? "#C2410C" : "#9A3412"}
+                    stroke={isDark ? "#EA580C" : "#7C2D12"}
+                    strokeWidth="0.6"
+                  />
+                  <rect
+                    x="9"
+                    y="22"
+                    width="14"
+                    height="3"
+                    rx="1"
+                    fill={isDark ? "#EA580C" : "#C2410C"}
+                  />
+                  {/* Plant Stems */}
+                  <path d="M 16 22 Q 13 14 7 11" stroke={isDark ? "#10B981" : "#059669"} strokeWidth="1.2" fill="none" />
+                  <path d="M 16 22 Q 16 11 16 4" stroke={isDark ? "#10B981" : "#059669"} strokeWidth="1.2" fill="none" />
+                  <path d="M 16 22 Q 20 15 26 12" stroke={isDark ? "#10B981" : "#059669"} strokeWidth="1.2" fill="none" />
+                  {/* Broad Leaves */}
+                  <ellipse cx="16" cy="5" rx="6" ry="5" fill={isDark ? "#059669" : "#047857"} />
+                  <ellipse cx="6" cy="10" rx="5.5" ry="4.5" fill={isDark ? "#10B981" : "#059669"} transform="rotate(-20 6 10)" />
+                  <ellipse cx="26" cy="11" rx="5.5" ry="4.5" fill={isDark ? "#34D399" : "#10B981"} transform="rotate(25 26 11)" />
+                </svg>
+              </div>
+            )}
+
+            {/* 7. Realistic Standing Framed Photo Print on Sill */}
+            {detail.silhouette === "art-easel" && (
+              <div className="absolute bottom-1 left-2 z-10 pointer-events-none opacity-95">
+                <svg viewBox="0 0 36 34" className="w-8 sm:w-9.5 h-8 sm:h-9 overflow-visible">
+                  <defs>
+                    {/* Walnut Frame Wood Gradient */}
+                    <linearGradient id="walnutFrameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#451A03" : "#78350F"} />
+                      <stop offset="40%" stopColor={isDark ? "#78350F" : "#92400E"} />
+                      <stop offset="100%" stopColor={isDark ? "#2A0E02" : "#451A03"} />
+                    </linearGradient>
+
+                    <clipPath id="photoInnerClip">
+                      <rect x="7" y="11" width="18" height="15" rx="0.5" />
+                    </clipPath>
+                  </defs>
+
+                  {/* Ground Contact Shadow */}
+                  <ellipse cx="17" cy="30.5" rx="14" ry="2" fill="#000000" opacity="0.35" />
+
+                  {/* Rear Kickstand Strut */}
+                  <polygon
+                    points="24,20 28,30 25,30 21,20"
+                    fill={isDark ? "#1C142B" : "#451A03"}
+                    opacity="0.85"
+                  />
+
+                  {/* Outer Beveled Walnut Picture Frame */}
+                  <rect
+                    x="3"
+                    y="7"
+                    width="26"
+                    height="23"
+                    rx="1.5"
+                    fill="url(#walnutFrameGrad)"
+                    stroke={isDark ? "#170C04" : "#451A03"}
+                    strokeWidth="0.8"
+                  />
+                  {/* Gold Inner Fillet Trim */}
+                  <rect
+                    x="4.2"
+                    y="8.2"
+                    width="23.6"
+                    height="20.6"
+                    rx="0.5"
+                    fill="none"
+                    stroke="#D97706"
+                    strokeWidth="0.4"
+                    opacity="0.8"
+                  />
+
+                  {/* Archival Off-White Mat Board (Passe-Partout) */}
+                  <rect
+                    x="5"
+                    y="9"
+                    width="22"
+                    height="19"
+                    rx="0.5"
+                    fill={isDark ? "#201A2C" : "#FAF8F5"}
+                  />
+                  {/* Beveled Mat Inner Edge */}
+                  <rect
+                    x="6.8"
+                    y="10.8"
+                    width="18.4"
+                    height="15.4"
+                    rx="0.4"
+                    fill="none"
+                    stroke={isDark ? "#130E1C" : "#D4CEBE"}
+                    strokeWidth="0.6"
+                  />
+
+                  {/* Authentic Monochrome Fine-Art Photograph (Clipped) */}
+                  <g clipPath="url(#photoInnerClip)">
+                    {/* Photo Paper Base */}
+                    <rect x="7" y="11" width="18" height="15" fill={isDark ? "#0F0B18" : "#E2E8F0"} />
+                    {/* Misty Atmospheric Gradient */}
+                    <rect x="7" y="11" width="18" height="9" fill={isDark ? "#2D243D" : "#CBD5E1"} />
+                    {/* Distant Misty Horizon & Clouds */}
+                    <ellipse cx="16" cy="18" rx="10" ry="3" fill={isDark ? "#3E3254" : "#E2E8F0"} opacity="0.6" />
+                    {/* Iconic Suspension Bridge / Pier Silhouette */}
+                    <path
+                      d="M 7 21 L 11 15 L 12 15 L 14 21 L 17 14 L 18 14 L 21 21 L 25 17 L 25 21 Z"
+                      fill={isDark ? "#09060E" : "#1E293B"}
+                    />
+                    {/* Bridge cables & suspension wires */}
+                    <line x1="11.5" y1="15" x2="7" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
+                    <line x1="11.5" y1="15" x2="14" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
+                    <line x1="17.5" y1="14" x2="14" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
+                    <line x1="17.5" y1="14" x2="21" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
+                    {/* Water / Harbor Reflection with ripples */}
+                    <rect x="7" y="21" width="18" height="5" fill={isDark ? "#161124" : "#94A3B8"} />
+                    <line x1="9" y1="23" x2="15" y2="23" stroke={isDark ? "#2D243D" : "#E2E8F0"} strokeWidth="0.4" />
+                    <line x1="16" y1="24" x2="22" y2="24" stroke={isDark ? "#2D243D" : "#E2E8F0"} strokeWidth="0.4" />
+
+                    {/* Protective Glass Diagonal Glare */}
+                    <polygon points="7,11 11,11 18,26 14,26" fill="#FFFFFF" opacity="0.22" />
+                    <polygon points="13,11 15,11 23,26 21,26" fill="#FFFFFF" opacity="0.12" />
+                  </g>
+
+                  {/* Small Brass Flower Bud Vase on the side of the photo */}
+                  <g transform="translate(29, 18)">
+                    {/* Brass Bud Vase */}
+                    <path
+                      d="M 1 7 C 0 11 0 12 2 12 L 4 12 C 6 12 6 11 5 7 L 4.2 4 L 4.8 2 L 1.2 2 L 1.8 4 Z"
+                      fill={isDark ? "#D97706" : "#B45309"}
+                      stroke={isDark ? "#F59E0B" : "#78350F"}
+                      strokeWidth="0.4"
+                    />
+                    {/* Stem & Flower */}
+                    <path d="M 3 2 Q 1 -3 3 -6" stroke={isDark ? "#10B981" : "#059669"} strokeWidth="0.6" fill="none" />
+                    <circle cx="3" cy="-6" r="1.5" fill="#F43F5E" />
+                    <circle cx="3" cy="-6" r="0.6" fill="#FEF08A" />
+                  </g>
+                </svg>
+              </div>
+            )}
+
+            {/* 8. Realistic Vertical CD Player & Album Jewel Case */}
+            {detail.silhouette === "clock-turntable" && (
+              <div className="absolute bottom-1 right-2 z-10 pointer-events-none opacity-95">
+                <svg viewBox="0 0 46 36" className="w-10 sm:w-12 h-8 sm:h-9 overflow-visible">
+                  <defs>
+                    {/* Polycarbonate CD Disc Mirror Gradient */}
+                    <radialGradient id="cdMirrorBase" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+                      <stop offset="20%" stopColor="#FFFFFF" stopOpacity="0.1" />
+                      <stop offset="28%" stopColor="#A8B4C4" stopOpacity="0.95" />
+                      <stop offset="85%" stopColor="#E2E8F0" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#94A3B8" stopOpacity="0.85" />
+                    </radialGradient>
+
+                    {/* Rainbow Prismatic Flare 1 */}
+                    <linearGradient id="cdRainbowFlare1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8" />
+                      <stop offset="25%" stopColor="#818CF8" stopOpacity="0.7" />
+                      <stop offset="50%" stopColor="#F472B6" stopOpacity="0.85" />
+                      <stop offset="75%" stopColor="#FDE047" stopOpacity="0.75" />
+                      <stop offset="100%" stopColor="#34D399" stopOpacity="0.8" />
+                    </linearGradient>
+
+                    {/* Rainbow Prismatic Flare 2 */}
+                    <linearGradient id="cdRainbowFlare2" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#F472B6" stopOpacity="0.8" />
+                      <stop offset="30%" stopColor="#FBBF24" stopOpacity="0.75" />
+                      <stop offset="70%" stopColor="#38BDF8" stopOpacity="0.75" />
+                      <stop offset="100%" stopColor="#A855F7" stopOpacity="0.8" />
+                    </linearGradient>
+
+                    {/* CD Clip for diffraction fans */}
+                    <clipPath id="cdDiscClip">
+                      <circle cx="31" cy="18" r="10" />
+                    </clipPath>
+                  </defs>
+
+                  {/* Ground Contact Shadows on windowsill */}
+                  <ellipse cx="14" cy="33" rx="11" ry="1.8" fill="#000000" opacity="0.35" />
+                  <ellipse cx="32" cy="33" rx="10" ry="1.8" fill="#000000" opacity="0.4" />
+
+                  {/* ━━━━ 1. PROPPED STANDING CD JEWEL CASE ━━━━ */}
+                  <g transform="rotate(-7 12 22)">
+                    {/* Shadow behind jewel case */}
+                    <rect x="2" y="11" width="18" height="19" rx="1" fill="#000000" opacity="0.25" />
+                    {/* Clear Acrylic Outer Jewel Case */}
+                    <rect
+                      x="1"
+                      y="10"
+                      width="18"
+                      height="20"
+                      rx="1"
+                      fill={isDark ? "rgba(35, 27, 48, 0.7)" : "rgba(255, 255, 255, 0.65)"}
+                      stroke={isDark ? "rgba(255, 255, 255, 0.25)" : "rgba(100, 116, 139, 0.45)"}
+                      strokeWidth="0.6"
+                    />
+                    {/* CD Jewel Case Spine Ribbing on Left */}
+                    <rect x="1" y="10" width="2" height="20" rx="0.5" fill={isDark ? "#4C1D95" : "#1E3A8A"} />
+                    <line x1="2" y1="12" x2="2" y2="28" stroke="#FFFFFF" strokeWidth="0.3" opacity="0.6" />
+
+                    {/* Printed Album Artwork Booklet */}
+                    <rect x="3.2" y="11.2" width="15" height="17.6" rx="0.5" fill={isDark ? "#1E1B4B" : "#0F172A"} />
+                    {/* Album Art Graphic: Sunset Sun & Ocean */}
+                    <circle cx="10" cy="17" r="3.2" fill="#F43F5E" />
+                    <path d="M 3.2 21 Q 8 18 12 21 Q 15 23 18.2 20 L 18.2 28.8 L 3.2 28.8 Z" fill="#3B82F6" opacity="0.9" />
+                    <circle cx="10" cy="17" r="1.2" fill="#FEF08A" />
+
+                    {/* Jewel Case Specular Plastic Glare Line */}
+                    <line x1="2" y1="11" x2="17" y2="28" stroke="#FFFFFF" strokeWidth="0.6" opacity="0.45" />
+                  </g>
+
+                  {/* ━━━━ 2. VERTICAL CD PLAYER STAND ━━━━ */}
+                  {/* Desktop Chrome Wire Stand Legs */}
+                  <line x1="26" y1="28" x2="24" y2="33" stroke={isDark ? "#A8B4C4" : "#64748B"} strokeWidth="1.2" strokeLinecap="round" />
+                  <line x1="36" y1="28" x2="38" y2="33" stroke={isDark ? "#A8B4C4" : "#64748B"} strokeWidth="1.2" strokeLinecap="round" />
+                  <line x1="23" y1="33" x2="39" y2="33" stroke={isDark ? "#A8B4C4" : "#64748B"} strokeWidth="1.2" strokeLinecap="round" />
+
+                  {/* Vertical CD Player Main Body */}
+                  <rect
+                    x="21"
+                    y="7"
+                    width="20"
+                    height="23"
+                    rx="3"
+                    fill={isDark ? "#171222" : "#F1F5F9"}
+                    stroke={isDark ? "#4C3B63" : "#CBD5E1"}
+                    strokeWidth="0.8"
+                  />
+                  {/* Subtle Speaker Grille perforations at bottom */}
+                  <g opacity="0.5">
+                    <circle cx="26" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                    <circle cx="28" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                    <circle cx="30" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                    <circle cx="32" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                    <circle cx="34" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                    <circle cx="36" cy="27" r="0.5" fill={isDark ? "#8B78A8" : "#94A3B8"} />
+                  </g>
+                  {/* Power status indicator LED */}
+                  <circle cx="38" cy="10" r="0.6" fill="#10B981" className={isDark ? "drop-shadow-[0_0_2px_#34D399]" : ""} />
+
+                  {/* Recessed Circular CD Well */}
+                  <circle cx="31" cy="18" r="10.5" fill={isDark ? "#0A0812" : "#1E293B"} stroke={isDark ? "#382C4C" : "#94A3B8"} strokeWidth="0.6" />
+
+                  {/* ━━━━ 3. REALISTIC COMPACT DISC (CD) ━━━━ */}
+                  {/* Base Silver Polycarbonate Disc */}
+                  <circle cx="31" cy="18" r="10" fill="url(#cdMirrorBase)" stroke="#CBD5E1" strokeWidth="0.4" />
+
+                  {/* Natural Angular Diffraction Rainbow Fans (Clipped to CD) */}
+                  <g clipPath="url(#cdDiscClip)">
+                    {/* Opposing Butterfly Rainbow Diffraction Wings */}
+                    <path
+                      d="M 31 18 L 22 10 A 10 10 0 0 1 40 10 Z"
+                      fill="url(#cdRainbowFlare1)"
+                    />
+                    <path
+                      d="M 31 18 L 40 26 A 10 10 0 0 1 22 26 Z"
+                      fill="url(#cdRainbowFlare2)"
+                    />
+                  </g>
+
+                  {/* Fine Audio Spiral Track Rings */}
+                  <circle cx="31" cy="18" r="8.8" fill="none" stroke="#FFFFFF" strokeWidth="0.25" opacity="0.5" />
+                  <circle cx="31" cy="18" r="7.2" fill="none" stroke="#FFFFFF" strokeWidth="0.25" opacity="0.4" />
+                  <circle cx="31" cy="18" r="5.6" fill="none" stroke="#FFFFFF" strokeWidth="0.25" opacity="0.4" />
+
+                  {/* Inner Mirror Clamping Ring (Clear Polycarbonate Band) */}
+                  <circle cx="31" cy="18" r="3.8" fill={isDark ? "#171222" : "#E2E8F0"} stroke="#94A3B8" strokeWidth="0.4" />
+                  {/* Transparent Inner Gap */}
+                  <circle cx="31" cy="18" r="2.8" fill={isDark ? "#0A0812" : "#CBD5E1"} />
+                  {/* Center Spindle Hole / Motor Hub */}
+                  <circle cx="31" cy="18" r="1.3" fill={isDark ? "#1A1526" : "#475569"} stroke="#94A3B8" strokeWidth="0.3" />
+
+                  {/* Clear Acrylic Bay Reflection */}
+                  <path
+                    d="M 23 11 Q 31 8 39 12"
+                    stroke="#FFFFFF"
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.4"
+                  />
+                </svg>
+              </div>
+            )}
+
+            {/* 9. Realistic Architectural Windowsill Flower Box with Natural Botanical Flora */}
+            {detail.silhouette === "flower-box" && (
+              <div className="absolute bottom-0 inset-x-1 sm:inset-x-2 z-10 flex flex-col items-center pointer-events-none">
+                <svg
+                  viewBox="0 0 120 48"
+                  className="w-[94%] sm:w-[92%] h-7 sm:h-9 md:h-10 overflow-visible drop-shadow-[0_6px_14px_rgba(0,0,0,0.38)]"
+                >
+                  <defs>
+                    {/* Hand-Molded Weathered Terracotta Trough Gradients */}
+                    <linearGradient id={`fbTroughGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#74432C" : "#A25F3E"} />
+                      <stop offset="25%" stopColor={isDark ? "#5C3320" : "#8A4C2E"} />
+                      <stop offset="70%" stopColor={isDark ? "#442416" : "#6E391F"} />
+                      <stop offset="100%" stopColor={isDark ? "#2C150B" : "#4D2412"} />
+                    </linearGradient>
+
+                    <linearGradient id={`fbRimGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#92593D" : "#BA7651"} />
+                      <stop offset="40%" stopColor={isDark ? "#6B3C26" : "#985536"} />
+                      <stop offset="100%" stopColor={isDark ? "#3E1E11" : "#61311C"} />
+                    </linearGradient>
+
+                    {/* Rich Fertile Loam Soil Bed */}
+                    <linearGradient id={`fbSoilGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#140C07" />
+                      <stop offset="60%" stopColor="#22150E" />
+                      <stop offset="100%" stopColor="#120904" />
+                    </linearGradient>
+
+                    {/* Patinated Forged Iron Sill Mounting Brackets */}
+                    <linearGradient id={`fbIronGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor={isDark ? "#3A3545" : "#4A4557"} />
+                      <stop offset="50%" stopColor={isDark ? "#221E2C" : "#2E2A3A"} />
+                      <stop offset="100%" stopColor={isDark ? "#120F19" : "#191522"} />
+                    </linearGradient>
+
+                    {/* Realistic Botanical Foliage Gradients */}
+                    <linearGradient id={`fbFoliageDeep_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#143D28" />
+                      <stop offset="100%" stopColor="#081E13" />
+                    </linearGradient>
+
+                    <linearGradient id={`fbFoliageMid_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#2E6F4D" />
+                      <stop offset="65%" stopColor="#1B4D33" />
+                      <stop offset="100%" stopColor="#0E2F1F" />
+                    </linearGradient>
+
+                    <linearGradient id={`fbFoliageBright_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#489B6E" />
+                      <stop offset="70%" stopColor="#27734C" />
+                      <stop offset="100%" stopColor="#174A2E" />
+                    </linearGradient>
+
+                    <linearGradient id={`fbOlive_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#5E832D" />
+                      <stop offset="100%" stopColor="#354D16" />
+                    </linearGradient>
+
+                    {/* Botanical Floral Petal Gradients */}
+                    {/* 1. Deep French Lavender & Salvia */}
+                    <linearGradient id={`fbLavenderSpike_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#C4B5FD" />
+                      <stop offset="30%" stopColor="#9375E0" />
+                      <stop offset="75%" stopColor="#6D41BA" />
+                      <stop offset="100%" stopColor="#45217D" />
+                    </linearGradient>
+
+                    {/* 2. Trailing European Periwinkle / Violet Verbena */}
+                    <radialGradient id={`fbPeriwinklePetal_${windowInstanceId}`} cx="50%" cy="40%" r="65%">
+                      <stop offset="0%" stopColor="#DDD6FE" />
+                      <stop offset="35%" stopColor="#A855F7" />
+                      <stop offset="75%" stopColor="#6B21A8" />
+                      <stop offset="100%" stopColor="#3B0764" />
+                    </radialGradient>
+
+                    {/* 3. Heirloom Soft Coral Rose / Camellia */}
+                    <radialGradient id={`fbCoralRose_${windowInstanceId}`} cx="45%" cy="40%" r="65%">
+                      <stop offset="0%" stopColor="#FECDD3" />
+                      <stop offset="35%" stopColor="#FB7185" />
+                      <stop offset="75%" stopColor="#BE123C" />
+                      <stop offset="100%" stopColor="#710B23" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      A. WINDOWSILL CONTACT SHADOW & ARCHITECTURAL BRACKETS
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Diffuse Windowsill Drop Shadow */}
+                  <ellipse cx="60" cy="46.5" rx="55" ry="2.2" fill="#000000" opacity={isDark ? "0.65" : "0.38"} />
+                  {/* Direct Contact Ambient Occlusion Seam */}
+                  <ellipse cx="60" cy="44.8" rx="51" ry="1.2" fill="#000000" opacity={isDark ? "0.82" : "0.52"} />
+
+                  {/* Forged Wrought Iron Sill Brackets (Clamped to stone ledge) */}
+                  {/* Left Bracket with classical scroll hook */}
+                  <g>
+                    <path
+                      d="M 18 38 C 16.5 43, 20.2 46.5, 25 46 L 25.8 44.2 C 22.2 44.5, 19.2 42.5, 19.6 38 Z"
+                      fill={`url(#fbIronGrad_${windowInstanceId})`}
+                      stroke="#16131F"
+                      strokeWidth="0.4"
+                    />
+                    <circle cx="19.4" cy="40" r="0.75" fill="#64748B" />
+                    <circle cx="23.2" cy="45" r="0.6" fill="#64748B" />
+                  </g>
+
+                  {/* Right Bracket with classical scroll hook */}
+                  <g>
+                    <path
+                      d="M 102 38 C 103.5 43, 99.8 46.5, 95 46 L 94.2 44.2 C 97.8 44.5, 100.8 42.5, 100.4 38 Z"
+                      fill={`url(#fbIronGrad_${windowInstanceId})`}
+                      stroke="#16131F"
+                      strokeWidth="0.4"
+                    />
+                    <circle cx="100.6" cy="40" r="0.75" fill="#64748B" />
+                    <circle cx="96.8" cy="45" r="0.6" fill="#64748B" />
+                  </g>
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      B. LAYERED BACKGROUND CANOPY & BOTANICAL STEMS
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Deep Background Foliage Mound (Dense volumetric mass behind blossoms) */}
+                  <path
+                    d="M 11 27 C 10 18, 17 14, 25 16 C 30 11, 42 8, 52 13 C 61 7, 75 9, 84 13 C 93 8, 104 12, 109 27 Z"
+                    fill={`url(#fbFoliageDeep_${windowInstanceId})`}
+                    opacity="0.94"
+                  />
+                  {/* Secondary Mid-Shadow Foliage Masses */}
+                  <path
+                    d="M 16 26 C 14 19, 23 15, 29 20 C 36 14, 46 12, 53 18 C 64 12, 76 13, 83 19 C 91 14, 100 17, 104 26 Z"
+                    fill={`url(#fbFoliageMid_${windowInstanceId})`}
+                    opacity="0.88"
+                  />
+
+                  {/* Slender Arched Botanical Green Stems */}
+                  <path d="M 23 26 Q 24 18 26 12" stroke="#228555" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+                  <path d="M 37 26 Q 36 17 38 6" stroke="#2A925E" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+                  <path d="M 50 26 Q 49 19 50 14" stroke="#1D6F47" strokeWidth="1.1" fill="none" strokeLinecap="round" />
+                  <path d="M 68 26 Q 66 18 69 11" stroke="#228555" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+                  <path d="M 83 26 Q 84 17 83 7" stroke="#2A925E" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+                  <path d="M 97 26 Q 99 19 96 13" stroke="#228555" strokeWidth="0.8" fill="none" strokeLinecap="round" />
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      C. FRENCH LAVENDER / SALVIA FLORAL SPIKES
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Lavender Spike 1 (Left-Center, towering gracefully at x=37) */}
+                  <g>
+                    {/* Tiered whorls of delicate calyxes & florets */}
+                    {/* Bottom Whorl */}
+                    <path d="M 35 15 C 33 13, 36 12, 37 14 C 38 12, 41 13, 39 15 C 38 16, 36 16, 35 15 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    {/* Second Whorl */}
+                    <path d="M 35.5 12 C 33.8 10.5, 36.5 9.5, 37.2 11.2 C 38.2 9.5, 40.5 10.5, 39 12 C 38 13, 36.2 13, 35.5 12 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    {/* Third Whorl */}
+                    <path d="M 36 9.5 C 34.5 8, 36.8 7.2, 37.4 8.6 C 38.2 7.2, 40.2 8, 38.8 9.5 C 38 10.3, 36.6 10.3, 36 9.5 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    {/* Tapered Crown Floret */}
+                    <path d="M 36.5 7.2 C 35.5 5.8, 37.5 4.8, 37.8 6 C 38.5 5, 39.8 6, 38.8 7.2 Z" fill="#DDD6FE" />
+                    {/* Tiny stem leaves hugging the stalk */}
+                    <path d="M 35 18 Q 32 17 33 15" stroke="#27734C" strokeWidth="0.6" fill="none" />
+                    <path d="M 39 17 Q 42 16 41 14" stroke="#27734C" strokeWidth="0.6" fill="none" />
+                  </g>
+
+                  {/* Lavender Spike 2 (Right-Center, towering gracefully at x=83) */}
+                  <g>
+                    <path d="M 81 16 C 79 14, 82 13, 83 15 C 84 13, 87 14, 85 16 C 84 17, 82 17, 81 16 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    <path d="M 81.5 13 C 79.8 11.5, 82.5 10.5, 83.2 12.2 C 84.2 10.5, 86.5 11.5, 85 13 C 84 14, 82.2 14, 81.5 13 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    <path d="M 82 10.2 C 80.5 8.8, 82.8 8, 83.4 9.4 C 84.2 8, 86.2 8.8, 84.8 10.2 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
+                    <path d="M 82.5 7.8 C 81.5 6.5, 83.5 5.5, 83.8 6.8 C 84.5 5.8, 85.8 6.8, 84.8 7.8 Z" fill="#DDD6FE" />
+                    <path d="M 81 19 Q 78 18 79 16" stroke="#27734C" strokeWidth="0.6" fill="none" />
+                    <path d="M 85 18 Q 88 17 87 15" stroke="#27734C" strokeWidth="0.6" fill="none" />
+                  </g>
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      D. SCULPTED BOTANICAL LEAF SPRAYS WITH VEIN HIGHLIGHTS
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Left Ivy Leaves */}
+                  <g>
+                    {/* Broad 3-lobed leaf */}
+                    <path
+                      d="M 18 24 C 13 18, 17 13, 22 17 C 24 13, 28 16, 27 20 C 26 24, 21 26, 18 24 Z"
+                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    />
+                    <path d="M 21 21 Q 23 17 24 15" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.8" />
+                    <path d="M 21 20 Q 18 18 16 18" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.6" />
+                    <path d="M 22 19 Q 25 18 26 18" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.6" />
+                  </g>
+
+                  {/* Center-Left Olive Sprig */}
+                  <g>
+                    <path
+                      d="M 43 23 C 39 16, 47 13, 50 18 C 48 22, 45 25, 43 23 Z"
+                      fill={`url(#fbOlive_${windowInstanceId})`}
+                    />
+                    <path d="M 45 20 Q 47 16 49 16" stroke="#BEF264" strokeWidth="0.35" fill="none" opacity="0.75" />
+                  </g>
+
+                  {/* Center-Right Lush Leaves */}
+                  <g>
+                    <path
+                      d="M 60 24 C 56 17, 64 14, 67 19 C 65 23, 62 25, 60 24 Z"
+                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    />
+                    <path d="M 62 20 Q 64 16 66 17" stroke="#A7F3D0" strokeWidth="0.35" fill="none" opacity="0.7" />
+                  </g>
+
+                  {/* Right Foliage Cluster */}
+                  <g>
+                    <path
+                      d="M 88 23 C 85 16, 92 13, 95 18 C 94 22, 90 25, 88 23 Z"
+                      fill={`url(#fbOlive_${windowInstanceId})`}
+                    />
+                    <path d="M 90 20 Q 92 16 94 16" stroke="#BEF264" strokeWidth="0.35" fill="none" opacity="0.75" />
+                    <path
+                      d="M 99 24 C 95 18, 102 14, 106 19 C 104 23, 101 25, 99 24 Z"
+                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    />
+                    <path d="M 101 20 Q 103 16 105 17" stroke="#A7F3D0" strokeWidth="0.35" fill="none" opacity="0.7" />
+                  </g>
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      E. REALISTIC NON-CARTOON BOTANICAL FLOWER BLOSSOMS
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+
+                  {/* FLOWER 1 (Left): European Periwinkle / Vinca (Organic 5-petal pinwheel at x=25, y=14) */}
+                  <g transform="translate(25, 14)">
+                    {/* Natural curved petals overlapping organically (not mechanical circles!) */}
+                    {/* Petal 1 (Top) */}
+                    <path d="M 0 -1.5 C -2.5 -5, 2.5 -6, 2 -1.8 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    {/* Petal 2 (Top Right) */}
+                    <path d="M 1 -0.8 C 4.5 -2.8, 5.8 1.8, 1.8 1.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    {/* Petal 3 (Bottom Right) */}
+                    <path d="M 0.8 0.8 C 3 4.2, -1 5.4, -0.4 1.8 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    {/* Petal 4 (Bottom Left) */}
+                    <path d="M -0.8 0.8 C -4.2 3.2, -5.2 -0.8, -1.6 -0.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    {/* Petal 5 (Top Left) */}
+                    <path d="M -1 -0.8 C -3.8 -4, -0.8 -4.5, -0.4 -1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    {/* Deep Inky-Violet Star Throat Core */}
+                    <circle cx="0" cy="0" r="1.3" fill="#2E0854" />
+                    {/* Pale Cream Stamen Eye */}
+                    <circle cx="0" cy="0" r="0.6" fill="#FEF08A" />
+                    <circle cx="-0.3" cy="-0.2" r="0.25" fill="#FFFFFF" opacity="0.9" />
+                  </g>
+                  {/* Delicate curved periwinkle bud on stalk */}
+                  <path d="M 17 14 C 15 11, 18 9, 19 12 C 18 14, 17 16, 17 14 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                  <path d="M 17 15 Q 16 18 18 22" stroke="#1D6F47" strokeWidth="0.7" fill="none" />
+
+                  {/* FLOWER 2 (Center): Heirloom English Tea Rose / Coral Camellia (x=50, y=13) */}
+                  <g transform="translate(50, 13)">
+                    {/* Multi-layered natural petal cups with realistic curled margins */}
+                    {/* Outer Petals */}
+                    <path d="M -5.2 -1.2 C -6.5 -5, 0.5 -6.5, 3.2 -4 C 6.5 -1.5, 5 4.5, 0 5.2 C -5 4.5, -6 2.5, -5.2 -1.2 Z" fill={`url(#fbCoralRose_${windowInstanceId})`} />
+                    {/* Mid Ruffled Petal Layers */}
+                    <path d="M -3.8 -2.5 C -4.5 -4.5, 1.5 -4.8, 3.5 -2.2 C 4.5 1, 1.5 3.8, -1.8 3.5 C -4.2 2.5, -4.5 -0.5, -3.8 -2.5 Z" fill="#E11D48" opacity="0.9" />
+                    {/* Inner Curled Petal Fold */}
+                    <path d="M -2.2 -1 C -2.5 -2.8, 1.8 -3, 2.2 -0.8 C 2.5 1.5, -0.5 2.5, -1.8 1.8 Z" fill="#FDA4AF" />
+                    <path d="M -1.2 -0.4 C -1 -1.5, 1 -1.5, 1.2 -0.2 C 1 1, -0.5 1.2, -1.2 -0.4 Z" fill="#BE123C" />
+                    {/* Glimmering Stamen Pistil */}
+                    <circle cx="0" cy="0" r="0.65" fill="#FEF08A" />
+                  </g>
+                  {/* Tender unopened rosebud beside the main bloom */}
+                  <g>
+                    <path d="M 57 15 C 55 12, 59 10, 60 13 C 59 15, 57 17, 57 15 Z" fill="#FB7185" />
+                    <path d="M 56 16 C 55 14, 57 13, 58 14" stroke="#1D6F47" strokeWidth="0.6" fill="none" />
+                    <path d="M 57 16 Q 56 20 55 24" stroke="#1D6F47" strokeWidth="0.7" fill="none" />
+                  </g>
+
+                  {/* FLOWER 3 (Center-Right): Deep Royal Violet Verbena / Periwinkle (x=69, y=13) */}
+                  <g transform="translate(69, 13)">
+                    <path d="M 0 -1.5 C -2.2 -4.8, 2.4 -5.5, 1.8 -1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    <path d="M 1 -0.6 C 4.2 -2.5, 5.4 1.6, 1.6 1 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    <path d="M 0.6 0.8 C 2.8 4, -1 5, -0.4 1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    <path d="M -0.8 0.6 C -4 3, -4.8 -0.8, -1.4 -0.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    <path d="M -0.8 -0.8 C -3.5 -3.6, -0.6 -4.2, -0.2 -1.4 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
+                    <circle cx="0" cy="0" r="1.2" fill="#2E0854" />
+                    <circle cx="0" cy="0" r="0.55" fill="#FEF08A" />
+                  </g>
+
+                  {/* FLOWER 4 (Far-Right): Soft English Tea Rose Bud & Opening Bloom (x=98, y=14) */}
+                  <g transform="translate(98, 14)">
+                    <path d="M -4 -1 C -5 -4, 0.5 -5, 2.5 -3 C 5 -1, 4 3.5, 0 4 C -4 3.5, -4.5 1.5, -4 -1 Z" fill={`url(#fbCoralRose_${windowInstanceId})`} />
+                    <path d="M -2.5 -1.8 C -3 -3.5, 1 -3.8, 2.5 -1.5 C 3 0.8, 1 2.8, -1 2.5 C -2.8 1.8, -3 -0.2, -2.5 -1.8 Z" fill="#E11D48" opacity="0.85" />
+                    <path d="M -1.5 -0.8 C -1.8 -2, 1.2 -2.2, 1.5 -0.5 C 1.5 1, -0.2 1.5, -1 1 Z" fill="#FDA4AF" />
+                    <circle cx="0" cy="0" r="0.5" fill="#FEF08A" />
+                  </g>
+
+                  {/* Delicate Wild Jasmine / Sweet Alyssum Starlets Nestled in Foliage */}
+                  {/* Starlet Cluster 1 (between 1 & Rose at x=31, y=18) */}
+                  <g transform="translate(31, 18)">
+                    <path d="M 0 -2.2 L 0.5 -0.6 L 2 -0.6 L 0.8 0.4 L 1.2 2 L 0 1 L -1.2 2 L -0.8 0.4 L -2 -0.6 L -0.5 -0.6 Z" fill="#F8FAFC" opacity="0.95" />
+                    <circle cx="0" cy="0" r="0.4" fill="#F59E0B" />
+                  </g>
+                  {/* Starlet Cluster 2 (beside Rose at x=62, y=17) */}
+                  <g transform="translate(62, 17)">
+                    <path d="M 0 -2 L 0.5 -0.5 L 1.8 -0.5 L 0.7 0.4 L 1.1 1.8 L 0 0.9 L -1.1 1.8 L -0.7 0.4 L -1.8 -0.5 L -0.5 -0.5 Z" fill="#F8FAFC" opacity="0.95" />
+                    <circle cx="0" cy="0" r="0.4" fill="#F59E0B" />
+                  </g>
+                  {/* Starlet Cluster 3 (near Lavender at x=76, y=17) */}
+                  <g transform="translate(76, 17)">
+                    <path d="M 0 -1.8 L 0.4 -0.5 L 1.6 -0.5 L 0.6 0.3 L 1 1.6 L 0 0.8 L -1 1.6 L -0.6 0.3 L -1.6 -0.5 L -0.4 -0.5 Z" fill="#F8FAFC" opacity="0.9" />
+                    <circle cx="0" cy="0" r="0.35" fill="#F59E0B" />
+                  </g>
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      F. ARCHITECTURAL HAND-CRAFTED TERRACOTTA PLANTER TROUGH
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Rich Fertile Loam Soil Bed (visible at aperture lip) */}
+                  <ellipse cx="60" cy="26.8" rx="50" ry="2.6" fill={`url(#fbSoilGrad_${windowInstanceId})`} />
+                  {/* Tiny organic peat textures */}
+                  <ellipse cx="40" cy="26.8" rx="6" ry="1.2" fill="#0A0604" opacity="0.7" />
+                  <ellipse cx="80" cy="26.8" rx="7" ry="1.1" fill="#0A0604" opacity="0.7" />
+
+                  {/* Main Planter Box Body (Tuscan tapered profile) */}
+                  <polygon
+                    points="11,28 109,28 106.5,43 13.5,43"
+                    fill={`url(#fbTroughGrad_${windowInstanceId})`}
+                    stroke={isDark ? "#231107" : "#4A2412"}
+                    strokeWidth="0.7"
+                  />
+
+                  {/* Molded Upper Architectural Beveled Rim Lip */}
+                  <rect
+                    x="8"
+                    y="24.8"
+                    width="104"
+                    height="4"
+                    rx="1.2"
+                    fill={`url(#fbRimGrad_${windowInstanceId})`}
+                    stroke={isDark ? "#231107" : "#4A2412"}
+                    strokeWidth="0.65"
+                  />
+                  {/* Specular Ambient Rim Edge Highlight */}
+                  <line
+                    x1="9"
+                    y1="25.5"
+                    x2="111"
+                    y2="25.5"
+                    stroke={isDark ? "#AF6B48" : "#E29A72"}
+                    strokeWidth="0.55"
+                    opacity="0.8"
+                  />
+                  {/* Underside Cast Shadow Beneath Upper Rim */}
+                  <line
+                    x1="10"
+                    y1="29.1"
+                    x2="110"
+                    y2="29.1"
+                    stroke={isDark ? "#120803" : "#2E1509"}
+                    strokeWidth="0.8"
+                    opacity="0.9"
+                  />
+
+                  {/* Classical Architectural Recessed Panel Relief */}
+                  <rect
+                    x="15"
+                    y="31"
+                    width="90"
+                    height="9.5"
+                    rx="0.8"
+                    fill="none"
+                    stroke={isDark ? "#180A04" : "#36190B"}
+                    strokeWidth="0.7"
+                    opacity="0.9"
+                  />
+                  <rect
+                    x="15.5"
+                    y="31.5"
+                    width="89"
+                    height="8.5"
+                    rx="0.5"
+                    fill="none"
+                    stroke={isDark ? "#522C17" : "#874D2B"}
+                    strokeWidth="0.35"
+                    opacity="0.6"
+                  />
+
+                  {/* Subtle Tuscan Hand-Chiseled Horizontal Terracotta Seam Line */}
+                  <line
+                    x1="16"
+                    y1="35.8"
+                    x2="104"
+                    y2="35.8"
+                    stroke={isDark ? "#2A140A" : "#542D18"}
+                    strokeWidth="0.45"
+                    opacity="0.65"
+                  />
+
+                  {/* Classical Center Rosette / Seal Motif on Trough Panel */}
+                  <g transform="translate(60, 35.8)">
+                    <circle cx="0" cy="0" r="2.2" fill={isDark ? "#3F2112" : "#6E391D"} stroke={isDark ? "#1B0B04" : "#3D1D0D"} strokeWidth="0.4" />
+                    <circle cx="0" cy="0" r="1.3" fill={isDark ? "#58301B" : "#8F4F2B"} />
+                    <circle cx="0" cy="0" r="0.5" fill={isDark ? "#824B2D" : "#B86C40"} />
+                  </g>
+
+                  {/* Lower Base Molding Trim */}
+                  <rect
+                    x="12"
+                    y="42"
+                    width="96"
+                    height="1.8"
+                    rx="0.5"
+                    fill={`url(#fbRimGrad_${windowInstanceId})`}
+                    stroke={isDark ? "#231107" : "#4A2412"}
+                    strokeWidth="0.45"
+                  />
+
+                  {/* Classical Bronzed Wrought Corner Straps */}
+                  {/* Left Strap */}
+                  <rect x="13.2" y="28.5" width="2.8" height="13.8" rx="0.3" fill={`url(#fbIronGrad_${windowInstanceId})`} />
+                  <circle cx="14.6" cy="30.5" r="0.6" fill="#94A3B8" />
+                  <circle cx="14.6" cy="40.5" r="0.6" fill="#94A3B8" />
+                  {/* Right Strap */}
+                  <rect x="104" y="28.5" width="2.8" height="13.8" rx="0.3" fill={`url(#fbIronGrad_${windowInstanceId})`} />
+                  <circle cx="105.4" cy="30.5" r="0.6" fill="#94A3B8" />
+                  <circle cx="105.4" cy="40.5" r="0.6" fill="#94A3B8" />
+
+                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      G. ORGANIC ENGLISH IVY CASCADE (TUMBLES OVER FRONT RIM)
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+                  {/* Cascading Vine 1 (Weeps gracefully over Left Rim down to y=43) */}
+                  <g>
+                    <path d="M 23 26 C 24 30, 20.5 35, 22.5 43" stroke="#174A2E" strokeWidth="0.75" fill="none" strokeLinecap="round" />
+                    {/* Ivy Leaf A (Spilling over lip) */}
+                    <path d="M 23 29 C 26 27, 28 31, 25 33 C 23.5 33, 22.5 31, 23 29 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                    <path d="M 24 29.5 Q 26 31 25.5 32" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.75" />
+                    {/* Ivy Leaf B (Mid-cascade) */}
+                    <path d="M 21 34 C 17.5 33, 18.5 38, 21.5 38 C 22.5 37, 22.5 35, 21 34 Z" fill={`url(#fbOlive_${windowInstanceId})`} />
+                    {/* Ivy Leaf C (Lowest tip) */}
+                    <path d="M 22.5 42 C 25 41, 26 44.5, 23.5 45.5 C 22 45, 21.8 43, 22.5 42 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                  </g>
+
+                  {/* Cascading Vine 2 (Center-Left small spillover at x=44) */}
+                  <g>
+                    <path d="M 44 26 C 45 29, 43 32, 45 36" stroke="#174A2E" strokeWidth="0.7" fill="none" strokeLinecap="round" />
+                    <path d="M 44 30 C 47 28.5, 48 32.5, 45.5 33.5 C 44 33, 43.5 31.5, 44 30 Z" fill={`url(#fbOlive_${windowInstanceId})`} />
+                    <path d="M 45 35 C 47.5 34, 48 37.5, 45.8 38 C 44.5 37.5, 44.2 36, 45 35 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                  </g>
+
+                  {/* Cascading Vine 3 (Center-Right dramatic drape across panel at x=73) */}
+                  <g>
+                    <path d="M 73 26 C 74.5 31, 71 36, 74 44" stroke="#174A2E" strokeWidth="0.8" fill="none" strokeLinecap="round" />
+                    <path d="M 74 31 C 77 29, 79 33.5, 76 35.5 C 74 35.5, 73 33.5, 74 31 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                    <path d="M 75 32 Q 77 33.5 76.5 34.5" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.75" />
+                    <path d="M 72 37 C 68 36, 69.5 41, 72.5 41 C 73.5 40, 73.5 38, 72 37 Z" fill={`url(#fbOlive_${windowInstanceId})`} />
+                    <path d="M 74 43 C 77 42, 78 46, 75 46.8 C 73 46, 73 44, 74 43 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                  </g>
+
+                  {/* Cascading Vine 4 (Far-Right tumbling sprig past the bracket at x=95) */}
+                  <g>
+                    <path d="M 95 26 C 97 30, 93.5 34, 96 41" stroke="#174A2E" strokeWidth="0.75" fill="none" strokeLinecap="round" />
+                    <path d="M 96 30 C 99 28.5, 101 32.5, 98 34.5 C 96 34.5, 95 32.5, 96 30 Z" fill={`url(#fbOlive_${windowInstanceId})`} />
+                    <path d="M 94.5 36 C 91.5 35, 92.5 39.5, 95.5 39.5 C 96.5 38.5, 96.5 37, 94.5 36 Z" fill={`url(#fbFoliageBright_${windowInstanceId})`} />
+                  </g>
+                </svg>
               </div>
             )}
           </div>
         )}
 
-        {/* ACTIVE STATE: DIRECTIONAL LIGHT BEAM & AIRY INTERIOR */}
-        {isActive && config && data && (
-          <div className="absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-600 ease-out">
-            <div
-              className="absolute inset-0 transition-all duration-700"
-              style={{
-                background: config.beamGradient,
-              }}
+        {/* ACTIVE STATE: WARM CINEMATIC ROOM INTERIOR WITH BESPOKE SPATIAL OBJECTS */}
+        {isActive && data && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-700 ease-out">
+            {/* Ambient Warm Room Lighting (Fills the chamber naturally) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={`absolute inset-0 transition-colors duration-700 ${
+                isDark
+                  ? "bg-gradient-to-b from-[#1C1610] via-[#2A1E14] to-[#18110B]"
+                  : "bg-gradient-to-b from-[#FFFDF8] via-[#FFF5E6] to-[#FCECD2]"
+              }`}
             />
 
-            <div
-              className={`absolute top-0 inset-x-0 h-4 bg-gradient-to-b ${config.soffitGradient} border-b border-black/20`}
+            {/* Motivated Warm Table/Desk Lamp Light Source with Radial Spread */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
+              className="absolute top-1 sm:top-2 right-2 sm:right-3 w-20 sm:w-24 h-20 sm:h-24 rounded-full bg-[radial-gradient(circle,_rgba(251,191,36,0.55)_0%,_rgba(245,158,11,0.25)_45%,_transparent_75%)] pointer-events-none blur-sm"
             />
 
-            {/* Ceiling Lamp Fixture */}
-            <div className="absolute top-1.5 sm:top-2 right-3 sm:right-5 flex flex-col items-center">
-              <div
-                className={`w-8 sm:w-10 h-3 sm:h-3.5 rounded-full border flex items-center justify-center shadow-lg transition-colors duration-500 ${
-                  isDark ? "bg-black/75 border-white/20" : "bg-[#3D3352]/85 border-white/40"
+            {/* Bespoke Room Objects Silhouette & Spatial Setup */}
+            {data.id === "window-builder" && (
+              <motion.div
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 0.95, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+              >
+                {/* Desk Surface */}
+                <div className={`absolute bottom-3 inset-x-2 h-1 rounded-sm ${isDark ? "bg-[#3A2A1E]" : "#8C6345"}`} />
+                {/* Laptop with Cool Screen Glow */}
+                <div className="absolute bottom-4 left-6 w-7 h-5 rounded-t-[1px] bg-slate-800 border border-slate-600 shadow-[0_0_12px_rgba(147,197,253,0.6)] flex items-center justify-center">
+                  <div className="w-5 h-3.5 bg-blue-100/90 rounded-[1px] shadow-[0_0_8px_rgba(219,234,254,0.9)]" />
+                </div>
+                {/* Laptop Base */}
+                <div className="absolute bottom-3.5 left-5 w-9 h-[2px] bg-slate-700 rounded-full" />
+                {/* Brass Desk Lamp with Soft Cone */}
+                <div className="absolute bottom-4 right-7 w-2 h-7 border-r-2 border-amber-300/80 rounded-tr" />
+                <div className="absolute bottom-10 right-6 w-4 h-2 rounded-t-full bg-amber-400 shadow-[0_0_10px_#F59E0B]" />
+                {/* Studio Chair Silhouette */}
+                <div className="absolute bottom-0 left-16 w-6 h-9 rounded-t-lg bg-black/40" />
+              </motion.div>
+            )}
+
+            {data.id === "window-detail" && (
+              <motion.div
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 0.95, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+              >
+                {/* Solid Drafting Desk */}
+                <div className={`absolute bottom-3 inset-x-2 h-1 rounded-sm ${isDark ? "bg-[#38261A]" : "#7D5438"}`} />
+                {/* Sketchbook with Pencil */}
+                <div className="absolute bottom-4 left-5 w-8 h-5 -rotate-3 bg-amber-50 rounded-[1px] border border-amber-200/80 shadow-sm flex flex-col justify-around p-0.5">
+                  <div className="w-4 h-[1px] bg-slate-400" />
+                  <div className="w-6 h-[1px] bg-slate-400" />
+                  <div className="w-5 h-[1px] bg-slate-400" />
+                </div>
+                {/* Small potted desk plant */}
+                <div className="absolute bottom-4 left-15 w-3 h-3 rounded-b-sm bg-amber-700" />
+                <div className="absolute bottom-7 left-14.5 w-4 h-3 rounded-full bg-emerald-600/90 shadow-sm" />
+                {/* Warm reading lamp */}
+                <div className="absolute bottom-4 right-6 w-1.5 h-8 border-r border-amber-400/90" />
+                <div className="absolute bottom-11 right-5 w-3.5 h-3 rounded-t-md bg-amber-200/95 shadow-[0_0_12px_#FBBF24]" />
+              </motion.div>
+            )}
+
+            {data.id === "window-collaborator" && (
+              <motion.div
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 0.95, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+              >
+                {/* Meeting table */}
+                <div className={`absolute bottom-3 inset-x-3 h-1.5 rounded-sm ${isDark ? "bg-[#3D2C20]" : "#8F6649"}`} />
+                {/* Sticky notes on wall board in background */}
+                <div className="absolute top-2 left-4 flex gap-1">
+                  <div className="w-2.5 h-2.5 bg-yellow-300 shadow-sm rotate-2" />
+                  <div className="w-2.5 h-2.5 bg-rose-300 shadow-sm -rotate-3" />
+                  <div className="w-2.5 h-2.5 bg-emerald-300 shadow-sm rotate-1" />
+                </div>
+                {/* Two chairs on sides */}
+                <div className="absolute bottom-1 left-2 w-4 h-7 rounded-t bg-black/45" />
+                <div className="absolute bottom-1 right-3 w-4 h-7 rounded-t bg-black/45" />
+                {/* Coffee mugs on table */}
+                <div className="absolute bottom-4.5 left-10 w-2 h-2.5 bg-stone-200 rounded-sm" />
+                <div className="absolute bottom-4.5 right-11 w-2 h-2.5 bg-amber-200 rounded-sm" />
+              </motion.div>
+            )}
+
+            {data.id === "window-elsewhere" && (
+              <motion.div
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 0.95, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+              >
+                {/* Wooden shelf / ledge */}
+                <div className={`absolute bottom-3 inset-x-2 h-1 rounded-sm ${isDark ? "bg-[#332216]" : "#784F32"}`} />
+                {/* World map silhouette on rear wall */}
+                <div className="absolute top-2 left-6 right-6 h-7 opacity-25 border border-amber-300/40 rounded flex items-center justify-around">
+                  <div className="w-3 h-2 rounded-full border border-amber-300/60" />
+                  <div className="w-4 h-3 rounded-full border border-amber-300/60" />
+                </div>
+                {/* Vintage Camera */}
+                <div className="absolute bottom-4 left-6 w-4.5 h-3 bg-stone-800 rounded-[1px] border border-stone-600 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-slate-300 border border-stone-900" />
+                </div>
+                {/* Leather valise / small suitcase */}
+                <div className="absolute bottom-4 right-7 w-6 h-4.5 rounded-[2px] bg-amber-800 border border-amber-950 shadow-sm flex items-center justify-center">
+                  <div className="w-1.5 h-1 border-t-2 border-amber-950" />
+                </div>
+              </motion.div>
+            )}
+
+            {/* Cinematic Discovered Editorial Typography */}
+            <div className="absolute inset-0 p-2 sm:p-2.5 md:p-3 flex flex-col justify-between z-20 pointer-events-none select-none">
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.55 }}
+                className="flex items-center gap-1.5"
+              >
+                <span className="font-sora text-[8px] sm:text-[9.5px] font-bold tracking-[0.16em] uppercase drop-shadow-sm text-amber-200">
+                  {data.number} / {data.label}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#F59E0B]" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.8 }}
+                className={`mt-auto -mx-1 -mb-1 p-2 sm:p-2.5 rounded-[2px] backdrop-blur-[2px] border ${
+                  isDark
+                    ? "bg-[#0A0704]/80 border-amber-500/20 text-[#FEF3C7]"
+                    : "bg-[#FFFFFF]/90 border-amber-600/25 text-[#451A03]"
                 }`}
               >
-                <div
-                  className="w-5 sm:w-6 h-2 sm:h-2.5 rounded-full bg-white transition-all duration-500"
-                  style={{
-                    backgroundColor: config.lampBulb,
-                    boxShadow: `0 0 12px 3px ${config.lampGlow}, 0 0 24px 6px ${config.lampGlow}`,
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Directional Conical Light Beam */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-85 transition-opacity duration-700"
-              style={{
-                background: isDark
-                  ? "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 35%, transparent 75%)"
-                  : "linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.25) 35%, transparent 75%)",
-                clipPath: "polygon(82% 10%, 0% 32%, 0% 100%, 100% 100%, 100% 14%)",
-              }}
-            />
-
-            {/* Stair Railing Foreground Silhouette */}
-            <div className="absolute -bottom-2 -left-2 right-0 h-10 pointer-events-none opacity-80 flex flex-col justify-end">
-              <div
-                className="w-[110%] h-1 sm:h-1.5 -rotate-[11deg] origin-bottom-left shadow-md transition-colors duration-500"
-                style={{ backgroundColor: config.railColor }}
-              />
-              <div className="w-full flex justify-between px-2 pb-0.5">
-                {Array.from({ length: 14 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-[1px] sm:w-[1.5px] h-6 sm:h-7 opacity-70"
-                    style={{ backgroundColor: config.railColor }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none" />
-
-            {/* Text Overlay */}
-            <div className="absolute inset-0 p-2 sm:p-3 md:p-3.5 flex flex-col justify-between z-20 pointer-events-none select-none">
-              <div className="flex items-center justify-between">
-                <span
-                  className="font-sora text-[8px] sm:text-[9.5px] md:text-[10px] font-bold uppercase tracking-[0.18em] drop-shadow-sm"
-                  style={{ color: config.kickerColor }}
-                >
-                  {data.kicker}
-                </span>
-                <span
-                  className="w-1.5 h-1.5 rounded-full shadow-[0_0_6px_currentColor]"
-                  style={{ backgroundColor: config.badgeDot, color: config.badgeDot }}
-                />
-              </div>
-
-              <div
-                className={`mt-auto -mx-2 -mb-2 sm:-mx-3 sm:-mb-3 md:-mx-3.5 md:-mb-3.5 p-2 sm:p-2.5 md:p-3 pt-3 sm:pt-4 rounded-b-[3px] ${config.textCardBg}`}
-              >
-                <h3
-                  className="font-fraunces text-[12px] sm:text-[14px] md:text-[15px] font-bold tracking-tight leading-tight drop-shadow-sm"
-                  style={{ color: config.titleColor }}
-                >
-                  {data.title}
-                </h3>
-                <p
-                  className="mt-1 font-sora text-[9.5px] sm:text-[11px] md:text-[11.5px] leading-[1.32] sm:leading-[1.38] font-normal line-clamp-3 sm:line-clamp-4"
-                  style={{ color: config.noteColor }}
-                >
-                  {data.note}
+                <p className="font-fraunces text-[10.5px] sm:text-[12px] md:text-[12.5px] font-medium leading-[1.3] drop-shadow-sm italic">
+                  “{data.sentence}”
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
         )}
 
-        {/* 3. DOUBLE-HUNG SASH MUNTINS & CHECK RAIL */}
+        {/* 4-Pane Architectural Window Muntins & Center Astragal Lock */}
         <div
           className={`absolute inset-0 pointer-events-none flex flex-col divide-y-[2px] z-10 transition-colors duration-700 ${
             isActive && !isDark
@@ -2599,7 +4448,6 @@ function BuildingWideWindow({
               : "divide-[#5E4F77]/80"
           }`}
         >
-          {/* Upper Sash with Central Muntin */}
           <div
             className={`flex-1 flex divide-x-[2px] relative ${
               isActive && !isDark
@@ -2614,8 +4462,6 @@ function BuildingWideWindow({
             <div className="flex-1" />
             <div className="flex-1" />
           </div>
-
-          {/* Lower Sash with Meeting Check Rail & Central Muntin */}
           <div
             className={`flex-1 flex divide-x-[2px] relative ${
               isActive && !isDark
@@ -2627,7 +4473,7 @@ function BuildingWideWindow({
                 : "divide-[#5E4F77]/80"
             }`}
           >
-            {/* Center Brass Sash Cam Lock Accent */}
+            {/* Center Brass Window Latch */}
             <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1 rounded-full bg-amber-400/90 shadow-[0_0_3px_black] z-20 pointer-events-none" />
             <div className="flex-1" />
             <div className="flex-1" />
@@ -2635,28 +4481,27 @@ function BuildingWideWindow({
         </div>
       </div>
 
-      {/* 4. PROTRUDING ARCHITECTURAL STONE WINDOW SILL */}
+      {/* Architectural Window Sill Ledge */}
       <div
         className="absolute -bottom-1.5 inset-x-[-3px] h-[4px] rounded-[1px] transition-all duration-700 ease-out z-20"
         style={{
-          backgroundColor:
-            isActive && config
-              ? config.sillGlow
-              : isDark
-              ? "#1E1A29"
-              : "#B0A2C5",
-          boxShadow:
-            isActive && config
-              ? `0 2px 8px ${config.sillGlow}`
-              : isDark
-              ? "0 3px 5px rgba(0,0,0,0.95)"
-              : "0 2px 4px rgba(52,21,78,0.25)",
-          borderTop:
-            isActive && config
-              ? "1px solid rgba(255,255,255,0.7)"
-              : isDark
-              ? "1px solid rgba(255,255,255,0.18)"
-              : "1px solid rgba(255,255,255,0.9)",
+          backgroundColor: isActive
+            ? isDark
+              ? "#543015"
+              : "#D4A373"
+            : isDark
+            ? "#1E1A29"
+            : "#B0A2C5",
+          boxShadow: isActive
+            ? "0 2px 8px rgba(251, 191, 36, 0.45)"
+            : isDark
+            ? "0 3px 5px rgba(0,0,0,0.95)"
+            : "0 2px 4px rgba(52,21,78,0.25)",
+          borderTop: isActive
+            ? "1px solid rgba(254, 240, 138, 0.85)"
+            : isDark
+            ? "1px solid rgba(255,255,255,0.18)"
+            : "1px solid rgba(255,255,255,0.9)",
         }}
       />
     </div>

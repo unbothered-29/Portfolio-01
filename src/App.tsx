@@ -8,9 +8,8 @@ import { WorkSection } from "./components/WorkSection";
 import { StackSection } from "./components/StackSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { AboutSection } from "./components/AboutSection";
-import { ContactSection } from "./components/ContactSection";
-import { CaseStudyModal } from "./components/CaseStudyModal";
 import { ContactModal } from "./components/ContactModal";
+import { CaseStudyModal } from "./components/CaseStudyModal";
 import { GlassCursor } from "./components/GlassCursor";
 import { SomeBitsOfMePage } from "./components/SomeBitsOfMePage";
 import { Project } from "./types";
@@ -27,8 +26,8 @@ function getInitialRoute(): string {
 function MainPortfolioContent() {
   const [currentPath, setCurrentPath] = useState<string>(getInitialRoute);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -52,6 +51,10 @@ function MainPortfolioContent() {
   };
 
   const handleNavigate = (sectionId: string) => {
+    if (sectionId === "contact") {
+      setIsContactModalOpen(true);
+      return;
+    }
     if (currentPath !== "/") {
       navigateTo("/");
       setTimeout(() => {
@@ -83,7 +86,6 @@ function MainPortfolioContent() {
           onNavigateSection={(sectionId) => handleNavigate(sectionId)}
           onOpenContact={() => setIsContactModalOpen(true)}
         />
-        {/* Interactive Contact Drawer Modal */}
         <ContactModal
           isOpen={isContactModalOpen}
           onClose={() => setIsContactModalOpen(false)}
@@ -136,23 +138,22 @@ function MainPortfolioContent() {
           onNavigateToBits={() => navigateTo("/some-bits-of-me")}
         />
 
-        {/* Section 6: Contact & Let's Talk CTA */}
-        <ContactSection
-          onOpenTalk={() => setIsContactModalOpen(true)}
-          onNavigate={handleNavigate}
-        />
+        {/* Clean, minimal unobtrusive footer */}
+        <footer className="relative z-10 w-full py-10 sm:py-12 text-center text-xs text-[#766D8E] dark:text-[#9088A5] font-sora select-none border-t border-[#EAE5F2] dark:border-[#251D38]/60 mt-12">
+          <p>© 2026 Jessicaa Chauhan. All rights reserved.</p>
+        </footer>
       </main>
+
+      {/* Direct Inquiry Contact Modal */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
 
       {/* Interactive Case Study Modal */}
       <CaseStudyModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
-      />
-
-      {/* Interactive Contact Drawer Modal */}
-      <ContactModal
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
       />
 
       {/* 3D Liquid Glass Isometric Cursor */}
