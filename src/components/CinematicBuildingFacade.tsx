@@ -1678,10 +1678,10 @@ export function CinematicBuildingFacade({
                 {/* Portico Cornice & Keystone with Auspicious Om (ॐ) Symbol */}
                 <div className="relative flex flex-col items-center">
                   <div
-                    className={`w-8.5 sm:w-10 h-7 sm:h-8 z-30 -mb-1.5 rounded-t-[3px] border-t-2 border-x-2 shadow-lg flex items-center justify-center p-1 overflow-hidden transition-all duration-700 ${
+                    className={`w-5.5 sm:w-6.5 h-4.5 sm:h-5 z-30 -mb-1 rounded-t-sm border-t border-x shadow-md flex items-center justify-center p-0.5 overflow-hidden transition-all duration-700 ${
                       isDark
-                        ? "bg-[#221A2D] border-amber-400/40 shadow-[0_2px_12px_rgba(0,0,0,0.8),_0_0_15px_rgba(239,68,68,0.35)]"
-                        : "bg-[#F3ECFA] border-[#9E8EB4] shadow-md"
+                        ? "bg-[#221A2D] border-amber-400/40 shadow-[0_1px_8px_rgba(0,0,0,0.7),_0_0_10px_rgba(239,68,68,0.3)]"
+                        : "bg-[#F3ECFA] border-[#9E8EB4] shadow-sm"
                     }`}
                     title="ॐ Auspicious Om Hindu Religious Symbol"
                   >
@@ -1695,7 +1695,7 @@ export function CinematicBuildingFacade({
                         }
                       }}
                       alt="Om Hindu Religious Symbol"
-                      className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
+                      className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_0.5px_1px_rgba(0,0,0,0.35)]"
                     />
                   </div>
 
@@ -1739,12 +1739,12 @@ export function CinematicBuildingFacade({
                           strokeWidth="2"
                         />
 
-                        {/* Central Circular Medallion */}
+                        {/* Central Circular Medallion (divided in two halves) */}
                         <circle
                           cx="80"
                           cy="30"
                           r="18"
-                          fill={isDark ? "rgba(251,191,36,0.14)" : "rgba(255,255,255,0.75)"}
+                          fill={isDark ? "rgba(251,191,36,0.12)" : "rgba(255,255,255,0.75)"}
                           stroke={isDark ? "rgba(0,0,0,0.9)" : "#433554"}
                           strokeWidth="2"
                         />
@@ -1754,25 +1754,8 @@ export function CinematicBuildingFacade({
                           cy="30"
                           r="16"
                           fill="none"
-                          stroke={isDark ? "rgba(251,191,36,0.35)" : "rgba(100,80,120,0.3)"}
+                          stroke={isDark ? "rgba(251,191,36,0.3)" : "rgba(100,80,120,0.3)"}
                           strokeWidth="0.8"
-                        />
-
-                        {/* Stained Glass Medallion Rosette Jewel */}
-                        <circle
-                          cx="80"
-                          cy="30"
-                          r="8.5"
-                          fill={isDark ? "rgba(251,191,36,0.25)" : "rgba(254,243,199,0.9)"}
-                          stroke={isDark ? "rgba(245,158,11,0.7)" : "#785890"}
-                          strokeWidth="1.2"
-                        />
-                        <circle
-                          cx="80"
-                          cy="30"
-                          r="3.5"
-                          fill={isDark ? "#FBBF24" : "#D97706"}
-                          opacity={isDark ? 0.95 : 0.8}
                         />
 
                         {/* Radiating Sunburst Muntin Spokes extending outward from circle */}
@@ -1826,23 +1809,57 @@ export function CinematicBuildingFacade({
                           strokeWidth="1.6"
                         />
 
-                        {/* Vertical Mullion Bars connecting arch to medallion top and bottom */}
+                        {/* Vertical Center Dividing Mullion Bar (Splits circle into two halves) */}
                         <line
                           x1="80"
                           y1="0"
-                          x2="80"
-                          y2="12"
-                          stroke={isDark ? "rgba(0,0,0,0.95)" : "#382B46"}
-                          strokeWidth="2"
-                        />
-                        <line
-                          x1="80"
-                          y1="48"
                           x2="80"
                           y2="52"
                           stroke={isDark ? "rgba(0,0,0,0.95)" : "#382B46"}
                           strokeWidth="2"
                         />
+
+                        {/* NUMBER "2" IN LEFT HALF OF THE CIRCLE */}
+                        <text
+                          x="70.5"
+                          y="30"
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fontFamily="Fraunces, 'Playfair Display', Georgia, serif"
+                          fontSize="15"
+                          fontWeight="bold"
+                          fill={isDark ? "#FEF08A" : "#3B1E08"}
+                          stroke={isDark ? "#D97706" : "none"}
+                          strokeWidth={isDark ? "0.4" : "0"}
+                          style={{
+                            filter: isDark
+                              ? "drop-shadow(0 0 2.5px rgba(251,191,36,0.8)) drop-shadow(0 1px 2px rgba(0,0,0,0.9))"
+                              : "drop-shadow(0 1px 1px rgba(255,255,255,0.7))",
+                          }}
+                        >
+                          2
+                        </text>
+
+                        {/* NUMBER "7" IN RIGHT HALF OF THE CIRCLE */}
+                        <text
+                          x="89.5"
+                          y="30"
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fontFamily="Fraunces, 'Playfair Display', Georgia, serif"
+                          fontSize="15"
+                          fontWeight="bold"
+                          fill={isDark ? "#FEF08A" : "#3B1E08"}
+                          stroke={isDark ? "#D97706" : "none"}
+                          strokeWidth={isDark ? "0.4" : "0"}
+                          style={{
+                            filter: isDark
+                              ? "drop-shadow(0 0 2.5px rgba(251,191,36,0.8)) drop-shadow(0 1px 2px rgba(0,0,0,0.9))"
+                              : "drop-shadow(0 1px 1px rgba(255,255,255,0.7))",
+                          }}
+                        >
+                          7
+                        </text>
                       </svg>
                     </div>
 
