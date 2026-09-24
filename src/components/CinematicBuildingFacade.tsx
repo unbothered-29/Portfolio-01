@@ -1678,21 +1678,24 @@ export function CinematicBuildingFacade({
                 {/* Portico Cornice & Keystone with Auspicious Om (ॐ) Symbol */}
                 <div className="relative flex flex-col items-center">
                   <div
-                    className={`w-7 sm:w-8 h-5.5 sm:h-6 z-20 -mb-1 rounded-t-sm border-t border-x shadow-md flex items-center justify-center p-0.5 overflow-hidden transition-colors duration-700 ${
-                      isDark ? "bg-[#251E30] border-white/20 shadow-[0_0_10px_rgba(239,68,68,0.25)]" : "bg-[#EDE6F5] border-white shadow-sm"
+                    className={`w-8.5 sm:w-10 h-7 sm:h-8 z-30 -mb-1.5 rounded-t-[3px] border-t-2 border-x-2 shadow-lg flex items-center justify-center p-1 overflow-hidden transition-all duration-700 ${
+                      isDark
+                        ? "bg-[#221A2D] border-amber-400/40 shadow-[0_2px_12px_rgba(0,0,0,0.8),_0_0_15px_rgba(239,68,68,0.35)]"
+                        : "bg-[#F3ECFA] border-[#9E8EB4] shadow-md"
                     }`}
                     title="ॐ Auspicious Om Hindu Religious Symbol"
                   >
                     <img
-                      src="https://img.magnific.com/premium-vector/om-hindu-religious-symbol-red-color-icon-vector_34480-1231.jpg"
+                      src="/images/om-symbol.png"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        if (target.src !== "/images/om-symbol.jpg") {
-                          target.src = "/images/om-symbol.jpg";
+                        if (!target.dataset.fallback) {
+                          target.dataset.fallback = "1";
+                          target.src = "https://img.magnific.com/premium-vector/om-hindu-religious-symbol-red-color-icon-vector_34480-1231.jpg";
                         }
                       }}
                       alt="Om Hindu Religious Symbol"
-                      className="w-full h-full object-contain mix-blend-multiply dark:mix-blend-lighten rounded-[1px] select-none pointer-events-none drop-shadow-sm filter contrast-110"
+                      className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
                     />
                   </div>
 
@@ -1702,7 +1705,7 @@ export function CinematicBuildingFacade({
                       isDark ? "bg-[#0A0714] border-[#2C263E]" : "bg-[#D3C7E3] border-[#9E8EB4]"
                     }`}
                   >
-                    {/* Semi-circular Fanlight Transom Window with Number "27" in central divided medallion */}
+                    {/* Semi-circular Fanlight Transom Window with central architectural sunburst medallion (no numbers) */}
                     <div
                       className={`relative w-full h-12 sm:h-14 border-b rounded-t-full overflow-hidden flex items-center justify-center transition-colors duration-700 ${
                         isDark ? "bg-[#181424] border-white/20" : "bg-white/85 border-[#7A6B92]"
@@ -1713,7 +1716,7 @@ export function CinematicBuildingFacade({
                         <div className="absolute inset-0 bg-gradient-to-t from-amber-400/40 via-amber-300/15 to-transparent blur-[1px]" />
                       )}
 
-                      {/* Precision Fanlight Transom Muntins & "2" / "7" Medallion */}
+                      {/* Precision Fanlight Transom Muntins & Leaded Glass Medallion */}
                       <svg
                         viewBox="0 0 160 52"
                         className="w-full h-full pointer-events-none select-none overflow-visible"
@@ -1736,12 +1739,12 @@ export function CinematicBuildingFacade({
                           strokeWidth="2"
                         />
 
-                        {/* Central Circular Medallion (divided in two halves) */}
+                        {/* Central Circular Medallion */}
                         <circle
                           cx="80"
                           cy="30"
                           r="18"
-                          fill={isDark ? "rgba(251,191,36,0.12)" : "rgba(255,255,255,0.75)"}
+                          fill={isDark ? "rgba(251,191,36,0.14)" : "rgba(255,255,255,0.75)"}
                           stroke={isDark ? "rgba(0,0,0,0.9)" : "#433554"}
                           strokeWidth="2"
                         />
@@ -1751,8 +1754,25 @@ export function CinematicBuildingFacade({
                           cy="30"
                           r="16"
                           fill="none"
-                          stroke={isDark ? "rgba(251,191,36,0.3)" : "rgba(100,80,120,0.3)"}
+                          stroke={isDark ? "rgba(251,191,36,0.35)" : "rgba(100,80,120,0.3)"}
                           strokeWidth="0.8"
+                        />
+
+                        {/* Stained Glass Medallion Rosette Jewel */}
+                        <circle
+                          cx="80"
+                          cy="30"
+                          r="8.5"
+                          fill={isDark ? "rgba(251,191,36,0.25)" : "rgba(254,243,199,0.9)"}
+                          stroke={isDark ? "rgba(245,158,11,0.7)" : "#785890"}
+                          strokeWidth="1.2"
+                        />
+                        <circle
+                          cx="80"
+                          cy="30"
+                          r="3.5"
+                          fill={isDark ? "#FBBF24" : "#D97706"}
+                          opacity={isDark ? 0.95 : 0.8}
                         />
 
                         {/* Radiating Sunburst Muntin Spokes extending outward from circle */}
@@ -1806,57 +1826,23 @@ export function CinematicBuildingFacade({
                           strokeWidth="1.6"
                         />
 
-                        {/* Vertical Center Dividing Mullion Bar (Splits circle into two halves) */}
+                        {/* Vertical Mullion Bars connecting arch to medallion top and bottom */}
                         <line
                           x1="80"
                           y1="0"
+                          x2="80"
+                          y2="12"
+                          stroke={isDark ? "rgba(0,0,0,0.95)" : "#382B46"}
+                          strokeWidth="2"
+                        />
+                        <line
+                          x1="80"
+                          y1="48"
                           x2="80"
                           y2="52"
                           stroke={isDark ? "rgba(0,0,0,0.95)" : "#382B46"}
                           strokeWidth="2"
                         />
-
-                        {/* NUMBER "2" IN LEFT HALF OF THE CIRCLE */}
-                        <text
-                          x="70.5"
-                          y="30"
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          fontFamily="Fraunces, 'Playfair Display', Georgia, serif"
-                          fontSize="15"
-                          fontWeight="bold"
-                          fill={isDark ? "#FEF08A" : "#3B1E08"}
-                          stroke={isDark ? "#D97706" : "none"}
-                          strokeWidth={isDark ? "0.4" : "0"}
-                          style={{
-                            filter: isDark
-                              ? "drop-shadow(0 0 2.5px rgba(251,191,36,0.8)) drop-shadow(0 1px 2px rgba(0,0,0,0.9))"
-                              : "drop-shadow(0 1px 1px rgba(255,255,255,0.7))",
-                          }}
-                        >
-                          2
-                        </text>
-
-                        {/* NUMBER "7" IN RIGHT HALF OF THE CIRCLE */}
-                        <text
-                          x="89.5"
-                          y="30"
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          fontFamily="Fraunces, 'Playfair Display', Georgia, serif"
-                          fontSize="15"
-                          fontWeight="bold"
-                          fill={isDark ? "#FEF08A" : "#3B1E08"}
-                          stroke={isDark ? "#D97706" : "none"}
-                          strokeWidth={isDark ? "0.4" : "0"}
-                          style={{
-                            filter: isDark
-                              ? "drop-shadow(0 0 2.5px rgba(251,191,36,0.8)) drop-shadow(0 1px 2px rgba(0,0,0,0.9))"
-                              : "drop-shadow(0 1px 1px rgba(255,255,255,0.7))",
-                          }}
-                        >
-                          7
-                        </text>
                       </svg>
                     </div>
 
@@ -1888,14 +1874,20 @@ export function CinematicBuildingFacade({
 
                       {/* 
                         INTERIOR VESTIBULE & FOYER
-                        Revealed inside when double doors swing open
+                        Visible strictly only when double doors are opened
                       */}
                       <div
-                        className={`absolute inset-0 border overflow-hidden flex flex-col justify-between transition-colors duration-700 ${
+                        className={`absolute inset-0 border overflow-hidden flex flex-col justify-between transition-opacity duration-500 z-10 ${
+                          isDoorOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                        } ${
                           isDark
                             ? "bg-[#140D18] border-black"
                             : "bg-[#F5EDE4] border-[#3D2217]"
                         }`}
+                        style={{
+                          visibility: isDoorOpen ? "visible" : "hidden",
+                        }}
+                        aria-hidden={!isDoorOpen}
                       >
                         {/* Vestibule ambient illumination */}
                         <div
@@ -1931,16 +1923,16 @@ export function CinematicBuildingFacade({
 
                       {/* 
                         3D DOUBLE DOORS (Left Leaf & Right Leaf)
-                        Swinging realistically inward into the brownstone vestibule
+                        Swinging realistically inward into the brownstone vestibule when opened
                       */}
-                      <div className="absolute inset-0 flex divide-x pointer-events-none [transform-style:preserve-3d]">
+                      <div className="absolute inset-0 flex divide-x pointer-events-none [transform-style:preserve-3d] z-20">
                         {/* Left Door Leaf */}
                         <motion.div
                           animate={{
                             rotateY: isDoorOpen ? -82 : 0,
                           }}
                           transition={{
-                            duration: 0.7,
+                            duration: 0.65,
                             ease: [0.16, 1, 0.3, 1],
                           }}
                           style={{
@@ -1952,13 +1944,13 @@ export function CinematicBuildingFacade({
                               : "bg-[#4E2719] border-[#2A150D] shadow-md"
                           }`}
                         >
-                          {/* Upper glass viewing light panel */}
+                          {/* Upper wood recessed panel */}
                           <div
-                            className={`w-full h-7 rounded-sm border shadow-inner relative overflow-hidden ${
-                              isDark ? "bg-[#110D18] border-black/80" : "bg-[#6B4638] border-[#3D2217]"
+                            className={`w-full h-7 rounded-sm border shadow-inner relative overflow-hidden flex items-center justify-center ${
+                              isDark ? "bg-[#18110F] border-black/80" : "bg-[#5C3222] border-[#3D2217]"
                             }`}
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+                            <div className="w-[85%] h-[75%] rounded-[1px] border border-black/25 bg-black/10 shadow-inner" />
                           </div>
                           {/* Lower wood recessed panel with brass knob */}
                           <div
@@ -1966,8 +1958,9 @@ export function CinematicBuildingFacade({
                               isDark ? "bg-[#160E0B] border-black" : "bg-[#3D2015] border-[#24130C]"
                             }`}
                           >
+                            <div className="absolute inset-1 rounded-[1px] border border-black/20 bg-black/10" />
                             {/* Polished brass lever handle & keyhole escutcheon */}
-                            <div className="w-1.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_4px_#F59E0B] flex flex-col items-center justify-center">
+                            <div className="relative z-10 w-1.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_4px_#F59E0B] flex flex-col items-center justify-center">
                               <div className="w-[1px] h-1 bg-black/70" />
                             </div>
                           </div>
@@ -1981,7 +1974,7 @@ export function CinematicBuildingFacade({
                             rotateY: isDoorOpen ? 82 : 0,
                           }}
                           transition={{
-                            duration: 0.7,
+                            duration: 0.65,
                             ease: [0.16, 1, 0.3, 1],
                           }}
                           style={{
@@ -1993,13 +1986,13 @@ export function CinematicBuildingFacade({
                               : "bg-[#4E2719] border-[#2A150D] shadow-md"
                           }`}
                         >
-                          {/* Upper glass viewing light panel */}
+                          {/* Upper wood recessed panel */}
                           <div
-                            className={`w-full h-7 rounded-sm border shadow-inner relative overflow-hidden ${
-                              isDark ? "bg-[#110D18] border-black/80" : "bg-[#6B4638] border-[#3D2217]"
+                            className={`w-full h-7 rounded-sm border shadow-inner relative overflow-hidden flex items-center justify-center ${
+                              isDark ? "bg-[#18110F] border-black/80" : "bg-[#5C3222] border-[#3D2217]"
                             }`}
                           >
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+                            <div className="w-[85%] h-[75%] rounded-[1px] border border-black/25 bg-black/10 shadow-inner" />
                           </div>
                           {/* Lower wood recessed panel with mail slot & knob */}
                           <div
@@ -2007,10 +2000,11 @@ export function CinematicBuildingFacade({
                               isDark ? "bg-[#160E0B] border-black" : "bg-[#3D2015] border-[#24130C]"
                             }`}
                           >
+                            <div className="absolute inset-1 rounded-[1px] border border-black/20 bg-black/10" />
                             {/* Brass mail slot */}
-                            <div className="w-4 h-1 rounded-[0.5px] bg-amber-500 shadow-[inset_0_0.5px_0.5px_black]" />
+                            <div className="relative z-10 w-4 h-1 rounded-[0.5px] bg-amber-500 shadow-[inset_0_0.5px_0.5px_black]" />
                             {/* Brass handle */}
-                            <div className="w-1.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_4px_#F59E0B] flex flex-col items-center justify-center">
+                            <div className="relative z-10 w-1.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_4px_#F59E0B] flex flex-col items-center justify-center">
                               <div className="w-[1px] h-1 bg-black/70" />
                             </div>
                           </div>
