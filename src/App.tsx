@@ -8,6 +8,7 @@ import { WorkSection } from "./components/WorkSection";
 import { StackSection } from "./components/StackSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { AboutSection } from "./components/AboutSection";
+import { ContactSection } from "./components/ContactSection";
 import { ContactModal } from "./components/ContactModal";
 import { CaseStudyModal } from "./components/CaseStudyModal";
 import { GlassCursor } from "./components/GlassCursor";
@@ -52,7 +53,8 @@ function MainPortfolioContent() {
 
   const handleNavigate = (sectionId: string) => {
     if (sectionId === "contact") {
-      setIsContactModalOpen(true);
+      window.location.href =
+        "mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry";
       return;
     }
     if (currentPath !== "/") {
@@ -138,10 +140,11 @@ function MainPortfolioContent() {
           onNavigateToBits={() => navigateTo("/some-bits-of-me")}
         />
 
-        {/* Clean, minimal unobtrusive footer */}
-        <footer className="relative z-10 w-full py-10 sm:py-12 text-center text-xs text-[#766D8E] dark:text-[#9088A5] font-sora select-none border-t border-[#EAE5F2] dark:border-[#251D38]/60 mt-12">
-          <p>© 2026 Jessicaa Chauhan. All rights reserved.</p>
-        </footer>
+        {/* Section 6: Signature Editorial Contact & Giant Wordmark Footer */}
+        <ContactSection
+          onOpenTalk={() => setIsContactModalOpen(true)}
+          onNavigate={handleNavigate}
+        />
       </main>
 
       {/* Direct Inquiry Contact Modal */}

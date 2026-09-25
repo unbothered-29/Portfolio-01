@@ -74,10 +74,14 @@ export interface WindowDetailConfig {
     | "minimal";
   silhouette?:
     | "hanging-ivy"
+    | "cold-coffee-cup"
+    | "cold-coffee-can"
     | "books-coffee"
     | "glow-lamp"
     | "lush-monstera"
     | "art-easel"
+    | "vintage-camera"
+    | "desk-headphones"
     | "clock-turntable"
     | "flower-box";
   specularAngle: string;
@@ -88,14 +92,14 @@ const WINDOW_DETAILS: WindowDetailConfig[][] = [
   [
     { blindStyle: "drapes-ochre", silhouette: "lush-monstera", specularAngle: "125deg" }, // Royal Purple Velvet Split Drapes with Potted Monstera
     { blindStyle: "blinds-half", specularAngle: "135deg" }, // Interactive Blue
-    { blindStyle: "shade-half", silhouette: "books-coffee", specularAngle: "145deg" }, // Minimalist Roller Shade
+    { blindStyle: "shade-half", silhouette: "cold-coffee-cup", specularAngle: "145deg" }, // Minimalist Roller Shade with Iced Cold Coffee Cup
     { blindStyle: "blinds-three-quarter", silhouette: "hanging-ivy", specularAngle: "130deg" }, // Architectural Horizontal Blinds
   ],
-  // Floor 1
+  // Floor 1 (Second row)
   [
-    { blindStyle: "shade-half", silhouette: "art-easel", specularAngle: "140deg" }, // Studio Roller Shade
+    { blindStyle: "shade-half", silhouette: "vintage-camera", specularAngle: "140deg" }, // Studio Roller Shade with Vintage Camera on Window Sill
     { blindStyle: "drapes-terracotta", silhouette: "lush-monstera", specularAngle: "120deg" }, // Purple Left-Swept Drape
-    { blindStyle: "blinds-half", silhouette: "glow-lamp", specularAngle: "135deg" }, // Horizontal Blinds with Warm Lamp
+    { blindStyle: "minimal", silhouette: "desk-headphones", specularAngle: "135deg" }, // Warmly Lit Studio with Solid Oak Desk & Headphones
     { blindStyle: "curtains-sheer", specularAngle: "150deg" }, // Interactive Green - Romantic Lavender Lace Curtains & Scalloped Pelmet
   ],
   // Floor 2
@@ -108,7 +112,7 @@ const WINDOW_DETAILS: WindowDetailConfig[][] = [
   // Floor 3 (Ground floor)
   [
     { blindStyle: "blinds-half", silhouette: "flower-box", specularAngle: "135deg" }, // Flower Box Balcony
-    { blindStyle: "drapes-navy", silhouette: "books-coffee", specularAngle: "120deg" }, // Purple Right-Swept Drape
+    { blindStyle: "drapes-navy", silhouette: "glow-lamp", specularAngle: "120deg" }, // Purple Right-Swept Drape with Warm Glow Lamp
     { blindStyle: "shade-half", specularAngle: "140deg" }, // Interactive Red
     { blindStyle: "curtains-austrian", silhouette: "flower-box", specularAngle: "130deg" }, // Scalloped Austrian Balloon Cloud Valance with Flowers
   ],
@@ -2264,6 +2268,10 @@ function BuildingWideWindow({
             ? isDark
               ? "border-amber-300/40 bg-[#16120C]"
               : "border-amber-400/50 bg-[#FFFDF5]"
+            : detail.silhouette === "desk-headphones"
+            ? isDark
+              ? "bg-gradient-to-b from-[#1C1425] via-[#2A1D1A] to-[#362217] shadow-[inset_0_2px_8px_rgba(0,0,0,0.6)] border-[#D97706]/45"
+              : "bg-gradient-to-b from-[#FEF9EE] via-[#FBF0D9] to-[#F5E2C4] shadow-[inset_0_1px_5px_rgba(52,21,78,0.1)] border-[#B45309]/50"
             : isDark
             ? "bg-[#090810] opacity-95 shadow-[inset_0_2px_8px_rgba(0,0,0,0.9)] border-[#8E7EA8]/45"
             : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-95 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)] border-[#5E4F77]/60"
@@ -3348,142 +3356,377 @@ function BuildingWideWindow({
               </div>
             )}
 
-            {/* 4. Books Stack with Steaming Ceramic Coffee Cup & Saucer */}
-            {detail.silhouette === "books-coffee" && (
-              <div className="absolute bottom-1 right-1.5 z-10 pointer-events-none opacity-95">
-                <svg viewBox="0 0 44 38" className="w-9 sm:w-11 h-8 sm:h-10 overflow-visible">
+            {/* 4. Chilled Iced Cold Coffee Cup (Jessica's Favorite Drink - Matching Photo) */}
+            {(detail.silhouette === "cold-coffee-cup" ||
+              detail.silhouette === "cold-coffee-can" ||
+              detail.silhouette === "books-coffee") && (
+              <div
+                className="absolute bottom-0 right-2 z-10 pointer-events-auto group/coffeecup"
+                title="Iced Cold Coffee • Jessica's Favorite Drink"
+              >
+                {/* Subtle Chilled Condensation Aura / Cool Frost Glow */}
+                <div className="absolute -inset-1 rounded-full bg-amber-400/10 dark:bg-cyan-400/10 blur-sm pointer-events-none opacity-60 group-hover/coffeecup:opacity-100 transition-opacity" />
+
+                <svg viewBox="0 0 54 84" className="w-5 sm:w-6 md:w-7 h-7.5 sm:h-9 md:h-10.5 overflow-visible drop-shadow-md">
                   <defs>
-                    {/* Ceramic Glaze Gradient */}
-                    <linearGradient id="ceramicCupGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor={isDark ? "#D8D3E8" : "#FFFFFF"} />
-                      <stop offset="40%" stopColor={isDark ? "#EDE8FA" : "#F8FAFC"} />
-                      <stop offset="80%" stopColor={isDark ? "#B9B0D1" : "#E2E8F0"} />
-                      <stop offset="100%" stopColor={isDark ? "#9A8FB8" : "#CBD5E1"} />
+                    {/* Clear Cup Body Clip */}
+                    <clipPath id="icedCupLiquidClip">
+                      <path d="M 6.8 20 L 14.2 75.5 Q 27 77.8 39.8 75.5 L 47.2 20 Z" />
+                    </clipPath>
+
+                    {/* Rich Creamy Iced Latte / Cold Coffee Liquid Gradient */}
+                    <linearGradient id="icedLatteFluidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#E6A15C" />
+                      <stop offset="6%" stopColor="#D98836" />
+                      <stop offset="16%" stopColor="#B86924" />
+                      <stop offset="35%" stopColor="#874719" />
+                      <stop offset="60%" stopColor="#633211" />
+                      <stop offset="85%" stopColor="#48220A" />
+                      <stop offset="100%" stopColor="#2D1305" />
                     </linearGradient>
 
-                    {/* Dark Roast Coffee Crema */}
-                    <radialGradient id="coffeeCremaGrad" cx="45%" cy="40%" r="55%">
-                      <stop offset="0%" stopColor="#C4844D" />
-                      <stop offset="35%" stopColor="#8A481B" />
-                      <stop offset="75%" stopColor="#45210D" />
-                      <stop offset="100%" stopColor="#2E1305" />
-                    </radialGradient>
-
-                    {/* Book Spines Gradients */}
-                    <linearGradient id="bookBottomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor={isDark ? "#1E3A8A" : "#1E40AF"} />
-                      <stop offset="50%" stopColor={isDark ? "#1D4ED8" : "#2563EB"} />
-                      <stop offset="100%" stopColor={isDark ? "#172554" : "#1E3A8A"} />
+                    {/* Cream Marbling Gradient for swirling coffee waves */}
+                    <linearGradient id="creamySwirlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#F5D09D" stopOpacity="0.85" />
+                      <stop offset="40%" stopColor="#D98A3B" stopOpacity="0.75" />
+                      <stop offset="100%" stopColor="#8A481B" stopOpacity="0" />
                     </linearGradient>
 
-                    <linearGradient id="bookMidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor={isDark ? "#9A3412" : "#C2410C"} />
-                      <stop offset="50%" stopColor={isDark ? "#C2410C" : "#EA580C"} />
-                      <stop offset="100%" stopColor={isDark ? "#7C2D12" : "#9A3412"} />
+                    {/* Transparent Plastic Sheen Gradient */}
+                    <linearGradient id="clearPlasticSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.5" />
+                      <stop offset="15%" stopColor="#FFFFFF" stopOpacity="0.2" />
+                      <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.03" />
+                      <stop offset="75%" stopColor="#BAE6FD" stopOpacity="0.08" />
+                      <stop offset="90%" stopColor="#FFFFFF" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.45" />
                     </linearGradient>
 
-                    <linearGradient id="bookTopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor={isDark ? "#581C87" : "#7E22CE"} />
-                      <stop offset="50%" stopColor={isDark ? "#6B21A8" : "#9333EA"} />
-                      <stop offset="100%" stopColor={isDark ? "#3B0764" : "#6B21A8"} />
+                    {/* Clear Ice Cube Crystalline Shading */}
+                    <linearGradient id="crystalIceTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                      <stop offset="35%" stopColor="#FDE68A" stopOpacity="0.8" />
+                      <stop offset="70%" stopColor="#BAE6FD" stopOpacity="0.65" />
+                      <stop offset="100%" stopColor="#E0F2FE" stopOpacity="0.4" />
+                    </linearGradient>
+
+                    <linearGradient id="crystalIceSideGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.75" />
+                      <stop offset="45%" stopColor="#92400E" stopOpacity="0.85" />
+                      <stop offset="100%" stopColor="#451A03" stopOpacity="0.9" />
+                    </linearGradient>
+
+                    <linearGradient id="iceCubeDeepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3E1A07" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#1C0A02" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#451A03" stopOpacity="0.75" />
+                    </linearGradient>
+
+                    {/* Black Straw Cylinder Gradient */}
+                    <linearGradient id="blackStrawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#111827" />
+                      <stop offset="30%" stopColor="#374151" />
+                      <stop offset="60%" stopColor="#4B5563" />
+                      <stop offset="85%" stopColor="#1F2937" />
+                      <stop offset="100%" stopColor="#0B0F17" />
+                    </linearGradient>
+
+                    {/* Clear Plastic Lid Rim Gradient */}
+                    <linearGradient id="clearLidRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.7" />
+                      <stop offset="25%" stopColor="#BAE6FD" stopOpacity="0.4" />
+                      <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.85" />
+                      <stop offset="80%" stopColor="#BAE6FD" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.6" />
                     </linearGradient>
                   </defs>
 
-                  {/* Rising Steam Wisps */}
-                  <g opacity="0.65" className="animate-pulse">
+                  {/* ━━━━ GROUND CONTACT SHADOW ━━━━ */}
+                  <ellipse cx="27" cy="78" rx="14" ry="2.8" fill="#000000" opacity={isDark ? "0.65" : "0.35"} />
+
+                  {/* ━━━━ MATTE BLACK STRAW (Extending from top-left through lid) ━━━━ */}
+                  <g>
+                    {/* Straw Body - Angled leaning left as shown in photo */}
+                    <polygon
+                      points="16,24 13.5,24 4.5,2.5 7.5,1.5"
+                      fill="url(#blackStrawGrad)"
+                      stroke="#09090B"
+                      strokeWidth="0.3"
+                    />
+                    {/* Straw Top Cut Opening */}
+                    <ellipse cx="6" cy="2" rx="1.6" ry="0.6" transform="rotate(-24 6 2)" fill="#27272A" stroke="#18181B" strokeWidth="0.3" />
+                    {/* Specular Ridge on Straw */}
+                    <line x1="14.8" y1="24" x2="6.2" y2="2" stroke="#9CA3AF" strokeWidth="0.35" opacity="0.6" />
+                  </g>
+
+                  {/* ━━━━ CUP INTERIOR COFFEE LIQUID & ICE (Clipped to cup silhouette) ━━━━ */}
+                  <g clipPath="url(#icedCupLiquidClip)">
+                    {/* Base Coffee Liquid Fill */}
+                    <rect x="5" y="19" width="44" height="60" fill="url(#icedLatteFluidGrad)" />
+
+                    {/* Darker Submerged Ice Cubes visible through translucent iced coffee */}
+                    {/* Submerged Ice Cube 1 (mid left) */}
+                    <polygon
+                      points="10,43 14,39 21,41 18,52 11,50"
+                      fill="url(#iceCubeDeepGrad)"
+                      stroke="#5C2607"
+                      strokeWidth="0.4"
+                    />
+                    {/* Submerged Ice Cube 2 (upper center) */}
+                    <polygon
+                      points="23,31 30,29 33,38 27,43 21,37"
+                      fill="url(#iceCubeDeepGrad)"
+                      stroke="#632B09"
+                      strokeWidth="0.4"
+                    />
+                    {/* Submerged Ice Cube 3 (mid right) */}
+                    <polygon
+                      points="36,44 42,42 43,54 37,56 34,48"
+                      fill="url(#iceCubeDeepGrad)"
+                      stroke="#4D2005"
+                      strokeWidth="0.4"
+                    />
+                    {/* Submerged Ice Cube 4 (lower center) */}
+                    <polygon
+                      points="22,57 30,55 32,65 24,67 20,61"
+                      fill="url(#iceCubeDeepGrad)"
+                      stroke="#3B1804"
+                      strokeWidth="0.4"
+                    />
+                    {/* Submerged Ice Cube 5 (lower left) */}
+                    <polygon
+                      points="14,60 19,59 19,68 13,67"
+                      fill="url(#iceCubeDeepGrad)"
+                      stroke="#3B1804"
+                      strokeWidth="0.35"
+                    />
+
+                    {/* Cream Marbling Waves (Natural Latte Swirls) */}
                     <path
-                      d="M 23 9 Q 21 5 24 2 Q 27 0 25 -2"
-                      stroke={isDark ? "#E2E8F0" : "#94A3B8"}
-                      strokeWidth="0.8"
-                      strokeLinecap="round"
-                      fill="none"
+                      d="M 6.8 25 Q 16 23 27 26 Q 38 29 47.2 24 L 47.2 30 Q 36 34 25 30 Q 15 28 6.8 31 Z"
+                      fill="url(#creamySwirlGrad)"
                     />
                     <path
-                      d="M 27 9 Q 29 6 27 3 Q 25 1 28 -1"
-                      stroke={isDark ? "#E2E8F0" : "#94A3B8"}
-                      strokeWidth="0.7"
-                      strokeLinecap="round"
-                      fill="none"
+                      d="M 8 36 Q 18 39 30 35 Q 40 33 46 38 L 45 41 Q 38 36 28 38 Q 16 42 9 39 Z"
+                      fill="#F5D09D"
+                      opacity="0.28"
+                    />
+                    <path
+                      d="M 12 48 Q 22 51 32 47 Q 40 45 44 49 L 43 51 Q 38 48 30 49 Q 20 53 13 50 Z"
+                      fill="#FDE68A"
+                      opacity="0.2"
                     />
                   </g>
 
-                  {/* Ceramic Saucer */}
-                  <ellipse cx="25" cy="18.5" rx="10" ry="2.2" fill="url(#ceramicCupGrad)" stroke={isDark ? "#7C6F99" : "#94A3B8"} strokeWidth="0.5" />
-                  <ellipse cx="25" cy="18" rx="7.5" ry="1.4" fill={isDark ? "#AFA5C7" : "#E2E8F0"} />
+                  {/* ━━━━ GLISTENING CRYSTAL ICE CUBES FLOATING AT TOP (Under Lid) ━━━━ */}
+                  {/* Floating Ice Cube 1 (Front Left) */}
+                  <g>
+                    {/* Top facet */}
+                    <polygon points="12,22 17,19 25,20 20,24" fill="url(#crystalIceTopGrad)" stroke="#FFFFFF" strokeWidth="0.4" />
+                    {/* Left front facet */}
+                    <polygon points="12,22 20,24 19,29 11,27" fill="url(#crystalIceSideGrad)" stroke="#FFFFFF" strokeWidth="0.3" />
+                    {/* Right facet */}
+                    <polygon points="20,24 25,20 24,26 19,29" fill="url(#crystalIceSideGrad)" stroke="#E0F2FE" strokeWidth="0.3" />
+                  </g>
 
-                  {/* Ceramic Cup Body */}
+                  {/* Floating Ice Cube 2 (Center Peak - Large faceted crystal) */}
+                  <g>
+                    <polygon points="21,17 28,14 36,16 30,20" fill="url(#crystalIceTopGrad)" stroke="#FFFFFF" strokeWidth="0.45" />
+                    <polygon points="21,17 30,20 29,27 20,23" fill="url(#crystalIceSideGrad)" stroke="#FFFFFF" strokeWidth="0.35" />
+                    <polygon points="30,20 36,16 35,23 29,27" fill="url(#crystalIceSideGrad)" stroke="#FED7AA" strokeWidth="0.35" />
+                  </g>
+
+                  {/* Floating Ice Cube 3 (Top Right Peak) */}
+                  <g>
+                    <polygon points="33,18 39,15 45,17 39,21" fill="url(#crystalIceTopGrad)" stroke="#FFFFFF" strokeWidth="0.45" />
+                    <polygon points="33,18 39,21 38,26 32,23" fill="url(#crystalIceSideGrad)" stroke="#FFFFFF" strokeWidth="0.3" />
+                    <polygon points="39,21 45,17 44,24 38,26" fill="url(#crystalIceSideGrad)" stroke="#FFFFFF" strokeWidth="0.3" />
+                  </g>
+
+                  {/* Floating Ice Cube 4 (Far Left against rim) */}
+                  <polygon points="8,23 13,20 14,26 9,28" fill="url(#crystalIceTopGrad)" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.9" />
+
+                  {/* Floating Ice Cube 5 (Far Right against rim) */}
+                  <polygon points="41,20 46,22 45,28 39,26" fill="url(#crystalIceTopGrad)" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.9" />
+
+                  {/* Crystalline Specular Sparkles / Ice Highlights on cubes */}
+                  <circle cx="21" cy="17" r="0.6" fill="#FFFFFF" />
+                  <circle cx="30" cy="20" r="0.6" fill="#FFFFFF" />
+                  <circle cx="39" cy="15" r="0.55" fill="#FFFFFF" />
+                  <circle cx="17" cy="19" r="0.5" fill="#FFFFFF" />
+                  <circle cx="36" cy="16" r="0.5" fill="#FFFFFF" />
+
+                  {/* ━━━━ CLEAR PLASTIC TAKEAWAY CUP STRUCTURAL RIDGES ━━━━ */}
+                  {/* Outer Cup Boundary / Glass Transparency Layer */}
                   <path
-                    d="M 18 11 L 32 11 Q 31 17.5 25 18 Q 19 17.5 18 11 Z"
-                    fill="url(#ceramicCupGrad)"
-                    stroke={isDark ? "#7C6F99" : "#94A3B8"}
+                    d="M 6.8 20 L 14.2 75.5 Q 27 77.8 39.8 75.5 L 47.2 20 Z"
+                    fill="url(#clearPlasticSheen)"
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="0.4"
+                  />
+
+                  {/* Upper Horizontal Recessed Ridge Ring on Cup (Identical to photo) */}
+                  <g>
+                    <path
+                      d="M 9.5 35 Q 27 38.5 44.5 35"
+                      stroke="#FFFFFF"
+                      strokeWidth="0.75"
+                      strokeLinecap="round"
+                      fill="none"
+                      opacity="0.8"
+                    />
+                    <path
+                      d="M 9.7 36 Q 27 39.5 44.3 36"
+                      stroke="#2E1308"
+                      strokeWidth="0.6"
+                      strokeLinecap="round"
+                      fill="none"
+                      opacity="0.45"
+                    />
+                  </g>
+
+                  {/* Lower Subtle Structural Plastic Groove */}
+                  <path
+                    d="M 12.8 62 Q 27 64.5 41.2 62"
+                    stroke="#FFFFFF"
+                    strokeWidth="0.4"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.45"
+                  />
+
+                  {/* Base Rolled Bottom Lip */}
+                  <path
+                    d="M 14.2 75.5 Q 27 77.8 39.8 75.5"
+                    stroke="#FFFFFF"
+                    strokeWidth="0.9"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.85"
+                  />
+
+                  {/* ━━━━ CLEAR PLASTIC TAKEAWAY LID & FLANGED RIM ━━━━ */}
+                  {/* Flat/Domed Takeaway Lid Rim (Protruding clear plastic flange) */}
+                  <ellipse
+                    cx="27"
+                    cy="19"
+                    rx="22.5"
+                    ry="3.2"
+                    fill="url(#clearLidRimGrad)"
+                    stroke="rgba(255,255,255,0.9)"
+                    strokeWidth="0.6"
+                  />
+                  {/* Upper Lid Step Rim */}
+                  <ellipse
+                    cx="27"
+                    cy="17.6"
+                    rx="20.5"
+                    ry="2.7"
+                    fill="rgba(255,255,255,0.2)"
+                    stroke="rgba(255,255,255,0.85)"
                     strokeWidth="0.5"
                   />
-                  {/* Cup Rim Highlight */}
-                  <ellipse cx="25" cy="11" rx="7" ry="1.8" fill="url(#ceramicCupGrad)" stroke={isDark ? "#7C6F99" : "#94A3B8"} strokeWidth="0.4" />
-                  {/* Steaming Coffee Liquid */}
-                  <ellipse cx="25" cy="11.2" rx="6.2" ry="1.4" fill="url(#coffeeCremaGrad)" />
-                  {/* Specular Coffee Reflection */}
-                  <ellipse cx="23" cy="10.8" rx="2" ry="0.5" fill="#FFFFFF" opacity="0.45" />
-
-                  {/* Ceramic Cup Handle */}
-                  <path
-                    d="M 31 12 C 35 12 35 16.5 30 16.5"
-                    stroke="url(#ceramicCupGrad)"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
+                  {/* Inner Lid Basin Opening Collar */}
+                  <ellipse
+                    cx="27"
+                    cy="16.5"
+                    rx="17.5"
+                    ry="2.2"
                     fill="none"
+                    stroke="rgba(255,255,255,0.6)"
+                    strokeWidth="0.4"
                   />
 
-                  {/* ━━━━ STACK OF 3 REALISTIC HARDCOVER BOOKS ━━━━ */}
-                  {/* 1. Top Book (Purple Plum with Gold Gilded Titling) */}
-                  <g transform="rotate(-2 22 23)">
-                    {/* Shadow under book */}
-                    <rect x="6" y="21" width="32" height="4.5" rx="1" fill="#000000" opacity="0.25" />
-                    {/* Book spine */}
-                    <rect x="7" y="20.5" width="28" height="4.2" rx="1" fill="url(#bookTopGrad)" stroke={isDark ? "#2E1065" : "#581C87"} strokeWidth="0.4" />
-                    {/* Gilded spine bands & gold title emboss */}
-                    <line x1="9" y1="20.5" x2="9" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
-                    <line x1="11" y1="20.5" x2="11" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
-                    <line x1="15" y1="22.6" x2="27" y2="22.6" stroke="#FEF08A" strokeWidth="0.7" strokeDasharray="1.5,1" opacity="0.9" />
-                    <line x1="31" y1="20.5" x2="31" y2="24.7" stroke="#FDE047" strokeWidth="0.5" opacity="0.85" />
-                    {/* Pages block on right */}
-                    <rect x="34" y="21" width="3" height="3.2" rx="0.5" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="0.3" />
-                  </g>
-
-                  {/* Red Silk Ribbon Bookmark draping out */}
+                  {/* ━━━━ VERTICAL SPECULAR GLOSS HIGHLIGHTS (Curved Plastic Reflection) ━━━━ */}
+                  {/* Left Edge Long Sheen */}
                   <path
-                    d="M 17 25 Q 16 29 18 33 Q 19 35 17 37"
-                    stroke="#EF4444"
-                    strokeWidth="1.1"
-                    strokeLinecap="round"
-                    fill="none"
+                    d="M 9.2 21 L 15.6 74 L 17.2 74 L 11.2 21 Z"
+                    fill="#FFFFFF"
+                    opacity="0.25"
                   />
+                  <line x1="8.5" y1="21" x2="15" y2="74" stroke="#FFFFFF" strokeWidth="0.4" opacity="0.6" />
 
-                  {/* 2. Middle Book (Terracotta Leather Bound) */}
-                  <g transform="rotate(1.5 22 28)">
-                    {/* Book spine */}
-                    <rect x="4" y="25" width="34" height="4.5" rx="1" fill="url(#bookMidGrad)" stroke={isDark ? "#431407" : "#7C2D12"} strokeWidth="0.4" />
-                    {/* Gold bands */}
-                    <line x1="7" y1="25" x2="7" y2="29.5" stroke="#FEF08A" strokeWidth="0.5" opacity="0.8" />
-                    <line x1="13" y1="27.2" x2="28" y2="27.2" stroke="#FEF08A" strokeWidth="0.8" strokeDasharray="2,1" opacity="0.8" />
-                    <line x1="34" y1="25" x2="34" y2="29.5" stroke="#FEF08A" strokeWidth="0.5" opacity="0.8" />
-                    {/* Pages block on right */}
-                    <rect x="36" y="25.5" width="4" height="3.5" rx="0.5" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="0.3" />
-                  </g>
+                  {/* Right Edge Reflection */}
+                  <path
+                    d="M 44.8 21 L 38.4 74 L 37.2 74 L 43.2 21 Z"
+                    fill="#FFFFFF"
+                    opacity="0.15"
+                  />
+                  <line x1="45.5" y1="21" x2="39" y2="74" stroke="#FFFFFF" strokeWidth="0.35" opacity="0.5" />
 
-                  {/* 3. Bottom Book (Deep Navy Buckram Hardcover) */}
-                  <g>
-                    {/* Shadow on sill */}
-                    <rect x="2" y="33" width="38" height="2.5" rx="1" fill="#000000" opacity="0.35" />
-                    {/* Book spine */}
-                    <rect x="2" y="29.5" width="38" height="5.2" rx="1.2" fill="url(#bookBottomGrad)" stroke={isDark ? "#0F172A" : "#1E3A8A"} strokeWidth="0.5" />
-                    {/* Textured cloth spine ribbing */}
-                    <line x1="5" y1="29.5" x2="5" y2="34.7" stroke="#93C5FD" strokeWidth="0.6" opacity="0.75" />
-                    <line x1="6" y1="29.5" x2="6" y2="34.7" stroke="#60A5FA" strokeWidth="0.5" opacity="0.6" />
-                    <line x1="12" y1="32.1" x2="31" y2="32.1" stroke="#FDE047" strokeWidth="0.9" strokeDasharray="2.5,1.2" opacity="0.9" />
-                    <line x1="36" y1="29.5" x2="36" y2="34.7" stroke="#93C5FD" strokeWidth="0.6" opacity="0.75" />
-                    {/* Pages block */}
-                    <rect x="38" y="30.2" width="4.5" height="3.8" rx="0.5" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="0.3" />
+                  {/* ━━━━ REALISTIC CHILLED CONDENSATION DROPLETS & MIST ━━━━ */}
+                  {/* Fine condensation dots across the cup surface (matching photo) */}
+                  {/* Upper Left Droplet Cluster */}
+                  <circle cx="12" cy="27" r="0.45" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="13.2" cy="28.5" r="0.3" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="11.5" cy="30" r="0.4" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="14" cy="32" r="0.55" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="14.2" cy="32.2" r="0.25" fill="#38BDF8" opacity="0.6" />
+
+                  {/* Upper Center Droplets */}
+                  <circle cx="22" cy="28" r="0.4" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="26" cy="30" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="31" cy="29" r="0.35" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="35" cy="31" r="0.45" fill="#FFFFFF" opacity="0.85" />
+
+                  {/* Upper Right Droplet Cluster */}
+                  <circle cx="41" cy="28" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="42.5" cy="30" r="0.3" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="40" cy="33" r="0.4" fill="#FFFFFF" opacity="0.85" />
+
+                  {/* Mid-Cup Condensation Trickles & Beads (Right below horizontal ridge) */}
+                  <circle cx="13" cy="40" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <ellipse cx="13.1" cy="42" rx="0.35" ry="0.65" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="13.2" cy="44" r="0.3" fill="#FFFFFF" opacity="0.75" />
+
+                  <circle cx="18" cy="39" r="0.4" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="20.5" cy="43" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="24" cy="41" r="0.35" fill="#FFFFFF" opacity="0.8" />
+
+                  {/* Center Dense Condensation Pattern */}
+                  <circle cx="27" cy="45" r="0.55" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="27.2" cy="45.2" r="0.3" fill="#38BDF8" opacity="0.6" />
+                  <ellipse cx="27" cy="48" rx="0.4" ry="0.8" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="29" cy="52" r="0.35" fill="#FFFFFF" opacity="0.8" />
+
+                  <circle cx="33" cy="42" r="0.45" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="36" cy="45" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <ellipse cx="36.1" cy="47.5" rx="0.35" ry="0.7" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="38" cy="41" r="0.4" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="42" cy="44" r="0.5" fill="#FFFFFF" opacity="0.9" />
+                  <circle cx="41" cy="48" r="0.35" fill="#FFFFFF" opacity="0.8" />
+
+                  {/* Lower Cup Droplets */}
+                  <circle cx="17" cy="53" r="0.4" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="19" cy="56" r="0.45" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="23" cy="58" r="0.5" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="28" cy="57" r="0.35" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="32" cy="56" r="0.45" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="35" cy="59" r="0.4" fill="#FFFFFF" opacity="0.8" />
+
+                  {/* Near Base Droplets */}
+                  <circle cx="18" cy="67" r="0.4" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="23" cy="70" r="0.45" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="27" cy="68" r="0.5" fill="#FFFFFF" opacity="0.85" />
+                  <circle cx="31" cy="71" r="0.4" fill="#FFFFFF" opacity="0.8" />
+                  <circle cx="36" cy="67" r="0.45" fill="#FFFFFF" opacity="0.85" />
+
+                  {/* Chilled Ambient Mist Wisps */}
+                  <g opacity="0.45" className="animate-pulse">
+                    <path
+                      d="M 17 12 Q 14 7 18 3 Q 21 0 18 -4"
+                      stroke={isDark ? "#BAE6FD" : "#7DD3FC"}
+                      strokeWidth="0.6"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
+                    <path
+                      d="M 35 13 Q 38 8 35 4 Q 32 0 36 -3"
+                      stroke={isDark ? "#E0F2FE" : "#38BDF8"}
+                      strokeWidth="0.5"
+                      strokeLinecap="round"
+                      fill="none"
+                    />
                   </g>
                 </svg>
               </div>
@@ -3564,123 +3807,484 @@ function BuildingWideWindow({
               </div>
             )}
 
-            {/* 7. Realistic Standing Framed Photo Print on Sill */}
-            {detail.silhouette === "art-easel" && (
-              <div className="absolute bottom-1 left-2 z-10 pointer-events-none opacity-95">
-                <svg viewBox="0 0 36 34" className="w-8 sm:w-9.5 h-8 sm:h-9 overflow-visible">
+            {/* 6.5. Creative Studio Work Desk with Over-Ear Headphones */}
+            {detail.silhouette === "desk-headphones" && (
+              <div
+                className="absolute inset-0 z-10 flex flex-col justify-end pointer-events-auto group/desk overflow-hidden"
+                title="Creative Studio Desk • Headphones & Late-Night Soundtracks"
+              >
+                {/* 1. Warm Ambient Workspace Glow from Desk Lamp */}
+                <div className="absolute -top-4 -right-2 w-28 h-28 rounded-full bg-amber-300/25 dark:bg-amber-400/20 blur-xl pointer-events-none opacity-80 group-hover/desk:opacity-100 transition-opacity" />
+                <div className="absolute bottom-6 right-6 w-16 h-16 rounded-full bg-amber-200/20 dark:bg-amber-300/15 blur-lg pointer-events-none" />
+
+                <svg viewBox="0 0 100 64" preserveAspectRatio="none" className="w-full h-full overflow-visible drop-shadow-lg">
                   <defs>
-                    {/* Walnut Frame Wood Gradient */}
-                    <linearGradient id="walnutFrameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor={isDark ? "#451A03" : "#78350F"} />
-                      <stop offset="40%" stopColor={isDark ? "#78350F" : "#92400E"} />
-                      <stop offset="100%" stopColor={isDark ? "#2A0E02" : "#451A03"} />
+                    {/* Rich Honey-Walnut Desktop Surface Gradient */}
+                    <linearGradient id={`deskSurfaceGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#8C5027" />
+                      <stop offset="30%" stopColor="#A35D2D" />
+                      <stop offset="70%" stopColor="#7B3E18" />
+                      <stop offset="100%" stopColor="#5E2F12" />
                     </linearGradient>
 
-                    <clipPath id="photoInnerClip">
-                      <rect x="7" y="11" width="18" height="15" rx="0.5" />
-                    </clipPath>
+                    {/* Desk Beveled Front Edge Apron */}
+                    <linearGradient id={`deskFrontApronGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#3E1C0A" />
+                      <stop offset="60%" stopColor="#2A1206" />
+                      <stop offset="100%" stopColor="#140802" />
+                    </linearGradient>
+
+                    {/* Premium Slate/Leather Desk Mat Gradient */}
+                    <linearGradient id={`deskMatGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#3F3F46" />
+                      <stop offset="50%" stopColor="#27272A" />
+                      <stop offset="100%" stopColor="#18181B" />
+                    </linearGradient>
+
+                    {/* Gleaming Spun Aluminum / Silver Metal for Headphone Gimbals & Sliders */}
+                    <linearGradient id={`hpMetalGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#94A3B8" />
+                      <stop offset="25%" stopColor="#E2E8F0" />
+                      <stop offset="50%" stopColor="#FFFFFF" />
+                      <stop offset="75%" stopColor="#CBD5E1" />
+                      <stop offset="100%" stopColor="#64748B" />
+                    </linearGradient>
+
+                    {/* Headphone Ear Cushion & Headband Leather */}
+                    <linearGradient id={`hpLeatherGrad_${windowInstanceId}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#52525B" />
+                      <stop offset="40%" stopColor="#27272A" />
+                      <stop offset="100%" stopColor="#09090B" />
+                    </linearGradient>
+
+                    {/* Spun Aluminum Earcup Center Cap (Catches light) */}
+                    <radialGradient id={`hpSpunAlum_${windowInstanceId}`} cx="45%" cy="40%" r="55%">
+                      <stop offset="0%" stopColor="#FFFFFF" />
+                      <stop offset="40%" stopColor="#E2E8F0" />
+                      <stop offset="70%" stopColor="#94A3B8" />
+                      <stop offset="100%" stopColor="#475569" />
+                    </radialGradient>
+
+                    {/* Warm Desk Lamp Ambient Light Cone */}
+                    <radialGradient id={`hpDeskLampGlow_${windowInstanceId}`} cx="50%" cy="30%" r="65%">
+                      <stop offset="0%" stopColor="#FEF08A" stopOpacity="0.85" />
+                      <stop offset="35%" stopColor="#FBBF24" stopOpacity="0.5" />
+                      <stop offset="70%" stopColor="#F59E0B" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="#B45309" stopOpacity="0" />
+                    </radialGradient>
                   </defs>
 
-                  {/* Ground Contact Shadow */}
-                  <ellipse cx="17" cy="30.5" rx="14" ry="2" fill="#000000" opacity="0.35" />
-
-                  {/* Rear Kickstand Strut */}
+                  {/* ━━━━ 1. THE STUDIO WORK DESK ━━━━ */}
+                  {/* Top Solid Walnut Desktop Surface - Spanning full 100 width */}
                   <polygon
-                    points="24,20 28,30 25,30 21,20"
-                    fill={isDark ? "#1C142B" : "#451A03"}
-                    opacity="0.85"
+                    points="0,32 100,32 100,44 0,44"
+                    fill={`url(#deskSurfaceGrad_${windowInstanceId})`}
                   />
+                  {/* Polished woodgrain sheen lines across desktop */}
+                  <line x1="0" y1="32.5" x2="100" y2="32.5" stroke="#FDE68A" strokeWidth="0.6" opacity="0.6" />
+                  <line x1="2" y1="35" x2="98" y2="35" stroke="#FBBF24" strokeWidth="0.3" opacity="0.3" />
+                  <line x1="5" y1="38" x2="95" y2="38" stroke="#FBBF24" strokeWidth="0.3" opacity="0.2" />
 
-                  {/* Outer Beveled Walnut Picture Frame */}
+                  {/* Desk Front Chamfer Edge Highlight */}
+                  <line x1="0" y1="44" x2="100" y2="44" stroke="#FDE68A" strokeWidth="0.8" opacity="0.9" />
+
+                  {/* Desk Front Apron Face */}
                   <rect
-                    x="3"
-                    y="7"
-                    width="26"
-                    height="23"
+                    x="0"
+                    y="44.4"
+                    width="100"
+                    height="19.6"
+                    fill={`url(#deskFrontApronGrad_${windowInstanceId})`}
+                  />
+                  <line x1="0" y1="45" x2="100" y2="45" stroke="#FFFFFF" strokeWidth="0.4" opacity="0.25" />
+
+                  {/* ━━━━ 2. LEATHER DESK MAT ━━━━ */}
+                  {/* Ground Shadow under desk pad */}
+                  <rect x="12" y="34.5" width="76" height="10" rx="1.5" fill="#000000" opacity="0.45" />
+                  {/* Slate/Leather Desk Mat Surface */}
+                  <rect
+                    x="12"
+                    y="33.5"
+                    width="76"
+                    height="9.8"
                     rx="1.5"
-                    fill="url(#walnutFrameGrad)"
-                    stroke={isDark ? "#170C04" : "#451A03"}
-                    strokeWidth="0.8"
+                    fill={`url(#deskMatGrad_${windowInstanceId})`}
+                    stroke="#52525B"
+                    strokeWidth="0.5"
                   />
-                  {/* Gold Inner Fillet Trim */}
+                  {/* Desk Mat Precision Edge Stitching */}
                   <rect
-                    x="4.2"
-                    y="8.2"
-                    width="23.6"
-                    height="20.6"
-                    rx="0.5"
+                    x="13.2"
+                    y="34.2"
+                    width="73.6"
+                    height="8.4"
+                    rx="1"
                     fill="none"
-                    stroke="#D97706"
-                    strokeWidth="0.4"
-                    opacity="0.8"
+                    stroke="#A1A1AA"
+                    strokeWidth="0.25"
+                    strokeDasharray="1,1"
+                    opacity="0.6"
                   />
 
-                  {/* Archival Off-White Mat Board (Passe-Partout) */}
-                  <rect
-                    x="5"
-                    y="9"
-                    width="22"
-                    height="19"
-                    rx="0.5"
-                    fill={isDark ? "#201A2C" : "#FAF8F5"}
-                  />
-                  {/* Beveled Mat Inner Edge */}
-                  <rect
-                    x="6.8"
-                    y="10.8"
-                    width="18.4"
-                    height="15.4"
-                    rx="0.4"
-                    fill="none"
-                    stroke={isDark ? "#130E1C" : "#D4CEBE"}
-                    strokeWidth="0.6"
-                  />
-
-                  {/* Authentic Monochrome Fine-Art Photograph (Clipped) */}
-                  <g clipPath="url(#photoInnerClip)">
-                    {/* Photo Paper Base */}
-                    <rect x="7" y="11" width="18" height="15" fill={isDark ? "#0F0B18" : "#E2E8F0"} />
-                    {/* Misty Atmospheric Gradient */}
-                    <rect x="7" y="11" width="18" height="9" fill={isDark ? "#2D243D" : "#CBD5E1"} />
-                    {/* Distant Misty Horizon & Clouds */}
-                    <ellipse cx="16" cy="18" rx="10" ry="3" fill={isDark ? "#3E3254" : "#E2E8F0"} opacity="0.6" />
-                    {/* Iconic Suspension Bridge / Pier Silhouette */}
-                    <path
-                      d="M 7 21 L 11 15 L 12 15 L 14 21 L 17 14 L 18 14 L 21 21 L 25 17 L 25 21 Z"
-                      fill={isDark ? "#09060E" : "#1E293B"}
-                    />
-                    {/* Bridge cables & suspension wires */}
-                    <line x1="11.5" y1="15" x2="7" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
-                    <line x1="11.5" y1="15" x2="14" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
-                    <line x1="17.5" y1="14" x2="14" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
-                    <line x1="17.5" y1="14" x2="21" y2="19" stroke={isDark ? "#09060E" : "#1E293B"} strokeWidth="0.4" />
-                    {/* Water / Harbor Reflection with ripples */}
-                    <rect x="7" y="21" width="18" height="5" fill={isDark ? "#161124" : "#94A3B8"} />
-                    <line x1="9" y1="23" x2="15" y2="23" stroke={isDark ? "#2D243D" : "#E2E8F0"} strokeWidth="0.4" />
-                    <line x1="16" y1="24" x2="22" y2="24" stroke={isDark ? "#2D243D" : "#E2E8F0"} strokeWidth="0.4" />
-
-                    {/* Protective Glass Diagonal Glare */}
-                    <polygon points="7,11 11,11 18,26 14,26" fill="#FFFFFF" opacity="0.22" />
-                    <polygon points="13,11 15,11 23,26 21,26" fill="#FFFFFF" opacity="0.12" />
+                  {/* ━━━━ 3. DESK ACCESSORIES ━━━━ */}
+                  {/* Left: Minimal Hardcover Journal / Sketchbook */}
+                  <g transform="translate(14, 34) rotate(-3)">
+                    <rect x="0" y="0" width="13" height="8.5" rx="0.6" fill="#18181B" opacity="0.4" />
+                    <rect x="-0.4" y="-0.4" width="13" height="8.5" rx="0.6" fill={isDark ? "#27272A" : "#F8FAFC"} stroke={isDark ? "#52525B" : "#CBD5E1"} strokeWidth="0.4" />
+                    {/* Ribbon bookmark */}
+                    <line x1="3" y1="-0.4" x2="3" y2="7.8" stroke="#EF4444" strokeWidth="0.5" />
+                    {/* Brass Pen resting on book */}
+                    <line x1="12" y1="0.5" x2="12" y2="7.5" stroke="#F59E0B" strokeWidth="0.7" strokeLinecap="round" />
                   </g>
 
-                  {/* Small Brass Flower Bud Vase on the side of the photo */}
-                  <g transform="translate(29, 18)">
-                    {/* Brass Bud Vase */}
+                  {/* Right: Modern Brass Desk Lamp Illuminating Scene */}
+                  <g transform="translate(82, 18)">
+                    {/* Lamp Radial Glow Pool on desk */}
+                    <ellipse cx="2" cy="18" rx="16" ry="8" fill={`url(#hpDeskLampGlow_${windowInstanceId})`} />
+                    {/* Solid Brass Base */}
+                    <ellipse cx="2" cy="21" rx="4.5" ry="1.6" fill="#D97706" stroke="#92400E" strokeWidth="0.4" />
+                    <ellipse cx="2" cy="20.5" rx="3.5" ry="1" fill="#FBBF24" opacity="0.6" />
+                    {/* Slender Arched Brass Stem */}
+                    <path d="M 2 21 L 2 10 Q 2 3 7 3 L 10 3" stroke="#F59E0B" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+                    {/* Conical Lamp Shade */}
+                    <path d="M 8 3 L 14 10 L 4 10 Z" fill={isDark ? "#18181B" : "#334155"} stroke="#D97706" strokeWidth="0.5" />
+                    {/* Glowing LED Light Bulb */}
+                    <circle cx="9" cy="10" r="1.8" fill="#FEF08A" className="drop-shadow-[0_0_6px_#FBBF24]" />
+                  </g>
+
+                  {/* ━━━━ 4. OVER-EAR STUDIO HEADPHONES (THE HERO CENTERPIECE) ━━━━ */}
+                  {/* Ground Contact Shadows where Earcups and Headband touch desk */}
+                  <ellipse cx="37" cy="40.5" rx="7.5" ry="2.2" fill="#000000" opacity="0.85" />
+                  <ellipse cx="63" cy="40.5" rx="7.5" ry="2.2" fill="#000000" opacity="0.85" />
+                  <ellipse cx="50" cy="38" rx="14" ry="1.8" fill="#000000" opacity="0.5" />
+
+                  {/* Coiled Audio Cable Draped on Desk */}
+                  <g>
+                    {/* Cable Drop Shadow */}
+                    <path d="M 37 40 Q 34 43 38 45 Q 42 47 46 44 Q 50 42 54 45 Q 58 48 64 45" fill="none" stroke="#000000" strokeWidth="1.6" opacity="0.5" />
+                    {/* Coiled Studio Rubber Cable */}
+                    <path d="M 37 40 Q 34 43 38 45 Q 42 47 46 44 Q 50 42 54 45 Q 58 48 64 45" fill="none" stroke="#18181B" strokeWidth="1.2" strokeLinecap="round" />
+                    {/* Cable Highlight */}
+                    <path d="M 37 40 Q 34 43 38 45 Q 42 47 46 44 Q 50 42 54 45 Q 58 48 64 45" fill="none" stroke="#A1A1AA" strokeWidth="0.35" strokeLinecap="round" opacity="0.7" />
+                    {/* Gold-plated 1/4" Studio Headphone Jack Connector */}
+                    <rect x="64" y="44" width="5.5" height="1.8" rx="0.4" fill="#F59E0B" stroke="#B45309" strokeWidth="0.3" />
+                    <line x1="68" y1="44.2" x2="68" y2="45.6" stroke="#18181B" strokeWidth="0.3" />
+                  </g>
+
+                  {/* ARCHED PADDED HEADBAND (Top arch) */}
+                  <g>
+                    {/* Outer Spring-Steel Arch */}
                     <path
-                      d="M 1 7 C 0 11 0 12 2 12 L 4 12 C 6 12 6 11 5 7 L 4.2 4 L 4.8 2 L 1.2 2 L 1.8 4 Z"
-                      fill={isDark ? "#D97706" : "#B45309"}
-                      stroke={isDark ? "#F59E0B" : "#78350F"}
-                      strokeWidth="0.4"
+                      d="M 37 30 C 37 13, 63 13, 63 30"
+                      fill="none"
+                      stroke="#09090B"
+                      strokeWidth="3.8"
+                      strokeLinecap="round"
                     />
-                    {/* Stem & Flower */}
-                    <path d="M 3 2 Q 1 -3 3 -6" stroke={isDark ? "#10B981" : "#059669"} strokeWidth="0.6" fill="none" />
-                    <circle cx="3" cy="-6" r="1.5" fill="#F43F5E" />
-                    <circle cx="3" cy="-6" r="0.6" fill="#FEF08A" />
+                    {/* Padded Leatherette Comfort Cushion */}
+                    <path
+                      d="M 39 29 C 39 15.5, 61 15.5, 61 29"
+                      fill="none"
+                      stroke={`url(#hpLeatherGrad_${windowInstanceId})`}
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                    {/* Segmented Comfort Pleat Lines */}
+                    <path
+                      d="M 40 28 C 40 16, 60 16, 60 28"
+                      fill="none"
+                      stroke="#71717A"
+                      strokeWidth="0.5"
+                      strokeDasharray="1.5,1.5"
+                      opacity="0.8"
+                    />
+                    {/* Top Gleaming Specular Arc Highlight */}
+                    <path
+                      d="M 43 17.5 Q 50 14 57 17.5"
+                      fill="none"
+                      stroke="#FFFFFF"
+                      strokeWidth="0.6"
+                      opacity="0.75"
+                    />
+                  </g>
+
+                  {/* BRUSHED ALUMINUM ADJUSTMENT SLIDERS & GIMBAL YOKE FORKS */}
+                  {/* Left Slider & Yoke */}
+                  <g>
+                    {/* Extension Slider Rod */}
+                    <line x1="37" y1="27" x2="37" y2="33" stroke={`url(#hpMetalGrad_${windowInstanceId})`} strokeWidth="1.8" strokeLinecap="round" />
+                    {/* Micro Calibration Ticks */}
+                    <line x1="36" y1="28.5" x2="38" y2="28.5" stroke="#1E293B" strokeWidth="0.3" />
+                    <line x1="36" y1="30" x2="38" y2="30" stroke="#1E293B" strokeWidth="0.3" />
+                    {/* Aluminum Yoke Fork */}
+                    <path d="M 32 33 Q 37 32 42 33" stroke={`url(#hpMetalGrad_${windowInstanceId})`} strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                  </g>
+
+                  {/* Right Slider & Yoke */}
+                  <g>
+                    <line x1="63" y1="27" x2="63" y2="33" stroke={`url(#hpMetalGrad_${windowInstanceId})`} strokeWidth="1.8" strokeLinecap="round" />
+                    <line x1="62" y1="28.5" x2="64" y2="28.5" stroke="#1E293B" strokeWidth="0.3" />
+                    <line x1="62" y1="30" x2="64" y2="30" stroke="#1E293B" strokeWidth="0.3" />
+                    <path d="M 58 33 Q 63 32 68 33" stroke={`url(#hpMetalGrad_${windowInstanceId})`} strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                  </g>
+
+                  {/* LEFT OVER-EAR EARPAD & CUP (Angled) */}
+                  <g transform="translate(37, 36) rotate(-14)">
+                    {/* Thick Leather Memory Foam Cushion */}
+                    <ellipse cx="0" cy="0" rx="6.5" ry="9.5" fill="#18181B" stroke="#09090B" strokeWidth="0.8" />
+                    <ellipse cx="0" cy="0" rx="5.2" ry="7.8" fill={`url(#hpLeatherGrad_${windowInstanceId})`} />
+                    {/* Leather Creases */}
+                    <path d="M -5 0 Q -3 1 -4.5 2.5" stroke="#52525B" strokeWidth="0.4" fill="none" />
+                    <path d="M 5 0 Q 3 1 4.5 2.5" stroke="#52525B" strokeWidth="0.4" fill="none" />
+                    {/* Outer Cup Back Shell */}
+                    <ellipse cx="0" cy="0" rx="4.2" ry="6.2" fill="#09090B" stroke="#3F3F46" strokeWidth="0.4" />
+                    {/* Spun Aluminum Center Logo Disc (Brilliant Glint) */}
+                    <circle cx="0" cy="0" r="2.8" fill={`url(#hpSpunAlum_${windowInstanceId})`} stroke="#CBD5E1" strokeWidth="0.3" />
+                    {/* Acoustic Mesh Pattern */}
+                    <circle cx="0" cy="0" r="3.4" fill="none" stroke="#71717A" strokeWidth="0.25" strokeDasharray="0.6,0.6" />
+                    {/* Crisp Specular Light Glint */}
+                    <ellipse cx="-1" cy="-2" rx="1.6" ry="0.8" fill="#FFFFFF" opacity="0.65" transform="rotate(-20 -1 -2)" />
+                  </g>
+
+                  {/* RIGHT OVER-EAR EARPAD & CUP (Angled) */}
+                  <g transform="translate(63, 36) rotate(14)">
+                    <ellipse cx="0" cy="0" rx="6.5" ry="9.5" fill="#18181B" stroke="#09090B" strokeWidth="0.8" />
+                    <ellipse cx="0" cy="0" rx="5.2" ry="7.8" fill={`url(#hpLeatherGrad_${windowInstanceId})`} />
+                    <path d="M -5 0 Q -3 1 -4.5 2.5" stroke="#52525B" strokeWidth="0.4" fill="none" />
+                    <path d="M 5 0 Q 3 1 4.5 2.5" stroke="#52525B" strokeWidth="0.4" fill="none" />
+                    <ellipse cx="0" cy="0" rx="4.2" ry="6.2" fill="#09090B" stroke="#3F3F46" strokeWidth="0.4" />
+                    <circle cx="0" cy="0" r="2.8" fill={`url(#hpSpunAlum_${windowInstanceId})`} stroke="#CBD5E1" strokeWidth="0.3" />
+                    <circle cx="0" cy="0" r="3.4" fill="none" stroke="#71717A" strokeWidth="0.25" strokeDasharray="0.6,0.6" />
+                    <ellipse cx="1" cy="-2" rx="1.6" ry="0.8" fill="#FFFFFF" opacity="0.65" transform="rotate(20 1 -2)" />
                   </g>
                 </svg>
               </div>
             )}
+
+            {/* 7. Realistic Vintage Rangefinder Camera on Full Sill (Photography Interest) */}
+            {(detail.silhouette === "vintage-camera" || detail.silhouette === "art-easel") && (
+              <div
+                className="absolute bottom-0 inset-x-0 z-10 pointer-events-auto group/camera"
+                title="Vintage Camera • Photography & Visual Storytelling"
+              >
+                {/* Continuous full-width architectural wooden windowsill shelf spanning entire window base */}
+                <div
+                  className={`w-full h-2.5 sm:h-3 border-t transition-colors duration-500 relative shadow-inner ${
+                    isDark
+                      ? "bg-gradient-to-b from-[#3D2517] via-[#2A170E] to-[#1A0D07] border-[#8C5027]/70"
+                      : "bg-gradient-to-b from-[#C28254] via-[#A66738] to-[#7D4620] border-[#EAD4BA]/80"
+                  }`}
+                >
+                  <div className="absolute top-0 inset-x-0 h-[1px] bg-white/30" />
+                </div>
+
+                {/* Camera resting directly on top of the sill with deep occlusion shadow */}
+                <div className="absolute bottom-1 sm:bottom-1.5 left-2 sm:left-3 z-10">
+                  {/* Subtle Amber Glow / Presence */}
+                  <div className="absolute -inset-1 rounded-full bg-amber-400/10 blur-sm pointer-events-none opacity-50 group-hover/camera:opacity-90 transition-opacity" />
+
+                  <svg viewBox="0 0 54 44" className="w-10 sm:w-12 md:w-13 h-8.5 sm:h-10 md:h-11 overflow-visible drop-shadow-md">
+                    <defs>
+                      {/* Architectural Walnut Windowsill Shelf Surface */}
+                      <linearGradient id="cameraSillWoodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#4A2E1D" />
+                        <stop offset="40%" stopColor="#352014" />
+                        <stop offset="100%" stopColor="#24140B" />
+                      </linearGradient>
+                      <linearGradient id="cameraSillFrontBevel" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#1B0E07" />
+                        <stop offset="100%" stopColor="#0B0502" />
+                      </linearGradient>
+
+                      {/* Brushed Chrome / Silver Top & Base Plate Gradient */}
+                      <linearGradient id="cameraSilverGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#FFFFFF" />
+                        <stop offset="25%" stopColor="#E2E8F0" />
+                        <stop offset="60%" stopColor="#CBD5E1" />
+                        <stop offset="100%" stopColor="#94A3B8" />
+                      </linearGradient>
+
+                      {/* Textured Leatherette Body Gradient */}
+                      <linearGradient id="cameraBodyLeatherGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#27272A" />
+                        <stop offset="40%" stopColor="#18181B" />
+                        <stop offset="100%" stopColor="#09090B" />
+                      </linearGradient>
+
+                      {/* Optical Multi-Coated Lens Element Gradient */}
+                      <radialGradient id="cameraLensGlassGrad" cx="45%" cy="40%" r="55%">
+                        <stop offset="0%" stopColor="#0F172A" />
+                        <stop offset="45%" stopColor="#020617" />
+                        <stop offset="70%" stopColor="#1E1B4B" />
+                        <stop offset="90%" stopColor="#312E81" />
+                        <stop offset="100%" stopColor="#020617" />
+                      </radialGradient>
+
+                      {/* Multi-Coat Glare (Cyan & Violet Anti-Reflective Coating) */}
+                      <linearGradient id="lensCoatGlareGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.85" />
+                        <stop offset="40%" stopColor="#818CF8" stopOpacity="0.5" />
+                        <stop offset="70%" stopColor="#C084FC" stopOpacity="0.75" />
+                        <stop offset="100%" stopColor="#EC4899" stopOpacity="0" />
+                      </linearGradient>
+
+                      {/* Camera Strap Leather Gradient */}
+                      <linearGradient id="cameraStrapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#78350F" />
+                        <stop offset="50%" stopColor="#92400E" />
+                        <stop offset="100%" stopColor="#451A03" />
+                      </linearGradient>
+
+                      {/* Knurled Dial Metal Gradient */}
+                      <linearGradient id="cameraDialGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#64748B" />
+                        <stop offset="35%" stopColor="#E2E8F0" />
+                        <stop offset="65%" stopColor="#FFFFFF" />
+                        <stop offset="100%" stopColor="#475569" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* ━━━━ SOLID ARCHITECTURAL WINDOWSILL LEDGE ━━━━ */}
+                    {/* Top Wooden Sill Surface */}
+                    <rect x="0" y="34.5" width="54" height="9.5" fill="url(#cameraSillWoodGrad)" />
+                    {/* Sill Front Beveled Edge Highlight */}
+                    <line x1="0" y1="34.6" x2="54" y2="34.6" stroke="#FFFFFF" strokeWidth="0.4" opacity="0.35" />
+                    <line x1="0" y1="37.5" x2="54" y2="37.5" stroke="#D4A373" strokeWidth="0.4" opacity="0.5" />
+                    {/* Lower Sill Front Thickness */}
+                    <rect x="0" y="37.8" width="54" height="6.2" fill="url(#cameraSillFrontBevel)" />
+
+                    {/* ━━━━ GROUND CONTACT OCCLUSION SHADOW (Firmly Anchored to Sill) ━━━━ */}
+                    <ellipse cx="26" cy="35" rx="19" ry="1.5" fill="#000000" opacity={isDark ? "0.95" : "0.75"} />
+                    <rect x="7" y="34.2" width="38" height="1" fill="#000000" opacity="0.9" />
+
+                  {/* Draped Vintage Tan/Brown Leather Camera Strap (Resting on Sill) */}
+                  <g>
+                    {/* Strap shadow on wood sill */}
+                    <path d="M 6 24 C 2 28 3 34.5 10 35.5 C 17 36.2 24 35 28 35.8" fill="none" stroke="#000000" strokeWidth="2.5" opacity="0.35" />
+                    {/* Leather Strap */}
+                    <path d="M 6 24 C 2 28 3 34.5 10 35.5 C 17 36.2 24 35 28 35.8" fill="none" stroke="url(#cameraStrapGrad)" strokeWidth="2.2" strokeLinecap="round" />
+                    {/* Strap Edge Stitching (Micro dash) */}
+                    <path d="M 6 24 C 2 28 3 34.5 10 35.5 C 17 36.2 24 35 28 35.8" fill="none" stroke="#FDE68A" strokeWidth="0.3" strokeDasharray="0.8,0.8" opacity="0.75" />
+                    {/* Brass Eyelet / Split Ring on Lug */}
+                    <circle cx="6" cy="23.5" r="1.4" fill="none" stroke="#D97706" strokeWidth="0.5" />
+                  </g>
+
+                  {/* CAMERA BODY MAIN RECTANGLE */}
+                  {/* Textured Leatherette Center Section */}
+                  <rect x="7" y="16" width="38" height="20" rx="2.5" fill="url(#cameraBodyLeatherGrad)" stroke="#09090B" strokeWidth="0.6" />
+                  {/* Micro-texture pebbled grain pattern on leatherette */}
+                  <g opacity="0.15">
+                    <line x1="8" y1="18" x2="44" y2="18" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="20" x2="44" y2="20" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="22" x2="44" y2="22" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="24" x2="44" y2="24" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="26" x2="44" y2="26" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="28" x2="44" y2="28" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="30" x2="44" y2="30" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="32" x2="44" y2="32" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                    <line x1="8" y1="34" x2="44" y2="34" stroke="#FFFFFF" strokeWidth="0.3" strokeDasharray="0.5,0.7" />
+                  </g>
+
+                  {/* Bottom Chrome Baseplate */}
+                  <path d="M 7 34 L 7 35.5 Q 7 36.5 8 36.5 L 44 36.5 Q 45 36.5 45 35.5 L 45 34 Z" fill="url(#cameraSilverGrad)" stroke="#64748B" strokeWidth="0.4" />
+
+                  {/* TOP CHROME PLATE (Classic Rangefinder Step) */}
+                  <path
+                    d="M 7 17 L 7 12 Q 7 11 8 11 L 44 11 Q 45 11 45 12 L 45 17 Z"
+                    fill="url(#cameraSilverGrad)"
+                    stroke="#64748B"
+                    strokeWidth="0.5"
+                  />
+                  {/* Beveled Top Edge Reflection */}
+                  <line x1="8" y1="11.5" x2="44" y2="11.5" stroke="#FFFFFF" strokeWidth="0.6" />
+                  <line x1="7.5" y1="16.5" x2="44.5" y2="16.5" stroke="#334155" strokeWidth="0.4" />
+
+                  {/* TOP CONTROLS & DIALS */}
+                  {/* Left Dial: ISO / Film Rewind Knob */}
+                  <rect x="10" y="8" width="5.5" height="3.2" rx="0.6" fill="url(#cameraDialGrad)" stroke="#475569" strokeWidth="0.3" />
+                  <line x1="11.5" y1="8.2" x2="11.5" y2="11" stroke="#334155" strokeWidth="0.3" />
+                  <line x1="13" y1="8.2" x2="13" y2="11" stroke="#334155" strokeWidth="0.3" />
+                  <line x1="14.5" y1="8.2" x2="14.5" y2="11" stroke="#334155" strokeWidth="0.3" />
+
+                  {/* Center Hot Shoe Flash Mount */}
+                  <rect x="23" y="9.5" width="6" height="1.8" rx="0.3" fill="#334155" stroke="#1E293B" strokeWidth="0.3" />
+                  <rect x="24.2" y="9.2" width="3.6" height="0.6" fill="#94A3B8" />
+
+                  {/* Right Dial: Shutter Speed Selector Dial */}
+                  <rect x="31" y="8" width="6.5" height="3.2" rx="0.6" fill="url(#cameraDialGrad)" stroke="#475569" strokeWidth="0.3" />
+                  <line x1="32.5" y1="8.2" x2="32.5" y2="11" stroke="#334155" strokeWidth="0.3" />
+                  <line x1="34.2" y1="8.2" x2="34.2" y2="11" stroke="#334155" strokeWidth="0.3" />
+                  <line x1="36" y1="8.2" x2="36" y2="11" stroke="#334155" strokeWidth="0.3" />
+
+                  {/* Shutter Release Button with Red Soft-Release Collar */}
+                  <rect x="39" y="8.5" width="3.5" height="2.8" rx="0.5" fill="url(#cameraDialGrad)" stroke="#475569" strokeWidth="0.3" />
+                  {/* Red Soft-Release Button Cap (Iconic Leica style) */}
+                  <ellipse cx="40.75" cy="8.4" rx="1.5" ry="0.6" fill="#DC2626" stroke="#991B1B" strokeWidth="0.25" />
+
+                  {/* FRONT FACING WINDOWS & EMBLEMS */}
+                  {/* Optical Viewfinder Window (Right side of top plate) */}
+                  <rect x="37" y="12.4" width="5.5" height="3.4" rx="0.5" fill="#0284C7" stroke="#0369A1" strokeWidth="0.35" />
+                  <rect x="37.5" y="12.9" width="4.5" height="2.4" fill="#0C4A6E" />
+                  {/* Glass Glare in Viewfinder */}
+                  <polygon points="37.5,12.9 39.5,12.9 38.5,15.3 37.5,15.3" fill="#BAE6FD" opacity="0.85" />
+
+                  {/* Rangefinder Illumination Frame Window */}
+                  <rect x="18" y="12.8" width="4" height="2.6" rx="0.4" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="0.3" />
+                  <line x1="18.5" y1="13.2" x2="21.5" y2="13.2" stroke="#64748B" strokeWidth="0.25" />
+                  <line x1="18.5" y1="14.1" x2="21.5" y2="14.1" stroke="#64748B" strokeWidth="0.25" />
+                  <line x1="18.5" y1="15" x2="21.5" y2="15" stroke="#64748B" strokeWidth="0.25" />
+
+                  {/* Self-Timer Lever on Front Plate */}
+                  <g transform="translate(13, 20)">
+                    <circle cx="0" cy="0" r="1.3" fill="url(#cameraSilverGrad)" stroke="#475569" strokeWidth="0.25" />
+                    <rect x="-0.5" y="0" width="1" height="5" rx="0.4" fill="url(#cameraSilverGrad)" stroke="#475569" strokeWidth="0.2" transform="rotate(-15)" />
+                  </g>
+
+                  {/* Red Dot Brand / Aesthetic Accent */}
+                  <circle cx="16" cy="18.5" r="1.4" fill="#DC2626" stroke="#B91C1C" strokeWidth="0.2" />
+
+                  {/* ━━━━ PROMINENT PRIME CAMERA LENS ━━━━ */}
+                  {/* Lens Barrel Outer Shadow on Body */}
+                  <ellipse cx="28" cy="26" rx="9" ry="9" fill="#000000" opacity="0.45" />
+
+                  {/* Outer Silver Aperture Ring */}
+                  <circle cx="27" cy="25" r="8.2" fill="url(#cameraSilverGrad)" stroke="#475569" strokeWidth="0.4" />
+                  {/* Micro Aperture Knurls */}
+                  <g opacity="0.7">
+                    <circle cx="27" cy="25" r="8.2" fill="none" stroke="#334155" strokeWidth="0.4" strokeDasharray="0.6,1.2" />
+                  </g>
+
+                  {/* Black Anodized Lens Barrel */}
+                  <circle cx="27" cy="25" r="7.2" fill="#09090B" stroke="#27272A" strokeWidth="0.4" />
+
+                  {/* Inner Thread Bezel Ring with Text Markings */}
+                  <circle cx="27" cy="25" r="6.2" fill="#18181B" stroke="#3F3F46" strokeWidth="0.3" />
+                  <text x="27" y="20.4" fill="#A1A1AA" fontSize="1.1" fontWeight="700" textAnchor="middle" letterSpacing="0.04em">f=35mm</text>
+                  <text x="27" y="30.2" fill="#A1A1AA" fontSize="1.1" fontWeight="700" textAnchor="middle" letterSpacing="0.04em">1:1.4</text>
+
+                  {/* Deep Multi-Coated Optical Glass Lens Element */}
+                  <circle cx="27" cy="25" r="4.6" fill="url(#cameraLensGlassGrad)" stroke="#09090B" strokeWidth="0.4" />
+
+                  {/* Aperture Iris Blades (Subtle polygonal aperture opening) */}
+                  <polygon points="26,24 28,24 29,25 28,26.5 26,26.5 25,25" fill="#020617" opacity="0.85" />
+
+                  {/* Multi-Coating Optical Reflection 1 (Violet/Cyan Curved Flare) */}
+                  <path
+                    d="M 23.5 22.5 Q 26 21 29 22.5 Q 31 24.5 30 27 Q 27.5 24 23.5 22.5 Z"
+                    fill="url(#lensCoatGlareGrad)"
+                    opacity="0.8"
+                  />
+
+                  {/* Multi-Coating Optical Reflection 2 (Secondary Emerald/Blue Glint) */}
+                  <ellipse cx="25" cy="27" rx="1.6" ry="0.9" transform="rotate(-30 25 27)" fill="#34D399" opacity="0.6" />
+
+                  {/* Pure Specular Pinpoint Highlight on Front Element */}
+                  <circle cx="25.5" cy="23" r="0.6" fill="#FFFFFF" opacity="0.95" />
+                  <circle cx="28.8" cy="26.8" r="0.35" fill="#FFFFFF" opacity="0.75" />
+                </svg>
+              </div>
+            </div>
+          )}
 
             {/* 8. Realistic Vertical CD Player & Album Jewel Case */}
             {detail.silhouette === "clock-turntable" && (
@@ -3886,30 +4490,46 @@ function BuildingWideWindow({
                       <stop offset="100%" stopColor="#354D16" />
                     </linearGradient>
 
-                    {/* Botanical Floral Petal Gradients */}
-                    {/* 1. Deep French Lavender & Salvia */}
-                    <linearGradient id={`fbLavenderSpike_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#C4B5FD" />
-                      <stop offset="30%" stopColor="#9375E0" />
-                      <stop offset="75%" stopColor="#6D41BA" />
-                      <stop offset="100%" stopColor="#45217D" />
+                    {/* Botanical Floral Petal Gradients for Tulips */}
+                    {/* 1. Classic Crimson / Ruby Red Dutch Tulip */}
+                    <linearGradient id={`fbTulipRuby_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FB7185" />
+                      <stop offset="25%" stopColor="#F43F5E" />
+                      <stop offset="65%" stopColor="#E11D48" />
+                      <stop offset="100%" stopColor="#9F1239" />
                     </linearGradient>
 
-                    {/* 2. Trailing European Periwinkle / Violet Verbena */}
-                    <radialGradient id={`fbPeriwinklePetal_${windowInstanceId}`} cx="50%" cy="40%" r="65%">
-                      <stop offset="0%" stopColor="#DDD6FE" />
-                      <stop offset="35%" stopColor="#A855F7" />
-                      <stop offset="75%" stopColor="#6B21A8" />
-                      <stop offset="100%" stopColor="#3B0764" />
-                    </radialGradient>
+                    {/* 2. Soft Powder Pink / Rose Blush Tulip */}
+                    <linearGradient id={`fbTulipPink_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FFF1F2" />
+                      <stop offset="30%" stopColor="#FDA4AF" />
+                      <stop offset="70%" stopColor="#FB7185" />
+                      <stop offset="100%" stopColor="#BE123C" />
+                    </linearGradient>
 
-                    {/* 3. Heirloom Soft Coral Rose / Camellia */}
-                    <radialGradient id={`fbCoralRose_${windowInstanceId}`} cx="45%" cy="40%" r="65%">
-                      <stop offset="0%" stopColor="#FECDD3" />
-                      <stop offset="35%" stopColor="#FB7185" />
-                      <stop offset="75%" stopColor="#BE123C" />
-                      <stop offset="100%" stopColor="#710B23" />
-                    </radialGradient>
+                    {/* 3. Golden Yellow / Sunset Apricot Tulip */}
+                    <linearGradient id={`fbTulipYellow_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FEF08A" />
+                      <stop offset="30%" stopColor="#FDE047" />
+                      <stop offset="65%" stopColor="#F59E0B" />
+                      <stop offset="100%" stopColor="#D97706" />
+                    </linearGradient>
+
+                    {/* 4. Imperial Royal Purple Tulip */}
+                    <linearGradient id={`fbTulipPurple_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#E9D5FF" />
+                      <stop offset="30%" stopColor="#C084FC" />
+                      <stop offset="70%" stopColor="#9333EA" />
+                      <stop offset="100%" stopColor="#581C87" />
+                    </linearGradient>
+
+                    {/* 5. Pure White / Cream Dutch Tulip with soft green blush */}
+                    <linearGradient id={`fbTulipWhite_${windowInstanceId}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FFFFFF" />
+                      <stop offset="45%" stopColor="#F8FAFC" />
+                      <stop offset="80%" stopColor="#E2E8F0" />
+                      <stop offset="100%" stopColor="#CBD5E1" />
+                    </linearGradient>
                   </defs>
 
                   {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3961,171 +4581,192 @@ function BuildingWideWindow({
                     opacity="0.88"
                   />
 
-                  {/* Slender Arched Botanical Green Stems */}
-                  <path d="M 23 26 Q 24 18 26 12" stroke="#228555" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-                  <path d="M 37 26 Q 36 17 38 6" stroke="#2A925E" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-                  <path d="M 50 26 Q 49 19 50 14" stroke="#1D6F47" strokeWidth="1.1" fill="none" strokeLinecap="round" />
-                  <path d="M 68 26 Q 66 18 69 11" stroke="#228555" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-                  <path d="M 83 26 Q 84 17 83 7" stroke="#2A925E" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-                  <path d="M 97 26 Q 99 19 96 13" stroke="#228555" strokeWidth="0.8" fill="none" strokeLinecap="round" />
+                  {/* Slender Arched Botanical Green Stems for Tulips */}
+                  <path d="M 22 26 Q 21 16 23 11" stroke="#228555" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+                  <path d="M 36 26 Q 34 14 37 7" stroke="#2A925E" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+                  <path d="M 50 26 Q 51 15 50 6" stroke="#1D6F47" strokeWidth="1.35" fill="none" strokeLinecap="round" />
+                  <path d="M 64 26 Q 66 14 65 8" stroke="#228555" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+                  <path d="M 78 26 Q 76 15 79 7" stroke="#2A925E" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+                  <path d="M 92 26 Q 94 16 93 10" stroke="#1D6F47" strokeWidth="1.25" fill="none" strokeLinecap="round" />
+                  <path d="M 102 26 Q 101 17 103 12" stroke="#228555" strokeWidth="1.15" fill="none" strokeLinecap="round" />
 
                   {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                      C. FRENCH LAVENDER / SALVIA FLORAL SPIKES
+                      C. STATELY DUTCH TULIP FOLIAGE (BROAD SWORD LEAVES)
                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-                  {/* Lavender Spike 1 (Left-Center, towering gracefully at x=37) */}
-                  <g>
-                    {/* Tiered whorls of delicate calyxes & florets */}
-                    {/* Bottom Whorl */}
-                    <path d="M 35 15 C 33 13, 36 12, 37 14 C 38 12, 41 13, 39 15 C 38 16, 36 16, 35 15 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    {/* Second Whorl */}
-                    <path d="M 35.5 12 C 33.8 10.5, 36.5 9.5, 37.2 11.2 C 38.2 9.5, 40.5 10.5, 39 12 C 38 13, 36.2 13, 35.5 12 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    {/* Third Whorl */}
-                    <path d="M 36 9.5 C 34.5 8, 36.8 7.2, 37.4 8.6 C 38.2 7.2, 40.2 8, 38.8 9.5 C 38 10.3, 36.6 10.3, 36 9.5 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    {/* Tapered Crown Floret */}
-                    <path d="M 36.5 7.2 C 35.5 5.8, 37.5 4.8, 37.8 6 C 38.5 5, 39.8 6, 38.8 7.2 Z" fill="#DDD6FE" />
-                    {/* Tiny stem leaves hugging the stalk */}
-                    <path d="M 35 18 Q 32 17 33 15" stroke="#27734C" strokeWidth="0.6" fill="none" />
-                    <path d="M 39 17 Q 42 16 41 14" stroke="#27734C" strokeWidth="0.6" fill="none" />
-                  </g>
+                  {/* Broad upright lanceolate tulip leaves with graceful curving tips */}
+                  {/* Left leaf 1 */}
+                  <path
+                    d="M 18 26 Q 15 15 20 8 Q 23 15 24 26 Z"
+                    fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    opacity="0.9"
+                  />
+                  <path d="M 19 23 Q 17 14 20 9" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.75" />
 
-                  {/* Lavender Spike 2 (Right-Center, towering gracefully at x=83) */}
-                  <g>
-                    <path d="M 81 16 C 79 14, 82 13, 83 15 C 84 13, 87 14, 85 16 C 84 17, 82 17, 81 16 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    <path d="M 81.5 13 C 79.8 11.5, 82.5 10.5, 83.2 12.2 C 84.2 10.5, 86.5 11.5, 85 13 C 84 14, 82.2 14, 81.5 13 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    <path d="M 82 10.2 C 80.5 8.8, 82.8 8, 83.4 9.4 C 84.2 8, 86.2 8.8, 84.8 10.2 Z" fill={`url(#fbLavenderSpike_${windowInstanceId})`} />
-                    <path d="M 82.5 7.8 C 81.5 6.5, 83.5 5.5, 83.8 6.8 C 84.5 5.8, 85.8 6.8, 84.8 7.8 Z" fill="#DDD6FE" />
-                    <path d="M 81 19 Q 78 18 79 16" stroke="#27734C" strokeWidth="0.6" fill="none" />
-                    <path d="M 85 18 Q 88 17 87 15" stroke="#27734C" strokeWidth="0.6" fill="none" />
-                  </g>
+                  {/* Leaf between Tulip 1 & 2 */}
+                  <path
+                    d="M 28 26 Q 26 12 32 5 Q 33 13 31 26 Z"
+                    fill={`url(#fbFoliageMid_${windowInstanceId})`}
+                    opacity="0.92"
+                  />
+                  <path d="M 29 22 Q 28 13 32 6" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.6" />
+
+                  {/* Center-left tall curving leaf */}
+                  <path
+                    d="M 42 26 Q 40 10 46 4 Q 47 12 45 26 Z"
+                    fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    opacity="0.95"
+                  />
+                  <path d="M 43 21 Q 42 11 46 5" stroke="#A7F3D0" strokeWidth="0.45" fill="none" opacity="0.8" />
+
+                  {/* Center-right arching leaf */}
+                  <path
+                    d="M 55 26 Q 58 9 54 3 Q 59 11 58 26 Z"
+                    fill={`url(#fbFoliageMid_${windowInstanceId})`}
+                    opacity="0.9"
+                  />
+                  <path d="M 56 22 Q 57 11 55 4" stroke="#BEF264" strokeWidth="0.4" fill="none" opacity="0.7" />
+
+                  {/* Right tall leaf */}
+                  <path
+                    d="M 70 26 Q 73 11 72 4 Q 76 12 74 26 Z"
+                    fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    opacity="0.95"
+                  />
+                  <path d="M 72 20 Q 74 11 73 5" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.75" />
+
+                  {/* Right-center leaf */}
+                  <path
+                    d="M 85 26 Q 89 12 86 6 Q 89 15 88 26 Z"
+                    fill={`url(#fbFoliageMid_${windowInstanceId})`}
+                    opacity="0.9"
+                  />
+                  <path d="M 86 21 Q 88 12 87 7" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.7" />
+
+                  {/* Far right curving leaf */}
+                  <path
+                    d="M 96 26 Q 100 14 98 8 Q 102 16 100 26 Z"
+                    fill={`url(#fbFoliageBright_${windowInstanceId})`}
+                    opacity="0.88"
+                  />
 
                   {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                      D. SCULPTED BOTANICAL LEAF SPRAYS WITH VEIN HIGHLIGHTS
-                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-                  {/* Left Ivy Leaves */}
-                  <g>
-                    {/* Broad 3-lobed leaf */}
-                    <path
-                      d="M 18 24 C 13 18, 17 13, 22 17 C 24 13, 28 16, 27 20 C 26 24, 21 26, 18 24 Z"
-                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
-                    />
-                    <path d="M 21 21 Q 23 17 24 15" stroke="#A7F3D0" strokeWidth="0.4" fill="none" opacity="0.8" />
-                    <path d="M 21 20 Q 18 18 16 18" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.6" />
-                    <path d="M 22 19 Q 25 18 26 18" stroke="#A7F3D0" strokeWidth="0.3" fill="none" opacity="0.6" />
-                  </g>
-
-                  {/* Center-Left Olive Sprig */}
-                  <g>
-                    <path
-                      d="M 43 23 C 39 16, 47 13, 50 18 C 48 22, 45 25, 43 23 Z"
-                      fill={`url(#fbOlive_${windowInstanceId})`}
-                    />
-                    <path d="M 45 20 Q 47 16 49 16" stroke="#BEF264" strokeWidth="0.35" fill="none" opacity="0.75" />
-                  </g>
-
-                  {/* Center-Right Lush Leaves */}
-                  <g>
-                    <path
-                      d="M 60 24 C 56 17, 64 14, 67 19 C 65 23, 62 25, 60 24 Z"
-                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
-                    />
-                    <path d="M 62 20 Q 64 16 66 17" stroke="#A7F3D0" strokeWidth="0.35" fill="none" opacity="0.7" />
-                  </g>
-
-                  {/* Right Foliage Cluster */}
-                  <g>
-                    <path
-                      d="M 88 23 C 85 16, 92 13, 95 18 C 94 22, 90 25, 88 23 Z"
-                      fill={`url(#fbOlive_${windowInstanceId})`}
-                    />
-                    <path d="M 90 20 Q 92 16 94 16" stroke="#BEF264" strokeWidth="0.35" fill="none" opacity="0.75" />
-                    <path
-                      d="M 99 24 C 95 18, 102 14, 106 19 C 104 23, 101 25, 99 24 Z"
-                      fill={`url(#fbFoliageBright_${windowInstanceId})`}
-                    />
-                    <path d="M 101 20 Q 103 16 105 17" stroke="#A7F3D0" strokeWidth="0.35" fill="none" opacity="0.7" />
-                  </g>
-
-                  {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                      E. REALISTIC NON-CARTOON BOTANICAL FLOWER BLOSSOMS
+                      D. BESPOKE SCULPTED DUTCH TULIP BLOSSOMS (CUP SHAPES)
                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
 
-                  {/* FLOWER 1 (Left): European Periwinkle / Vinca (Organic 5-petal pinwheel at x=25, y=14) */}
-                  <g transform="translate(25, 14)">
-                    {/* Natural curved petals overlapping organically (not mechanical circles!) */}
-                    {/* Petal 1 (Top) */}
-                    <path d="M 0 -1.5 C -2.5 -5, 2.5 -6, 2 -1.8 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    {/* Petal 2 (Top Right) */}
-                    <path d="M 1 -0.8 C 4.5 -2.8, 5.8 1.8, 1.8 1.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    {/* Petal 3 (Bottom Right) */}
-                    <path d="M 0.8 0.8 C 3 4.2, -1 5.4, -0.4 1.8 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    {/* Petal 4 (Bottom Left) */}
-                    <path d="M -0.8 0.8 C -4.2 3.2, -5.2 -0.8, -1.6 -0.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    {/* Petal 5 (Top Left) */}
-                    <path d="M -1 -0.8 C -3.8 -4, -0.8 -4.5, -0.4 -1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    {/* Deep Inky-Violet Star Throat Core */}
-                    <circle cx="0" cy="0" r="1.3" fill="#2E0854" />
-                    {/* Pale Cream Stamen Eye */}
-                    <circle cx="0" cy="0" r="0.6" fill="#FEF08A" />
-                    <circle cx="-0.3" cy="-0.2" r="0.25" fill="#FFFFFF" opacity="0.9" />
-                  </g>
-                  {/* Delicate curved periwinkle bud on stalk */}
-                  <path d="M 17 14 C 15 11, 18 9, 19 12 C 18 14, 17 16, 17 14 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                  <path d="M 17 15 Q 16 18 18 22" stroke="#1D6F47" strokeWidth="0.7" fill="none" />
-
-                  {/* FLOWER 2 (Center): Heirloom English Tea Rose / Coral Camellia (x=50, y=13) */}
-                  <g transform="translate(50, 13)">
-                    {/* Multi-layered natural petal cups with realistic curled margins */}
-                    {/* Outer Petals */}
-                    <path d="M -5.2 -1.2 C -6.5 -5, 0.5 -6.5, 3.2 -4 C 6.5 -1.5, 5 4.5, 0 5.2 C -5 4.5, -6 2.5, -5.2 -1.2 Z" fill={`url(#fbCoralRose_${windowInstanceId})`} />
-                    {/* Mid Ruffled Petal Layers */}
-                    <path d="M -3.8 -2.5 C -4.5 -4.5, 1.5 -4.8, 3.5 -2.2 C 4.5 1, 1.5 3.8, -1.8 3.5 C -4.2 2.5, -4.5 -0.5, -3.8 -2.5 Z" fill="#E11D48" opacity="0.9" />
-                    {/* Inner Curled Petal Fold */}
-                    <path d="M -2.2 -1 C -2.5 -2.8, 1.8 -3, 2.2 -0.8 C 2.5 1.5, -0.5 2.5, -1.8 1.8 Z" fill="#FDA4AF" />
-                    <path d="M -1.2 -0.4 C -1 -1.5, 1 -1.5, 1.2 -0.2 C 1 1, -0.5 1.2, -1.2 -0.4 Z" fill="#BE123C" />
-                    {/* Glimmering Stamen Pistil */}
-                    <circle cx="0" cy="0" r="0.65" fill="#FEF08A" />
-                  </g>
-                  {/* Tender unopened rosebud beside the main bloom */}
-                  <g>
-                    <path d="M 57 15 C 55 12, 59 10, 60 13 C 59 15, 57 17, 57 15 Z" fill="#FB7185" />
-                    <path d="M 56 16 C 55 14, 57 13, 58 14" stroke="#1D6F47" strokeWidth="0.6" fill="none" />
-                    <path d="M 57 16 Q 56 20 55 24" stroke="#1D6F47" strokeWidth="0.7" fill="none" />
+                  {/* TULIP 1 (Far Left): Soft Rose-Blush Pink Tulip (x=23, y=10) */}
+                  <g transform="translate(23, 10)">
+                    {/* Shadow Behind Blossom */}
+                    <ellipse cx="0" cy="2" rx="4" ry="5.5" fill="#000000" opacity="0.25" />
+                    {/* Rear Petal Layer */}
+                    <path d="M -3 3 C -4.5 -1, -3 -6, 0 -6.5 C 3 -6, 4.5 -1, 3 3 Z" fill="#E11D48" />
+                    {/* Left Cup Petal (curving in) */}
+                    <path d="M -4.2 2 C -5 -2, -3.5 -6, -0.8 -6 C -0.5 -1, -2.5 3.5, -4.2 2 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    {/* Right Cup Petal (overlapping) */}
+                    <path d="M 4.2 2 C 5 -2, 3.5 -6, 0.8 -6 C 0.5 -1, 2.5 3.5, 4.2 2 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    {/* Center Front Petal (dominant chalice face) */}
+                    <path d="M -2.8 2.5 C -3.5 -1.5, -2 -6.2, 0 -6.8 C 2 -6.2, 3.5 -1.5, 2.8 2.5 C 2 4.2, -2 4.2, -2.8 2.5 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    {/* Petal Edge Specular Highlight */}
+                    <path d="M 0 -6.8 Q 1.5 -2.5 1.2 2" stroke="#FFFFFF" strokeWidth="0.4" fill="none" opacity="0.75" />
+                    {/* Stem Calyx Connection */}
+                    <path d="M -1.2 3.2 C -1 4.5, 1 4.5, 1.2 3.2 Z" fill="#228555" />
                   </g>
 
-                  {/* FLOWER 3 (Center-Right): Deep Royal Violet Verbena / Periwinkle (x=69, y=13) */}
-                  <g transform="translate(69, 13)">
-                    <path d="M 0 -1.5 C -2.2 -4.8, 2.4 -5.5, 1.8 -1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    <path d="M 1 -0.6 C 4.2 -2.5, 5.4 1.6, 1.6 1 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    <path d="M 0.6 0.8 C 2.8 4, -1 5, -0.4 1.6 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    <path d="M -0.8 0.6 C -4 3, -4.8 -0.8, -1.4 -0.2 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    <path d="M -0.8 -0.8 C -3.5 -3.6, -0.6 -4.2, -0.2 -1.4 Z" fill={`url(#fbPeriwinklePetal_${windowInstanceId})`} />
-                    <circle cx="0" cy="0" r="1.2" fill="#2E0854" />
-                    <circle cx="0" cy="0" r="0.55" fill="#FEF08A" />
+                  {/* TULIP 2 (Left Center): Radiant Crimson Ruby Dutch Tulip (x=37, y=6) */}
+                  <g transform="translate(37, 6)">
+                    {/* Shadow Behind Blossom */}
+                    <ellipse cx="0" cy="2.5" rx="4.5" ry="6" fill="#000000" opacity="0.28" />
+                    {/* Back Petals */}
+                    <path d="M -3.5 3 C -5 -1, -3.5 -7, 0 -7.5 C 3.5 -7, 5 -1, 3.5 3 Z" fill="#881337" />
+                    {/* Left Petal */}
+                    <path d="M -4.8 2.5 C -5.8 -2, -4 -7, -1 -7 C -0.5 -1, -3 4, -4.8 2.5 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    {/* Right Petal */}
+                    <path d="M 4.8 2.5 C 5.8 -2, 4 -7, 1 -7 C 0.5 -1, 3 4, 4.8 2.5 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    {/* Center Prominent Petal */}
+                    <path d="M -3.2 2.8 C -4 -1.5, -2.2 -7.2, 0 -7.8 C 2.2 -7.2, 4 -1.5, 3.2 2.8 C 2.2 4.8, -2.2 4.8, -3.2 2.8 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    {/* Tulip Petal Curve Highlights */}
+                    <path d="M -0.2 -7.8 Q 1.5 -2.5 1.2 2.5" stroke="#FECDD3" strokeWidth="0.45" fill="none" opacity="0.8" />
+                    <path d="M -0.2 -7.8 Q -1.8 -3 -1.5 2.2" stroke="#FDA4AF" strokeWidth="0.35" fill="none" opacity="0.5" />
+                    {/* Calyx Base */}
+                    <path d="M -1.3 3.8 C -1 5, 1 5, 1.3 3.8 Z" fill="#1D6F47" />
                   </g>
 
-                  {/* FLOWER 4 (Far-Right): Soft English Tea Rose Bud & Opening Bloom (x=98, y=14) */}
-                  <g transform="translate(98, 14)">
-                    <path d="M -4 -1 C -5 -4, 0.5 -5, 2.5 -3 C 5 -1, 4 3.5, 0 4 C -4 3.5, -4.5 1.5, -4 -1 Z" fill={`url(#fbCoralRose_${windowInstanceId})`} />
-                    <path d="M -2.5 -1.8 C -3 -3.5, 1 -3.8, 2.5 -1.5 C 3 0.8, 1 2.8, -1 2.5 C -2.8 1.8, -3 -0.2, -2.5 -1.8 Z" fill="#E11D48" opacity="0.85" />
-                    <path d="M -1.5 -0.8 C -1.8 -2, 1.2 -2.2, 1.5 -0.5 C 1.5 1, -0.2 1.5, -1 1 Z" fill="#FDA4AF" />
-                    <circle cx="0" cy="0" r="0.5" fill="#FEF08A" />
+                  {/* TULIP 3 (Center Majestic): Golden Sunset Yellow Tulip (x=50, y=5) */}
+                  <g transform="translate(50, 5)">
+                    {/* Shadow Behind Blossom */}
+                    <ellipse cx="0" cy="2.5" rx="4.8" ry="6.5" fill="#000000" opacity="0.3" />
+                    {/* Back Petal Layer */}
+                    <path d="M -3.8 3 C -5.2 -1.5, -3.8 -7.5, 0 -8.2 C 3.8 -7.5, 5.2 -1.5, 3.8 3 Z" fill="#B45309" />
+                    {/* Left Petal */}
+                    <path d="M -5 2.5 C -6 -2, -4.2 -7.5, -1 -7.5 C -0.5 -1, -3 4.2, -5 2.5 Z" fill={`url(#fbTulipYellow_${windowInstanceId})`} />
+                    {/* Right Petal */}
+                    <path d="M 5 2.5 C 6 -2, 4.2 -7.5, 1 -7.5 C 0.5 -1, 3 4.2, 5 2.5 Z" fill={`url(#fbTulipYellow_${windowInstanceId})`} />
+                    {/* Center Cup Petal */}
+                    <path d="M -3.4 3 C -4.2 -1.8, -2.4 -7.8, 0 -8.5 C 2.4 -7.8, 4.2 -1.8, 3.4 3 C 2.4 5, -2.4 5, -3.4 3 Z" fill={`url(#fbTulipYellow_${windowInstanceId})`} />
+                    {/* Golden Glaze Highlight */}
+                    <path d="M 0 -8.5 Q 1.8 -3 1.4 2.8" stroke="#FFFFFF" strokeWidth="0.5" fill="none" opacity="0.9" />
+                    <path d="M 0 -8.5 Q -1.6 -3.5 -1.2 2.2" stroke="#FEF08A" strokeWidth="0.35" fill="none" opacity="0.6" />
+                    {/* Calyx */}
+                    <path d="M -1.4 4 C -1 5.2, 1 5.2, 1.4 4 Z" fill="#1D6F47" />
                   </g>
 
-                  {/* Delicate Wild Jasmine / Sweet Alyssum Starlets Nestled in Foliage */}
-                  {/* Starlet Cluster 1 (between 1 & Rose at x=31, y=18) */}
-                  <g transform="translate(31, 18)">
-                    <path d="M 0 -2.2 L 0.5 -0.6 L 2 -0.6 L 0.8 0.4 L 1.2 2 L 0 1 L -1.2 2 L -0.8 0.4 L -2 -0.6 L -0.5 -0.6 Z" fill="#F8FAFC" opacity="0.95" />
-                    <circle cx="0" cy="0" r="0.4" fill="#F59E0B" />
+                  {/* TULIP 4 (Center Right): Imperial Royal Purple Tulip (x=65, y=7) */}
+                  <g transform="translate(65, 7)">
+                    {/* Shadow Behind Blossom */}
+                    <ellipse cx="0" cy="2.2" rx="4.5" ry="6" fill="#000000" opacity="0.28" />
+                    {/* Back Petals */}
+                    <path d="M -3.5 3 C -5 -1, -3.5 -6.8, 0 -7.2 C 3.5 -6.8, 5 -1, 3.5 3 Z" fill="#3B0764" />
+                    {/* Left Petal */}
+                    <path d="M -4.6 2.2 C -5.5 -2, -3.8 -6.8, -0.8 -6.8 C -0.5 -1, -2.8 3.8, -4.6 2.2 Z" fill={`url(#fbTulipPurple_${windowInstanceId})`} />
+                    {/* Right Petal */}
+                    <path d="M 4.6 2.2 C 5.5 -2, 3.8 -6.8, 0.8 -6.8 C 0.5 -1, 2.8 3.8, 4.6 2.2 Z" fill={`url(#fbTulipPurple_${windowInstanceId})`} />
+                    {/* Center Petal */}
+                    <path d="M -3 2.6 C -3.8 -1.5, -2.2 -6.8, 0 -7.5 C 2.2 -6.8, 3.8 -1.5, 3 2.6 C 2 4.5, -2 4.5, -3 2.6 Z" fill={`url(#fbTulipPurple_${windowInstanceId})`} />
+                    {/* Velvet Lavender Sheen */}
+                    <path d="M 0 -7.5 Q 1.5 -2.5 1.2 2.2" stroke="#F3E8FF" strokeWidth="0.45" fill="none" opacity="0.85" />
+                    {/* Calyx */}
+                    <path d="M -1.3 3.6 C -1 4.8, 1 4.8, 1.3 3.6 Z" fill="#174A2E" />
                   </g>
-                  {/* Starlet Cluster 2 (beside Rose at x=62, y=17) */}
-                  <g transform="translate(62, 17)">
-                    <path d="M 0 -2 L 0.5 -0.5 L 1.8 -0.5 L 0.7 0.4 L 1.1 1.8 L 0 0.9 L -1.1 1.8 L -0.7 0.4 L -1.8 -0.5 L -0.5 -0.5 Z" fill="#F8FAFC" opacity="0.95" />
-                    <circle cx="0" cy="0" r="0.4" fill="#F59E0B" />
+
+                  {/* TULIP 5 (Right Center): Pure White / Ivory Silk Tulip with green throat (x=79, y=6) */}
+                  <g transform="translate(79, 6)">
+                    {/* Shadow Behind Blossom */}
+                    <ellipse cx="0" cy="2.5" rx="4.5" ry="6" fill="#000000" opacity="0.25" />
+                    {/* Back Petals */}
+                    <path d="M -3.5 3 C -5 -1, -3.5 -7, 0 -7.5 C 3.5 -7, 5 -1, 3.5 3 Z" fill="#94A3B8" />
+                    {/* Left Petal */}
+                    <path d="M -4.8 2.2 C -5.8 -2, -4 -7, -1 -7 C -0.5 -1, -3 4, -4.8 2.2 Z" fill={`url(#fbTulipWhite_${windowInstanceId})`} />
+                    {/* Right Petal */}
+                    <path d="M 4.8 2.2 C 5.8 -2, 4 -7, 1 -7 C 0.5 -1, 3 4, 4.8 2.2 Z" fill={`url(#fbTulipWhite_${windowInstanceId})`} />
+                    {/* Center Petal */}
+                    <path d="M -3.2 2.6 C -4 -1.5, -2.2 -7.2, 0 -7.8 C 2.2 -7.2, 4 -1.5, 3.2 2.6 C 2.2 4.6, -2.2 4.6, -3.2 2.6 Z" fill={`url(#fbTulipWhite_${windowInstanceId})`} />
+                    {/* Pristine White Specular Ridge */}
+                    <path d="M 0 -7.8 Q 1.5 -2.5 1.2 2.2" stroke="#FFFFFF" strokeWidth="0.5" fill="none" opacity="0.95" />
+                    {/* Delicate spring green blush at base */}
+                    <path d="M -1.8 1.5 C -1 3, 1 3, 1.8 1.5 C 1 0.5, -1 0.5, -1.8 1.5 Z" fill="#86EFAC" opacity="0.6" />
+                    {/* Calyx */}
+                    <path d="M -1.3 3.8 C -1 5, 1 5, 1.3 3.8 Z" fill="#228555" />
                   </g>
-                  {/* Starlet Cluster 3 (near Lavender at x=76, y=17) */}
-                  <g transform="translate(76, 17)">
-                    <path d="M 0 -1.8 L 0.4 -0.5 L 1.6 -0.5 L 0.6 0.3 L 1 1.6 L 0 0.8 L -1 1.6 L -0.6 0.3 L -1.6 -0.5 L -0.4 -0.5 Z" fill="#F8FAFC" opacity="0.9" />
-                    <circle cx="0" cy="0" r="0.35" fill="#F59E0B" />
+
+                  {/* TULIP 6 (Far Right): Deep Ruby Crimson Tulip (x=93, y=9) */}
+                  <g transform="translate(93, 9)">
+                    <ellipse cx="0" cy="2.2" rx="4.2" ry="5.5" fill="#000000" opacity="0.25" />
+                    <path d="M -3 3 C -4.5 -1, -3 -6, 0 -6.5 C 3 -6, 4.5 -1, 3 3 Z" fill="#881337" />
+                    <path d="M -4.2 2 C -5 -2, -3.5 -6, -0.8 -6 C -0.5 -1, -2.5 3.5, -4.2 2 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    <path d="M 4.2 2 C 5 -2, 3.5 -6, 0.8 -6 C 0.5 -1, 2.5 3.5, 4.2 2 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    <path d="M -2.8 2.5 C -3.5 -1.5, -2 -6.2, 0 -6.8 C 2 -6.2, 3.5 -1.5, 2.8 2.5 C 2 4.2, -2 4.2, -2.8 2.5 Z" fill={`url(#fbTulipRuby_${windowInstanceId})`} />
+                    <path d="M 0 -6.8 Q 1.5 -2.5 1.2 2" stroke="#FECDD3" strokeWidth="0.4" fill="none" opacity="0.75" />
+                    <path d="M -1.2 3.2 C -1 4.5, 1 4.5, 1.2 3.2 Z" fill="#1D6F47" />
+                  </g>
+
+                  {/* TULIP 7 (Accent Right): Petite Rosebud Tulip (x=103, y=11) */}
+                  <g transform="translate(103, 11)">
+                    <ellipse cx="0" cy="1.8" rx="3.5" ry="4.8" fill="#000000" opacity="0.2" />
+                    <path d="M -2.5 2.5 C -3.8 -1, -2.5 -5, 0 -5.5 C 2.5 -5, 3.8 -1, 2.5 2.5 Z" fill="#BE123C" />
+                    <path d="M -3.5 1.8 C -4.2 -1.5, -3 -5, -0.6 -5 C -0.4 -1, -2 2.8, -3.5 1.8 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    <path d="M 3.5 1.8 C 4.2 -1.5, 3 -5, 0.6 -5 C 0.4 -1, 2 2.8, 3.5 1.8 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    <path d="M -2.2 2 C -2.8 -1.2, -1.6 -5.2, 0 -5.8 C 1.6 -5.2, 2.8 -1.2, 2.2 2 C 1.6 3.5, -1.6 3.5, -2.2 2 Z" fill={`url(#fbTulipPink_${windowInstanceId})`} />
+                    <path d="M 0 -5.8 Q 1 -2 0.8 1.5" stroke="#FFFFFF" strokeWidth="0.35" fill="none" opacity="0.7" />
+                    <path d="M -1 2.8 C -0.8 3.8, 0.8 3.8, 1 2.8 Z" fill="#228555" />
                   </g>
 
                   {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

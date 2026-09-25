@@ -62,13 +62,14 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
 
             {/* Pill-style Action Button */}
             <div className="mt-6 sm:mt-7">
-              <a
-                href="mailto:chauhanjessicaa27@gmail.com"
+              <button
+                type="button"
+                onClick={onOpenTalk}
                 className="group inline-flex items-center gap-2 px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full text-xs sm:text-[12.5px] font-medium tracking-wide text-[#34154E] dark:text-[#F5F3FA] bg-white dark:bg-[#151022] hover:bg-[#FAF8FE] dark:hover:bg-[#1D1630] border border-[#E0D8F0] dark:border-[#382C5A] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_14px_rgba(180,160,230,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]"
               >
                 <span>LET'S TALK</span>
                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2] text-[#34154E] dark:text-[#F5F3FA] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-              </a>
+              </button>
             </div>
           </div>
 

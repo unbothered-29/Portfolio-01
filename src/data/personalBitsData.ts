@@ -57,10 +57,11 @@ export const PERSONAL_BITS_DATA: PersonalBitCard[] = [
     title: "Quiet Favorites",
     items: [
       "Travel & Group Expeditions",
+      "35mm Vintage Photography & Street Framing",
       "Kinetic Typography & Neue Haas Grotesk",
       "Mathematical Spacing & Clean Rhythms",
       "Physics-Grounded 60fps Transitions",
-      "Cold Brew Coffee & Late-Night Coding Flow",
+      "Iced Cold Coffee & Late-Night Coding Flow",
     ],
     rotationDeg: 1.6,
     widthClass: "w-full max-w-[300px]",

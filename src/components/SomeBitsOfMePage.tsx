@@ -3,6 +3,7 @@ import { GlassNavbar } from "./GlassNavbar";
 import { FullscreenNavOverlay } from "./FullscreenNavOverlay";
 import { GlassCursor } from "./GlassCursor";
 import { CinematicBuildingFacade } from "./CinematicBuildingFacade";
+import { ContactSection } from "./ContactSection";
 import { useTheme } from "../context/ThemeContext";
 
 interface SomeBitsOfMePageProps {
@@ -22,6 +23,11 @@ export function SomeBitsOfMePage({
 
   const handleNavMenuClick = (sectionId: string) => {
     setIsMenuOpen(false);
+    if (sectionId === "contact") {
+      window.location.href =
+        "mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry";
+      return;
+    }
     onBackToHome();
     if (onNavigateSection) {
       setTimeout(() => {
@@ -78,6 +84,14 @@ export function SomeBitsOfMePage({
         onBackToHome={onBackToHome}
         onNavigateSection={handleNavMenuClick}
         onOpenContact={onOpenContact}
+      />
+
+      {/* Signature Contact & Giant Wordmark Footer */}
+      <ContactSection
+        onOpenTalk={() => {
+          if (onOpenContact) onOpenContact();
+        }}
+        onNavigate={handleNavMenuClick}
       />
 
       {/* Glass Cursor */}

@@ -73,14 +73,15 @@ export function FullscreenNavOverlay({
       onClose();
       // Delay navigation slightly so the closing animation initiates cleanly
       setTimeout(() => {
-        if (id === "contact" && onContactClick) {
-          onContactClick();
+        if (id === "contact") {
+          window.location.href =
+            "mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry";
         } else {
           onNavigate(id);
         }
       }, 180);
     },
-    [onClose, onNavigate, onContactClick]
+    [onClose, onNavigate]
   );
 
   return (
@@ -237,58 +238,114 @@ export function FullscreenNavOverlay({
                         }}
                         className="w-full flex justify-center"
                       >
-                        <button
-                          id={`nav-link-${item.id}`}
-                          onClick={() => handleItemClick(item.id)}
-                          onMouseEnter={() => setHoveredIndex(index)}
-                          onMouseLeave={() => setHoveredIndex(null)}
-                          onFocus={() => setHoveredIndex(index)}
-                          onBlur={() => setHoveredIndex(null)}
-                          className="group relative flex items-center justify-center px-4 sm:px-8 py-0.5 sm:py-1 cursor-pointer select-none focus-visible:outline-none"
-                        >
-                          {/* Subtle Dashed Editorial Hairline Above (as in Screenshot 6) */}
-                          {isHovered && (
-                            <motion.div
-                              layoutId="nav-hover-hairline-top"
-                              initial={{ scaleX: 0, opacity: 0 }}
-                              animate={{ scaleX: 1, opacity: 1 }}
-                              exit={{ scaleX: 0, opacity: 0 }}
-                              transition={{ duration: 0.2, ease: "easeOut" }}
-                              className={`absolute -top-0.5 sm:-top-1 inset-x-2 border-t border-dashed pointer-events-none ${
-                                isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
-                              }`}
-                            />
-                          )}
-
-                          {/* Full, Unclipped High-End Fraunces Typography */}
-                          <span
-                            className={`block text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold uppercase tracking-[-0.02em] font-fraunces leading-[1.1] transition-all duration-200 ease-out ${
-                              isHovered
-                                ? "text-[#583C7E] dark:text-[#C4B5FD] scale-[1.02]"
-                                : isDimmed
-                                ? isDark
-                                  ? "opacity-25 text-current"
-                                  : "opacity-30 text-current"
-                                : "opacity-100 text-current"
-                            }`}
+                        {item.id === "contact" ? (
+                          <a
+                            id={`nav-link-${item.id}`}
+                            href="mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry"
+                            onClick={() => onClose()}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
+                            onFocus={() => setHoveredIndex(index)}
+                            onBlur={() => setHoveredIndex(null)}
+                            className="group relative flex items-center justify-center px-4 sm:px-8 py-0.5 sm:py-1 cursor-pointer select-none focus-visible:outline-none"
                           >
-                            {item.label}
-                          </span>
+                            {/* Subtle Dashed Editorial Hairline Above */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-top"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -top-0.5 sm:-top-1 inset-x-2 border-t border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
 
-                          {/* Subtle Dashed Editorial Hairline Below (as in Screenshot 6) */}
-                          {isHovered && (
-                            <motion.div
-                              layoutId="nav-hover-hairline-bottom"
-                              initial={{ scaleX: 0, opacity: 0 }}
-                              animate={{ scaleX: 1, opacity: 1 }}
-                              exit={{ scaleX: 0, opacity: 0 }}
-                              transition={{ duration: 0.2, ease: "easeOut" }}
-                              className={`absolute -bottom-0.5 sm:-bottom-1 inset-x-2 border-b border-dashed pointer-events-none ${
-                                isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                            {/* Full, Unclipped High-End Fraunces Typography */}
+                            <span
+                              className={`block text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold uppercase tracking-[-0.02em] font-fraunces leading-[1.1] transition-all duration-200 ease-out ${
+                                isHovered
+                                  ? "text-[#583C7E] dark:text-[#C4B5FD] scale-[1.02]"
+                                  : isDimmed
+                                  ? isDark
+                                    ? "opacity-25 text-current"
+                                    : "opacity-30 text-current"
+                                  : "opacity-100 text-current"
                               }`}
-                            />
-                          )}
-                        </button>
+                            >
+                              {item.label}
+                            </span>
+
+                            {/* Subtle Dashed Editorial Hairline Below */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-bottom"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -bottom-0.5 sm:-bottom-1 inset-x-2 border-b border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
+                          </a>
+                        ) : (
+                          <button
+                            id={`nav-link-${item.id}`}
+                            onClick={() => handleItemClick(item.id)}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
+                            onFocus={() => setHoveredIndex(index)}
+                            onBlur={() => setHoveredIndex(null)}
+                            className="group relative flex items-center justify-center px-4 sm:px-8 py-0.5 sm:py-1 cursor-pointer select-none focus-visible:outline-none"
+                          >
+                            {/* Subtle Dashed Editorial Hairline Above (as in Screenshot 6) */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-top"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -top-0.5 sm:-top-1 inset-x-2 border-t border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
+
+                            {/* Full, Unclipped High-End Fraunces Typography */}
+                            <span
+                              className={`block text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold uppercase tracking-[-0.02em] font-fraunces leading-[1.1] transition-all duration-200 ease-out ${
+                                isHovered
+                                  ? "text-[#583C7E] dark:text-[#C4B5FD] scale-[1.02]"
+                                  : isDimmed
+                                  ? isDark
+                                    ? "opacity-25 text-current"
+                                    : "opacity-30 text-current"
+                                  : "opacity-100 text-current"
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+
+                            {/* Subtle Dashed Editorial Hairline Below (as in Screenshot 6) */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-bottom"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -bottom-0.5 sm:-bottom-1 inset-x-2 border-b border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
+                          </button>
+                        )}
                       </motion.div>
                     </li>
                   );
