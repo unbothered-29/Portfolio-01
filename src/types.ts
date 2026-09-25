@@ -33,29 +33,34 @@ export interface DesignerMetadata {
   focus: string;
 }
 
-export interface PersonalBitCard {
-  id: string;
-  category: string; // e.g. "01 — CURRENTLY"
+export interface EducationInfo {
+  institution: string;
+  degree: string;
+  duration: string;
+  cgpa: string;
+  coursework: string[];
+}
+
+export interface AwardItem {
   title: string;
-  statement?: string;
-  description?: string;
-  items?: string[];
-  placeholderNote?: string;
-  rotationDeg: number; // default rotation e.g. -2.5, 0, 2
-  widthClass?: string; // custom card sizing
-  aspectHint?: string;
-  parallaxFactor?: number;
-  fileTag?: string; // e.g. "currently.sys", "favorites.log"
-  // Freeform editorial layout properties
-  layout?: {
-    top?: string;
-    left?: string;
-    right?: string;
-    bottom?: string;
-    width: string | number;
-    minHeight?: string | number;
-    zIndex: number;
-    rotation: number;
-    initialOffset?: { x: number; y: number };
-  };
+  detail: string;
+  year?: string;
+}
+
+export interface CertificationItem {
+  name: string;
+  duration: string;
+  hasCertificate?: boolean;
+}
+
+export interface LanguageItem {
+  language: string;
+  level: string;
+}
+
+export interface TechnicalSkillsGroup {
+  frontend: string[];
+  backend: string[];
+  toolsAndCloud: string[];
+  concepts: string[];
 }

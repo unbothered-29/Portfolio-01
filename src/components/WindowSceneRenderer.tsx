@@ -842,292 +842,208 @@ export function WindowSceneRenderer({
         )}
 
         {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            SCENE 08: READING A NOVEL (PASSIVE)
-            Architectural lounge armchair, arched brass floor lamp, novel, cozy book nook
+            SCENE 08 / WINDOW 1: BEDROOM SLEEPING SCENE (FROM USER REFERENCE)
+            Person sleeping in bed, spindle headboard, glowing nightstand lamp,
+            hanging globe paper pendant lantern, wooden wardrobe, sheer curtains
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
         {scene === "reading-novel" && (
-          <g id="scene-reading-novel">
-            <rect x="0" y="0" width="100" height="75" fill={isDark ? "#14101E" : "#F4EDFA"} />
-            
-            {/* Minimalist Art Frame on Wall */}
-            <rect x="14" y="10" width="18" height="22" rx="0.8" fill={isDark ? "#1A1526" : "#EDE5F3"} stroke={isDark ? "#382950" : "#CDBADA"} strokeWidth="0.8" />
-            <ellipse cx="23" cy="21" rx="5" ry="7" fill={isDark ? "#281D3D" : "#DECBEF"} />
-            <path d="M 19 25 C 21 21, 25 21, 27 25" stroke={isDark ? "#4C3866" : "#A78BFA"} strokeWidth="0.8" fill="none" />
+          <g id="scene-bedroom-sleeping-user">
+            {/* Base Room Walls: Warm Cream Wall on Left */}
+            <rect x="0" y="0" width="100" height="75" fill={isDark ? "#120E1A" : "#ECE2D8"} />
 
-            {/* Parquet / Wood Floor */}
-            <polygon points="0,58 100,58 100,75 0,75" fill={`url(#floorWood_${windowInstanceId})`} />
-            
-            {/* Textured Circular Scandinavian Wool Rug with fringe border */}
-            <ellipse cx="48" cy="65" rx="34" ry="7" fill={isDark ? "#251B35" : "#D8C7E7"} />
-            <ellipse cx="48" cy="65" rx="31" ry="5.8" fill={isDark ? "#2E2140" : "#E4D6EF"} />
-            <ellipse cx="48" cy="65" rx="27" ry="4.8" fill="none" stroke={isDark ? "#44325C" : "#C4B0DB"} strokeWidth="0.6" strokeDasharray="1.5 1.5" />
+            {/* Back Wall Right Zone: Rich Caramel Dark-Wood Wardrobe / Cabinet */}
+            <rect x="42" y="0" width="46" height="60" fill={isDark ? "#382012" : "#6E3E1A"} />
+            {/* Wardrobe Door Panels & Grain Seams */}
+            <line x1="64" y1="0" x2="64" y2="60" stroke={isDark ? "#201209" : "#4A270D"} strokeWidth="1.2" />
+            <rect x="44" y="2" width="18" height="56" fill="none" stroke={isDark ? "#2A180C" : "#593113"} strokeWidth="0.8" />
+            <rect x="66" y="2" width="20" height="56" fill="none" stroke={isDark ? "#2A180C" : "#593113"} strokeWidth="0.8" />
+            {/* Vertical Door Handles */}
+            <line x1="62.5" y1="28" x2="62.5" y2="34" stroke={isDark ? "#120A05" : "#2E1706"} strokeWidth="1" strokeLinecap="round" />
+            <line x1="65.5" y1="28" x2="65.5" y2="34" stroke={isDark ? "#120A05" : "#2E1706"} strokeWidth="1" strokeLinecap="round" />
 
-            {/* ─── ARCHITECTURAL MID-CENTURY READING LOUNGE CHAIR ─── */}
-            <g id="architectural-reading-chair">
-              {/* Splayed Solid Walnut Tapered Legs with Golden Brass Tips */}
-              {/* Rear Legs */}
-              <line x1="33" y1="52" x2="28" y2="65" stroke={isDark ? "#22140C" : "#3E2211"} strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="28.8" y1="63" x2="28" y2="65" stroke="#F59E0B" strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="67" y1="52" x2="72" y2="65" stroke={isDark ? "#22140C" : "#3E2211"} strokeWidth="1.8" strokeLinecap="round" />
-              <line x1="71.2" y1="63" x2="72" y2="65" stroke="#F59E0B" strokeWidth="1.8" strokeLinecap="round" />
+            {/* Far Right Wall Shadow */}
+            <rect x="88" y="0" width="12" height="60" fill={isDark ? "#0D0914" : "#4A2C18"} opacity="0.6" />
+
+            {/* Framed Wall Artwork on Left Wall (Botanical / Minimalist Print) */}
+            <g id="wall-art">
+              {/* Picture Spotlight Beam from Upper Left */}
+              <polygon points="4,4 12,0 28,34 10,34" fill="#FFFDF0" opacity={isDark ? 0.08 : 0.22} />
+              {/* Picture Frame */}
+              <rect x="9" y="14" width="14" height="18" rx="0.6" fill="#FDFBF7" stroke="#A8A29E" strokeWidth="0.6" />
+              {/* Inner Print / Painting */}
+              <rect x="11" y="16" width="10" height="14" fill="#F5F0E8" />
+              {/* Botanical art detail */}
+              <circle cx="16" cy="22" r="3.2" fill="#D97706" opacity="0.75" />
+              <path d="M 16 26 L 16 19 Q 14 17 13 18" stroke="#15803D" strokeWidth="0.8" fill="none" />
+              <ellipse cx="14" cy="20" rx="1.5" ry="0.8" fill="#16A34A" />
+              <ellipse cx="18" cy="21" rx="1.4" ry="0.7" fill="#65A30D" />
+            </g>
+
+            {/* Dark Hardwood Floor */}
+            <polygon points="0,58 100,58 100,75 0,75" fill={isDark ? "#19110B" : "#452614"} />
+            <line x1="0" y1="58" x2="100" y2="58" stroke={isDark ? "#0F0B07" : "#2B160B"} strokeWidth="0.8" />
+            {/* Floor Planks */}
+            <line x1="28" y1="58" x2="24" y2="75" stroke={isDark ? "#120B06" : "#381E0F"} strokeWidth="0.5" />
+            <line x1="58" y1="58" x2="55" y2="75" stroke={isDark ? "#120B06" : "#381E0F"} strokeWidth="0.5" />
+            <line x1="84" y1="58" x2="82" y2="75" stroke={isDark ? "#120B06" : "#381E0F"} strokeWidth="0.5" />
+
+            {/* Left Bedside Nightstand */}
+            <g id="bedside-nightstand">
+              {/* Nightstand Shadow */}
+              <ellipse cx="12" cy="65" rx="5" ry="1.4" fill="#000000" opacity="0.35" />
+              {/* Stand Body */}
+              <rect x="7" y="52" width="9" height="12" rx="0.5" fill={isDark ? "#1B2A28" : "#334E4B"} />
+              <rect x="8" y="54" width="7" height="4" rx="0.3" fill={isDark ? "#243936" : "#405F5C"} />
+              <circle cx="11.5" cy="56" r="0.4" fill="#FBBF24" />
+              {/* Bedside Table Lamp */}
+              {/* Lamp Base & Neck */}
+              <line x1="11.5" y1="52" x2="11.5" y2="47" stroke="#E2E8F0" strokeWidth="0.9" />
+              <ellipse cx="11.5" cy="52" rx="1.6" ry="0.6" fill="#CBD5E1" />
+              {/* Glowing Warm Yellow Pleated Shade */}
+              <polygon points="9.5,47 13.5,47 14.5,42 8.5,42" fill="#FDE047" stroke="#EAB308" strokeWidth="0.4" />
+              <ellipse cx="11.5" cy="47" rx="2" ry="0.5" fill="#FEF08A" />
+              {/* Warm Lamp Light Bloom */}
+              <circle cx="11.5" cy="45" r="9" fill={`url(#lampRadialGlow_${windowInstanceId})`} opacity={isLit ? 0.95 : 0.7} />
+            </g>
+
+            {/* ─── THE BED & SLEEPING PERSON ─── */}
+            <g id="bedroom-bed-sleeping">
+              {/* Bed Cast Shadow on Floor */}
+              <polygon points="14,64 78,64 75,70 12,70" fill="#000000" opacity={isDark ? 0.5 : 0.3} />
+
+              {/* Bed Headboard (Vintage Dark Teal Spindles / Slats) */}
+              <g id="bed-headboard">
+                {/* Main Headboard Frame */}
+                <rect x="15" y="32" width="2.2" height="28" rx="0.4" fill={isDark ? "#172E2B" : "#2A4744"} />
+                <rect x="23" y="32" width="2.2" height="28" rx="0.4" fill={isDark ? "#172E2B" : "#2A4744"} />
+                {/* Top Rounded Rail */}
+                <rect x="14" y="31" width="12" height="2" rx="0.8" fill={isDark ? "#223E3A" : "#375955"} />
+                {/* Vertical Wooden Spindles */}
+                <line x1="17.2" y1="33" x2="17.2" y2="48" stroke={isDark ? "#1A3330" : "#30504C"} strokeWidth="0.8" />
+                <line x1="19.2" y1="33" x2="19.2" y2="48" stroke={isDark ? "#1A3330" : "#30504C"} strokeWidth="0.8" />
+                <line x1="21.2" y1="33" x2="21.2" y2="48" stroke={isDark ? "#1A3330" : "#30504C"} strokeWidth="0.8" />
+              </g>
+
+              {/* Bed Foundation / Frame Lower Rail */}
+              <rect x="16" y="56" width="60" height="7" rx="0.8" fill={isDark ? "#0F1A24" : "#1B2A38"} />
+              {/* Bed Legs */}
+              <rect x="18" y="63" width="2.2" height="4" fill={isDark ? "#0A1118" : "#131E28"} />
+              <rect x="72" y="63" width="2.2" height="4" fill={isDark ? "#0A1118" : "#131E28"} />
+
+              {/* Deep Plush White/Pale-Grey Mattress */}
+              <rect x="16" y="47" width="60" height="9.5" rx="1.5" fill={isDark ? "#333842" : "#E5E7EB"} />
+              {/* Top Mattress Surface & Fitted Sheet Edge */}
+              <rect x="16" y="47" width="60" height="3" rx="1" fill={isDark ? "#4B5563" : "#F3F4F6"} />
+              <line x1="16" y1="50" x2="76" y2="50" stroke={isDark ? "#1F2937" : "#CBD5E1"} strokeWidth="0.6" />
+
+              {/* Fluffy Bed Pillow at Head */}
+              <ellipse cx="23" cy="46" rx="6.5" ry="3.8" fill={isDark ? "#E2E8F0" : "#FFFFFF"} />
+              <ellipse cx="23" cy="46.5" rx="5.5" ry="2.8" fill={isDark ? "#CBD5E1" : "#F8FAFC"} />
+              {/* Pillow indent crease */}
+              <path d="M 21 46.5 Q 24 48 26 46" stroke="#94A3B8" strokeWidth="0.4" fill="none" />
+
+              {/* ─── REALISTIC PERSON SLEEPING ─── */}
+              <g id="sleeping-person">
+                {/* Head resting in profile on pillow */}
+                <ellipse cx="23" cy="44.5" rx="3.6" ry="3" fill="#E8B59B" />
+                {/* Soft Brunette Hair framing head */}
+                <path
+                  d="M 19.5 44 C 19.5 41, 23 41, 26 42.5 C 26 45, 25 47, 23 47 C 21 47, 19.5 46, 19.5 44 Z"
+                  fill="#2A1B14"
+                />
+                {/* Peaceful closed eyelid & eyelashes */}
+                <path d="M 22.8 44.5 Q 24 45 24.8 44.4" stroke="#1C120C" strokeWidth="0.4" strokeLinecap="round" fill="none" />
+                {/* Gentle mouth / cheek glow */}
+                <ellipse cx="23.8" cy="45.5" rx="0.8" ry="0.4" fill="#F472B6" opacity="0.3" />
+
+                {/* Soft Lavender / Periwinkle Grey Duvet Blanket over Upper Body */}
+                <path
+                  d="M 27 44 C 30 42, 36 43, 44 43.5 C 47 43.8, 50 46, 49 50 C 48 54, 46 56, 38 56 C 30 56, 26 53, 27 44 Z"
+                  fill={isDark ? "#3A354A" : "#9E96AF"}
+                />
+                {/* Blanket Fold & Crease Highlights */}
+                <path d="M 29 45.5 Q 36 44.5 45 45" stroke={isDark ? "#4E4763" : "#B8B1CA"} strokeWidth="0.9" fill="none" />
+                <path d="M 32 49 Q 39 48 46 50" stroke={isDark ? "#282333" : "#7C738E"} strokeWidth="0.7" fill="none" />
+                <path d="M 33 53 Q 40 52.5 46 54" stroke={isDark ? "#282333" : "#7C738E"} strokeWidth="0.6" fill="none" />
+
+                {/* Orange-Terracotta Loungewear Pajamas on Lower Legs (Curled forward naturally) */}
+                {/* Thigh extending from under blanket */}
+                <path
+                  d="M 46 47 C 49 46.5, 54 48, 56 50.5 C 57.5 52.5, 56 54.5, 52 54 C 48 54, 46 51, 46 47 Z"
+                  fill={isDark ? "#9A3412" : "#C86420"}
+                />
+                {/* Lower legs bent at knees and extending to right */}
+                <path
+                  d="M 54 50 C 58 49, 63 51, 66 52.5 C 67.5 53.5, 66 55.5, 62 55 C 57 55, 53 53, 54 50 Z"
+                  fill={isDark ? "#9A3412" : "#C86420"}
+                />
+                {/* Fabric folds at knees */}
+                <path d="M 52 50 Q 56 51.5 60 52.5" stroke={isDark ? "#622307" : "#8A3D0B"} strokeWidth="0.7" fill="none" />
+                <path d="M 55 53.5 Q 59 54 63 54" stroke={isDark ? "#622307" : "#8A3D0B"} strokeWidth="0.6" fill="none" />
+
+                {/* Bare Feet resting naturally near end of bed */}
+                <path d="M 65 52.5 C 67 52.5, 68.5 53.5, 67.5 54.5 C 66 55.5, 64 54.5, 65 52.5 Z" fill="#E8B59B" />
+              </g>
+            </g>
+
+            {/* ─── HANGING SPHERICAL PAPER GLOBE PENDANT LANTERN ─── */}
+            <g id="globe-paper-lantern">
+              {/* Slender Ceiling Cord */}
+              <line x1="48" y1="0" x2="48" y2="15" stroke={isDark ? "#475569" : "#64748B"} strokeWidth="0.8" />
+              {/* Top Cord Fixture Cap */}
+              <ellipse cx="48" cy="15" rx="1.2" ry="0.5" fill="#334155" />
+
+              {/* Lantern Ambient Soft Glow */}
+              <circle cx="48" cy="24" r="13" fill="#A7F3D0" opacity={isLit ? (isDark ? 0.28 : 0.45) : (isDark ? 0.12 : 0.2)} />
               
-              {/* Front Legs with warm cast shadow */}
-              <line x1="32" y1="56" x2="29" y2="68" stroke={isDark ? "#381E0D" : "#593318"} strokeWidth="2.2" strokeLinecap="round" />
-              <line x1="29.6" y1="65.5" x2="29" y2="68" stroke="#FBBF24" strokeWidth="2.2" strokeLinecap="round" />
-              <line x1="68" y1="56" x2="71" y2="68" stroke={isDark ? "#381E0D" : "#593318"} strokeWidth="2.2" strokeLinecap="round" />
-              <line x1="70.4" y1="65.5" x2="71" y2="68" stroke="#FBBF24" strokeWidth="2.2" strokeLinecap="round" />
+              {/* Paper Globe Sphere */}
+              <circle cx="48" cy="24" r="9" fill={isDark ? "#6EE7B7" : "#D1FAE5"} opacity="0.88" />
+              {/* Inner Soft Gradient Ring */}
+              <circle cx="47" cy="23" r="7.5" fill="#ECFDF5" opacity="0.65" />
 
-              {/* Wooden Sub-Frame Stretcher */}
-              <path d="M 31 56 L 69 56" stroke={isDark ? "#2B160A" : "#4A2813"} strokeWidth="1.6" strokeLinecap="round" />
+              {/* Characteristic Curved Horizontal Latitude Rib Lines (Noguchi Style) */}
+              <path d="M 41.5 19 Q 48 16.5 54.5 19" stroke={isDark ? "#34D399" : "#059669"} strokeWidth="0.5" fill="none" opacity="0.6" />
+              <path d="M 39.5 22 Q 48 19.5 56.5 22" stroke={isDark ? "#34D399" : "#059669"} strokeWidth="0.5" fill="none" opacity="0.6" />
+              <path d="M 39 25 Q 48 23 57 25" stroke={isDark ? "#34D399" : "#059669"} strokeWidth="0.5" fill="none" opacity="0.6" />
+              <path d="M 40.5 28 Q 48 26.5 55.5 28" stroke={isDark ? "#34D399" : "#059669"} strokeWidth="0.5" fill="none" opacity="0.6" />
 
-              {/* Wingback Lounge Backrest Shell (Rich Cognac Saddle Leather) */}
-              <path
-                d="M 32 48 C 29 36, 27 26, 26 22 C 26 19, 32 17, 50 17 C 68 17, 74 19, 74 22 C 73 26, 71 36, 68 48 Z"
-                fill={isDark ? "#7C2D12" : "#B45309"}
-              />
-              {/* Wingback Sculpted Flares (Left & Right Wings with soft shadow) */}
-              <path
-                d="M 26 22 C 24 25, 25 34, 29 44 C 31 38, 30 28, 32 20 C 28 19, 26 20, 26 22 Z"
-                fill={isDark ? "#62230E" : "#92400E"}
-              />
-              <path
-                d="M 74 22 C 76 25, 75 34, 71 44 C 69 38, 70 28, 68 20 C 72 19, 74 20, 74 22 Z"
-                fill={isDark ? "#62230E" : "#92400E"}
-              />
-
-              {/* Inner Backrest Channel Tufting & Tailored Seams */}
-              <path d="M 43 19 C 42 27, 41 38, 41 47" stroke={isDark ? "#431407" : "#78350F"} strokeWidth="0.9" fill="none" opacity="0.6" />
-              <path d="M 50 18 C 50 26, 50 38, 50 47" stroke={isDark ? "#431407" : "#78350F"} strokeWidth="0.9" fill="none" opacity="0.6" />
-              <path d="M 57 19 C 58 27, 59 38, 59 47" stroke={isDark ? "#431407" : "#78350F"} strokeWidth="0.9" fill="none" opacity="0.6" />
-
-              {/* Plush Ergonomic Seat Cushion */}
-              <ellipse cx="50" cy="52" rx="20" ry="6.2" fill={isDark ? "#9A3412" : "#D97706"} />
-              <ellipse cx="50" cy="51" rx="19" ry="5.4" fill={isDark ? "#B45309" : "#F59E0B"} opacity="0.35" />
-              {/* Cushion Front Welted Piping & Drop Shadow */}
-              <path d="M 31 52 Q 50 58 69 52" stroke={isDark ? "#451A03" : "#78350F"} strokeWidth="1.2" fill="none" />
-              <path d="M 31 53 Q 50 59 69 53" stroke={isDark ? "#270E02" : "#451A03"} strokeWidth="0.8" fill="none" opacity="0.6" />
-
-              {/* Ergonomic Curved Armrests */}
-              {/* Left Armrest */}
-              <path d="M 28 38 C 26 43, 27 50, 31 52 C 34 52, 33 46, 32 38 Z" fill={isDark ? "#9A3412" : "#C2410C"} />
-              <path d="M 27 48 Q 29 53 32 52" stroke="#FBBF24" strokeWidth="0.6" fill="none" opacity="0.4" />
-              {/* Right Armrest */}
-              <path d="M 72 38 C 74 43, 73 50, 69 52 C 66 52, 67 46, 68 38 Z" fill={isDark ? "#9A3412" : "#C2410C"} />
-              <path d="M 73 48 Q 71 53 68 52" stroke="#FBBF24" strokeWidth="0.6" fill="none" opacity="0.4" />
-
-              {/* Cozy Draped Boucle Throw Blanket on Left Armrest with soft fringe */}
-              <path
-                d="M 26 36 C 27 34, 30 36, 30 40 C 30 46, 27 49, 26 55 C 25 58, 28 59, 29 56 C 30 52, 32 46, 32 42 Z"
-                fill={isDark ? "#3F3746" : "#FAF5FF"}
-                stroke={isDark ? "#2A2330" : "#E9D5FF"}
-                strokeWidth="0.4"
-              />
-              {/* Fringe tassels on throw */}
-              <line x1="25.5" y1="57" x2="25" y2="59.5" stroke={isDark ? "#71657A" : "#D8B4FE"} strokeWidth="0.5" />
-              <line x1="27" y1="58" x2="26.8" y2="60.5" stroke={isDark ? "#71657A" : "#D8B4FE"} strokeWidth="0.5" />
-              <line x1="28.5" y1="57.5" x2="28.5" y2="60" stroke={isDark ? "#71657A" : "#D8B4FE"} strokeWidth="0.5" />
+              {/* Bottom Finial Ring */}
+              <circle cx="48" cy="33" r="0.6" fill="#334155" />
             </g>
 
-            {/* REALISTIC HUMAN CHARACTER: Girl immersed in reading novel */}
-            <g id="realistic-girl-reading">
-              {/* Relaxed Lower Body tucked in armchair */}
+            {/* ─── SHEER WINDOW CURTAINS FRAMING THE GLASS ─── */}
+            <g id="sheer-window-curtains">
+              {/* Left Sheer Curtain Panel */}
               <path
-                d="M 37 47 C 35 52, 42 56, 54 56 C 63 56, 64 50, 58 47 Z"
-                fill={isDark ? "#1E293B" : "#475569"}
+                d="M 0 0 L 16 0 C 14 18, 17 38, 14 58 C 12 66, 16 75, 12 75 L 0 75 Z"
+                fill="#FFFFFF"
+                opacity={isDark ? 0.16 : 0.38}
               />
-              {/* Cozy Pant Fabric folds */}
-              <path d="M 40 50 Q 48 54 56 51" stroke={isDark ? "#0F172A" : "#334155"} strokeWidth="0.7" fill="none" />
+              {/* Vertical Ripple Folds on Left Curtain */}
+              <path d="M 4 0 Q 3 36 5 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
+              <path d="M 9 0 Q 8 38 10 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
+              <path d="M 13 0 Q 14 36 12 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
 
-              {/* Cozy Dark Forest Green Cable-Knit Cardigan */}
+              {/* Right Sheer Curtain Panel */}
               <path
-                d="M 39 37 C 38 44, 43 49, 53 49 C 60 49, 61 42, 57 37 Z"
-                fill={isDark ? "#064E3B" : "#059669"}
+                d="M 84 0 L 100 0 L 100 75 L 85 75 C 88 62, 85 36, 88 18 Z"
+                fill="#FFFFFF"
+                opacity={isDark ? 0.16 : 0.38}
               />
-              {/* Cardigan cable-knit texture & button placket */}
-              <line x1="47.5" y1="38" x2="47.5" y2="48" stroke={isDark ? "#022C22" : "#047857"} strokeWidth="0.8" />
-              <circle cx="47.5" cy="41" r="0.55" fill="#D97706" />
-              <circle cx="47.5" cy="45" r="0.55" fill="#D97706" />
-              <path d="M 43 40 Q 44 45 43 48" stroke={isDark ? "#022C22" : "#047857"} strokeWidth="0.45" fill="none" />
-              <path d="M 52 40 Q 51 45 52 48" stroke={isDark ? "#022C22" : "#047857"} strokeWidth="0.45" fill="none" />
-
-              {/* Graceful Neck inclined gently forward */}
-              <path d="M 46 36 L 49.5 36 L 49 30.5 L 46 31.5 Z" fill="#E8B59B" />
-
-              {/* Realistic Head inclined toward the novel */}
-              <path
-                d="M 46.5 24 C 48 24, 49.5 25, 50 26.5 C 50.8 27.2, 50.6 28.2, 50.2 28.8 C 50.5 29.5, 50 30.5, 49.2 30.8 C 48.5 31.4, 47 31.5, 45.8 31 C 44.5 30.2, 44 28.5, 44 27 C 44 25, 45 24, 46.5 24 Z"
-                fill="#F7CEB7"
-              />
-              {/* Reading Eyeglasses with slender tortoiseshell / brass frames */}
-              <rect x="47.5" y="26.2" width="2.6" height="2" rx="0.5" fill="none" stroke="#D97706" strokeWidth="0.45" />
-              <line x1="46" y1="26.8" x2="47.5" y2="26.8" stroke="#D97706" strokeWidth="0.4" />
-              {/* Concentrated eye looking down at page through glasses */}
-              <circle cx="48.8" cy="27.4" r="0.45" fill="#1C1426" />
-              {/* Rosy cheek & thoughtful gentle lips */}
-              <ellipse cx="48.2" cy="28.8" rx="1" ry="0.6" fill="#F472B6" opacity="0.4" />
-              <path d="M 48.6 30 Q 49.4 30.2 49 30.6" stroke="#BE123C" strokeWidth="0.4" fill="none" />
-
-              {/* Realistic Dark Brunette Hair pinned softly back */}
-              <path
-                d="M 46 23.5 C 48 23.5, 49.5 24.5, 50 26 C 49 25.5, 47.5 25.8, 47 27 C 46 25.5, 44.5 26, 44 27.5 C 43 29, 42.5 33, 44 38 C 44.5 35, 45 31, 46 27 Z"
-                fill="#2A1810"
-              />
-              <path d="M 43.5 29 Q 43 35 44.5 39" stroke="#3D2418" strokeWidth="0.7" fill="none" />
-              {/* Hair highlights reflecting the warm overhead lamp */}
-              <path d="M 46.5 24 C 48 24.2, 49 25, 49.5 26" stroke="#78350F" strokeWidth="0.5" fill="none" />
-
-              {/* Realistic Forearms & Hands holding Hardcover Book */}
-              <path d="M 41 41 Q 43 45 46.5 46" stroke={isDark ? "#064E3B" : "#059669"} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-              <path d="M 54 41 Q 52 45 49 46" stroke={isDark ? "#064E3B" : "#059669"} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-              {/* Realistic Fingers supporting the open book */}
-              <ellipse cx="45" cy="46" rx="1.1" ry="0.8" fill="#F7CEB7" />
-              <ellipse cx="50.8" cy="46" rx="1.1" ry="0.8" fill="#F7CEB7" />
-            </g>
-            
-            {/* Open Hardcover Book in hands */}
-            <g transform="translate(42, 40)">
-              {/* Hardcover Outer Binding visible at edges */}
-              <polygon points="7.8,-0.4 -0.4,1.8 0.6,8.4 8,6.4" fill="#991B1B" />
-              <polygon points="8.2,-0.4 16.4,1.8 15.4,8.4 8,6.4" fill="#991B1B" />
-              {/* Cream Paper Pages */}
-              <polygon points="8,0 0,2 1,8 8,6" fill="#FFFDF5" stroke="#E2E8F0" strokeWidth="0.3" />
-              <polygon points="8,0 16,2 15,8 8,6" fill="#FFFDF5" stroke="#E2E8F0" strokeWidth="0.3" />
-              {/* Ribbon Bookmark trailing down */}
-              <path d="M 8 0 Q 7.5 4 8 7 Q 8.5 9 8.2 10.5" stroke="#DC2626" strokeWidth="0.4" fill="none" />
-              {/* Spine Stitch */}
-              <line x1="8" y1="0" x2="8" y2="6" stroke="#7F1D1D" strokeWidth="0.6" />
-              {/* Typography lines */}
-              <line x1="2.2" y1="3.5" x2="6.6" y2="2.5" stroke="#71717A" strokeWidth="0.35" />
-              <line x1="2.2" y1="5" x2="6.6" y2="4" stroke="#71717A" strokeWidth="0.35" />
-              <line x1="9.4" y1="2.5" x2="13.8" y2="3.5" stroke="#71717A" strokeWidth="0.35" />
-              <line x1="9.4" y1="4" x2="13.8" y2="5" stroke="#71717A" strokeWidth="0.35" />
+              {/* Vertical Ripple Folds on Right Curtain */}
+              <path d="M 87 0 Q 89 36 88 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
+              <path d="M 92 0 Q 91 38 93 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
+              <path d="M 96 0 Q 97 36 96 75" stroke="#FFFFFF" strokeWidth="0.6" opacity={isDark ? 0.25 : 0.5} fill="none" />
             </g>
 
-            {/* Mid-Century Petite Pedestal Side Table */}
-            <g id="reading-side-table">
-              {/* Cast shadow under table */}
-              <ellipse cx="78" cy="65.5" rx="5.5" ry="1.2" fill={isDark ? "#0A0512" : "#3B2252"} opacity="0.3" />
-              {/* Brass Tripod/Disc Base */}
-              <ellipse cx="78" cy="65" rx="4.5" ry="1.2" fill="#B45309" />
-              <ellipse cx="78" cy="64.6" rx="3.8" ry="0.9" fill="#F59E0B" />
-              {/* Slender Brass Pedestal Stem */}
-              <line x1="78" y1="64.6" x2="78" y2="51" stroke="#F59E0B" strokeWidth="1.1" strokeLinecap="round" />
-              <line x1="77.8" y1="64" x2="77.8" y2="51" stroke="#FDE68A" strokeWidth="0.4" />
-              {/* Solid Walnut Round Tabletop */}
-              <ellipse cx="78" cy="51" rx="6.5" ry="2" fill="#5D4037" />
-              <ellipse cx="78" cy="50.5" rx="6.2" ry="1.8" fill="#795548" />
-              <ellipse cx="78" cy="50.2" rx="5.8" ry="1.5" fill="#8D6E63" />
-
-              {/* Ceramic Mug of Herbal Tea with Gentle Rising Steam */}
-              <rect x="75" y="46.5" width="2.8" height="3.2" rx="0.5" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="0.3" />
-              {/* Mug handle */}
-              <path d="M 77.8 47.5 Q 78.8 48 77.8 49" stroke="#E2E8F0" strokeWidth="0.45" fill="none" />
-              {/* Tea surface */}
-              <ellipse cx="76.4" cy="46.5" rx="1.2" ry="0.4" fill="#B45309" />
-              {/* Subtle gentle steam curls */}
-              <motion.path
-                d="M 76 45 Q 75.5 43 76.5 41"
-                stroke="#FEF08A"
-                strokeWidth="0.4"
-                strokeLinecap="round"
-                fill="none"
-                opacity={isLit ? 0.6 : 0.25}
-                animate={{ y: [0, -1.5, 0], opacity: [0.3, 0.7, 0.3] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              />
-
-              {/* Stacked Hardcover Books on Table */}
-              <rect x="74" y="49.5" width="4.5" height="1" rx="0.2" fill="#1E3A8A" />
-              <rect x="74.2" y="48.7" width="4.2" height="0.8" rx="0.2" fill="#047857" />
-            </g>
-
-            {/* ─── ARCHITECTURAL ARCHED BRASS READING FLOOR LAMP ─── */}
-            <g id="architectural-floor-lamp">
-              {/* Cast shadow under heavy marble base */}
-              <ellipse cx="84" cy="67" rx="6.5" ry="1.6" fill={isDark ? "#0A0512" : "#2E1B40"} opacity="0.4" />
-              
-              {/* Weighted Cylindrical Marble/Brass Plinth Base */}
-              <rect x="80" y="63.5" width="8" height="2.5" rx="0.6" fill="#451A03" />
-              <rect x="80.2" y="63" width="7.6" height="1.2" rx="0.4" fill="#B45309" />
-              <line x1="81" y1="63.2" x2="87" y2="63.2" stroke="#FDE68A" strokeWidth="0.5" />
-              
-              {/* Vertical Base Socket Collar with knurled lock ring */}
-              <rect x="83.2" y="61.5" width="1.6" height="2" rx="0.3" fill="#F59E0B" stroke="#78350F" strokeWidth="0.3" />
-
-              {/* Sweeping Slender Arch Stem (Flos Arco / Architectural Cantilever) */}
-              {/* Dark metallic shadow outline for rich depth */}
-              <path
-                d="M 84 61.5 L 84 32 C 84 15, 74 10, 62 10 C 56 10, 52 12, 50 15"
-                stroke={isDark ? "#78350F" : "#92400E"}
-                strokeWidth="1.8"
-                fill="none"
-                strokeLinecap="round"
-              />
-              {/* Gleaming Polished Brass Highlight along the arch */}
-              <path
-                d="M 84 61.5 L 84 32 C 84 15, 74 10, 62 10 C 56 10, 52 12, 50 15"
-                stroke="#FBBF24"
-                strokeWidth="1.1"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 83.7 61.5 L 83.7 32 C 83.7 15.5, 73.8 10.5, 62 10.5 C 56.2 10.5, 52.3 12.3, 50.3 15"
-                stroke="#FEF08A"
-                strokeWidth="0.4"
-                fill="none"
-                strokeLinecap="round"
-              />
-
-              {/* Telescopic Brass Adjustment Knuckle / Thumbscrew at mid-height */}
-              <rect x="83" y="32" width="2" height="1.4" rx="0.3" fill="#D97706" />
-              <circle cx="85.5" cy="32.7" r="0.6" fill="#FDE68A" />
-
-              {/* Swivel Elbow Fixture & Finial Screw */}
-              <circle cx="50" cy="15" r="1.1" fill="#B45309" />
-              <circle cx="50" cy="15" r="0.7" fill="#FDE68A" />
-              <line x1="50" y1="15" x2="49.5" y2="17.5" stroke="#B45309" strokeWidth="1.2" strokeLinecap="round" />
-
-              {/* Architectural Dome Shade: Matte Gunmetal with Polished Brass Trim */}
-              {/* Outer Dome Shade */}
-              <path
-                d="M 45 19 C 45 16.5, 47 16, 49.5 16 C 52 16, 54 16.5, 54 19 L 55 21 L 44 21 Z"
-                fill={isDark ? "#18181B" : "#27272A"}
-                stroke="#B45309"
-                strokeWidth="0.5"
-              />
-              {/* Spun Brass Beveled Rim */}
-              <ellipse cx="49.5" cy="21" rx="5.5" ry="1.2" fill="#D97706" />
-              {/* Polished Radiant Gold Inner Reflector */}
-              <ellipse cx="49.5" cy="21.2" rx="4.8" ry="0.9" fill="#FEF08A" />
-
-              {/* Glowing Warm Edison Filament Bulb */}
-              <circle cx="49.5" cy="22" r="1.8" fill="#FFFBEB" />
-              <circle cx="49.5" cy="22" r="1.2" fill="#FEF08A" />
-
-              {/* Atmospheric Soft Volumetric Reading Light Beam (Gentle gradient, no harsh edges!) */}
-              <polygon
-                points="49.5,22 26,58 73,58"
-                fill={`url(#readingLampCone_${windowInstanceId})`}
-                opacity={isLit ? 0.95 : 0.4}
-              />
-              {/* Radiant Warm Ambient Bloom at Lamp Head */}
-              <circle
-                cx="49.5"
-                cy="22"
-                r="11"
-                fill={`url(#lampRadialGlow_${windowInstanceId})`}
-                opacity={isLit ? 0.85 : 0.35}
-              />
-              {/* Soft Golden Light Pool over book & armchair */}
-              <ellipse
-                cx="49.5"
-                cy="46"
-                rx="14"
-                ry="7"
-                fill={`url(#lampRadialGlow_${windowInstanceId})`}
-                opacity={isLit ? 0.6 : 0.2}
-              />
+            {/* ─── ARCHITECTURAL WINDOW CROSSBARS (FROM USER REFERENCE) ─── */}
+            <g id="window-muntin-crossbars">
+              {/* Slender Horizontal White Crossbar at Upper Third */}
+              <rect x="0" y="21.5" width="100" height="1.4" fill="#FFFFFF" opacity={isDark ? 0.85 : 0.95} />
+              {/* Slender Vertical White Mullion at Left Division */}
+              <rect x="20.5" y="0" width="1.4" height="75" fill="#FFFFFF" opacity={isDark ? 0.85 : 0.95} />
+              {/* Slender Vertical White Mullion at Right Division */}
+              <rect x="79.5" y="0" width="1.4" height="75" fill="#FFFFFF" opacity={isDark ? 0.85 : 0.95} />
             </g>
           </g>
         )}

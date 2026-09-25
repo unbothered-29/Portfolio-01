@@ -129,6 +129,15 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                 <li>
                   <button
                     type="button"
+                    onClick={() => handleNav("work")}
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                  >
+                    Works
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
                     onClick={() => handleNav("stack")}
                     className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >

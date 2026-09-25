@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AtmosphericBackground } from "./components/BlurOrb";
 import { GlassNavbar } from "./components/GlassNavbar";
@@ -12,56 +12,17 @@ import { ContactSection } from "./components/ContactSection";
 import { ContactModal } from "./components/ContactModal";
 import { CaseStudyModal } from "./components/CaseStudyModal";
 import { GlassCursor } from "./components/GlassCursor";
-import { SomeBitsOfMePage } from "./components/SomeBitsOfMePage";
 import { Project } from "./types";
 
-function getInitialRoute(): string {
-  if (typeof window !== "undefined") {
-    if (window.location.pathname === "/some-bits-of-me") {
-      return "/some-bits-of-me";
-    }
-  }
-  return "/";
-}
-
 function MainPortfolioContent() {
-  const [currentPath, setCurrentPath] = useState<string>(getInitialRoute);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-
-  useEffect(() => {
-    const handlePopState = () => {
-      const nextRoute =
-        window.location.pathname === "/some-bits-of-me"
-          ? "/some-bits-of-me"
-          : "/";
-      setCurrentPath(nextRoute);
-    };
-
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
-
-  const navigateTo = (path: string) => {
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, "", path);
-    }
-    setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const handleNavigate = (sectionId: string) => {
     if (sectionId === "contact") {
       window.location.href =
         "mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry";
-      return;
-    }
-    if (currentPath !== "/") {
-      navigateTo("/");
-      setTimeout(() => {
-        executeScroll(sectionId);
-      }, 150);
       return;
     }
     executeScroll(sectionId);
@@ -78,23 +39,6 @@ function MainPortfolioContent() {
       }
     }
   };
-
-  // If user is on the dedicated "Some Bits of Me" page route
-  if (currentPath === "/some-bits-of-me") {
-    return (
-      <>
-        <SomeBitsOfMePage
-          onBackToHome={() => navigateTo("/")}
-          onNavigateSection={(sectionId) => handleNavigate(sectionId)}
-          onOpenContact={() => setIsContactModalOpen(true)}
-        />
-        <ContactModal
-          isOpen={isContactModalOpen}
-          onClose={() => setIsContactModalOpen(false)}
-        />
-      </>
-    );
-  }
 
   return (
     <div
@@ -135,10 +79,8 @@ function MainPortfolioContent() {
         {/* Section 4: Professional Experience (Frosted Glass Timeline Cards) */}
         <ExperienceSection />
 
-        {/* Section 5: About (Translucent Glass Panel) */}
-        <AboutSection
-          onNavigateToBits={() => navigateTo("/some-bits-of-me")}
-        />
+        {/* Section 5: About Me (Translucent Glass Panel & Lavender Folder) */}
+        <AboutSection />
 
         {/* Section 6: Signature Editorial Contact & Giant Wordmark Footer */}
         <ContactSection

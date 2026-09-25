@@ -5,6 +5,14 @@ import { WavingGirlCharacter } from "./WavingGirlCharacter";
 import { CelestialOrb } from "./CelestialOrb";
 import { WindowSceneRenderer, WindowSceneType } from "./WindowSceneRenderer";
 import { TulipPlanterBox } from "./TulipPlanterBox";
+import { BuildingVeilOfLights } from "./BuildingVeilOfLights";
+import { FacadeArchitecturalDetails } from "./FacadeArchitecturalDetails";
+import {
+  WindowArchitecturalOverlay,
+  CurtainStyle,
+  AmbientGlowType,
+  SillItemType,
+} from "./WindowArchitecturalOverlay";
 
 export interface InteractiveWindowData {
   id: string;
@@ -56,39 +64,108 @@ export const INTERACTIVE_WINDOWS: InteractiveWindowData[] = [
 ];
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// INDIVIDUAL WINDOW ARCHITECTURAL DETAILS MATRIX (4x4 = 16 WINDOWS)
+// INDIVIDUAL WINDOW ARCHITECTURAL DETAILS MATRIX (4x3 = 12 WINDOWS)
 // Real rooms, individual everyday life scenes, architectural drapery & lighting
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 export interface WindowDetailConfig {
   scene: WindowSceneType;
   specularAngle: string;
   hasTulipBox?: boolean;
+  curtainStyle?: CurtainStyle;
+  ambientGlow?: AmbientGlowType;
+  sillItem?: SillItemType;
 }
 
 const WINDOW_DETAILS: WindowDetailConfig[][] = [
   // Floor 0 (Top floor: 3 large spacious room windows)
   [
-    { scene: "reading-novel", specularAngle: "125deg" }, // Col 0: Reading nook with armchair & floor lamp
-    { scene: "working-laptop", specularAngle: "135deg" }, // Col 1: [01 / WORKING] Girl at desk with laptop & lamp
-    { scene: "sleeping", specularAngle: "130deg" }, // Col 2: [05 / SLEEPING] Quiet moonlit bedroom, sleeping peacefully
+    {
+      scene: "reading-novel",
+      specularAngle: "125deg",
+      curtainStyle: "both-sheer",
+      ambientGlow: "warm-amber",
+    }, // Col 0: Bedroom with sleeping person, spindle bed, nightstand lamp & globe lantern
+    {
+      scene: "working-laptop",
+      specularAngle: "135deg",
+      curtainStyle: "roman-blind",
+      ambientGlow: "warm-amber",
+      sillItem: "succulent-pot",
+    }, // Col 1: [01 / WORKING] Girl at desk with laptop & lamp
+    {
+      scene: "sleeping",
+      specularAngle: "130deg",
+      curtainStyle: "right-sheer",
+      ambientGlow: "faint-night",
+    }, // Col 2: [05 / SLEEPING] Quiet moonlit bedroom, sleeping peacefully
   ],
   // Floor 1 (Second floor: 3 large spacious room windows)
   [
-    { scene: "getting-ready", specularAngle: "140deg" }, // Col 0: [04 / GETTING READY] Vanity mirror, hairbrush & skincare
-    { scene: "music-headphones", specularAngle: "135deg" }, // Col 1: [02 / MUSIC] Girl listening to music with headphones
-    { scene: "vintage-camera-sill", specularAngle: "120deg", hasTulipBox: true }, // Col 2: 35mm rangefinder camera & Dutch tulip planter box!
+    {
+      scene: "getting-ready",
+      specularAngle: "140deg",
+      curtainStyle: "both-sheer",
+      ambientGlow: "soft-lavender",
+    }, // Col 0: [04 / GETTING READY] Vanity mirror, hairbrush & skincare
+    {
+      scene: "music-headphones",
+      specularAngle: "135deg",
+      curtainStyle: "left-sheer",
+      ambientGlow: "soft-lavender",
+      sillItem: "vintage-books",
+    }, // Col 1: [02 / MUSIC] Girl listening to music with headphones
+    {
+      scene: "vintage-camera-sill",
+      specularAngle: "120deg",
+      hasTulipBox: true,
+      curtainStyle: "none",
+      ambientGlow: "dim-purple",
+    }, // Col 2: 35mm rangefinder camera & Dutch tulip planter box!
   ],
   // Floor 2 (Third floor: 3 large spacious room windows)
   [
-    { scene: "travelling-planning", specularAngle: "130deg" }, // Col 0: [03 / TRAVELLING] Packing suitcase, world map, camera
-    { scene: "window-daydream", specularAngle: "145deg" }, // Col 1: Leaning on sill gazing at stars with warm mug
-    { scene: "watching-movie", specularAngle: "140deg" }, // Col 2: [06 / WATCHING A MOVIE] Dark room with glowing TV screen & blanket
+    {
+      scene: "travelling-planning",
+      specularAngle: "130deg",
+      curtainStyle: "venetian-blind",
+      ambientGlow: "warm-amber",
+    }, // Col 0: [03 / TRAVELLING] Packing suitcase, world map, camera
+    {
+      scene: "window-daydream",
+      specularAngle: "145deg",
+      curtainStyle: "left-sheer",
+      ambientGlow: "dim-purple",
+      sillItem: "steaming-mug",
+    }, // Col 1: Leaning on sill gazing at stars with warm mug
+    {
+      scene: "watching-movie",
+      specularAngle: "140deg",
+      curtainStyle: "roman-blind",
+      ambientGlow: "faint-night",
+    }, // Col 2: [06 / WATCHING A MOVIE] Dark room with glowing TV screen & blanket
   ],
   // Floor 3 (Ground floor: 3 large spacious room windows)
   [
-    { scene: "plant-care", specularAngle: "145deg" }, // Col 0: Watering houseplants & lush monstera
-    { scene: "food-cold-coffee", specularAngle: "140deg" }, // Col 1: [04 / LITTLE JOYS] Casual meal & tall iced cold coffee
-    { scene: "vinyl-turntable", specularAngle: "130deg" }, // Col 2: Turntable playing vinyl on credenza
+    {
+      scene: "plant-care",
+      specularAngle: "145deg",
+      curtainStyle: "none",
+      ambientGlow: "soft-lavender",
+      sillItem: "hanging-ivy",
+    }, // Col 0: Watering houseplants & lush monstera
+    {
+      scene: "food-cold-coffee",
+      specularAngle: "140deg",
+      curtainStyle: "cafe-curtain",
+      ambientGlow: "warm-amber",
+    }, // Col 1: [04 / LITTLE JOYS] Casual meal & tall iced cold coffee
+    {
+      scene: "vinyl-turntable",
+      specularAngle: "130deg",
+      curtainStyle: "right-sheer",
+      ambientGlow: "warm-amber",
+      sillItem: "vintage-books",
+    }, // Col 2: Turntable playing vinyl on credenza
   ],
 ];
 
@@ -975,13 +1052,36 @@ export function CinematicBuildingFacade({
                   );
                 })}
 
-                {/* Left End Newel Post */}
+                {/* Left End Newel Post & Potted English Ivy Urn */}
                 <rect x="84" y="38" width="4" height="26" rx="0.8" fill={isDark ? "#352B47" : "#503E6B"} />
                 <circle cx="86" cy="37" r="2.2" fill={isDark ? "#483B5E" : "#69558A"} />
+                {/* Terracotta Planter Urn at Left Corner with Trailing English Ivy */}
+                <path d="M 82 58 L 90 58 L 88.5 64 L 83.5 64 Z" fill={isDark ? "#C2410C" : "#EA580C"} />
+                <ellipse cx="86" cy="58" rx="4" ry="1.2" fill={isDark ? "#9A3412" : "#C2410C"} />
+                {/* Trailing Ivy Leaves cascading over balustrade */}
+                <path d="M 85 58 Q 83 66 85 72 Q 87 75 86 80" stroke="#15803D" strokeWidth="0.8" fill="none" />
+                <circle cx="83.5" cy="62" r="1.6" fill="#16A34A" />
+                <circle cx="86.5" cy="67" r="1.5" fill="#22C55E" />
+                <circle cx="84" cy="73" r="1.3" fill="#15803D" />
+                <circle cx="86.5" cy="78" r="1.1" fill="#4ADE80" />
 
-                {/* Right End Newel Post */}
+                {/* Right End Newel Post & Potted English Ivy Urn */}
                 <rect x="732" y="38" width="4" height="26" rx="0.8" fill={isDark ? "#352B47" : "#503E6B"} />
                 <circle cx="734" cy="37" r="2.2" fill={isDark ? "#483B5E" : "#69558A"} />
+                {/* Terracotta Planter Urn at Right Corner with Trailing English Ivy */}
+                <path d="M 730 58 L 738 58 L 736.5 64 L 731.5 64 Z" fill={isDark ? "#C2410C" : "#EA580C"} />
+                <ellipse cx="734" cy="58" rx="4" ry="1.2" fill={isDark ? "#9A3412" : "#C2410C"} />
+                <path d="M 735 58 Q 737 66 735 72 Q 733 75 734 80" stroke="#15803D" strokeWidth="0.8" fill="none" />
+                <circle cx="736.5" cy="62" r="1.6" fill="#16A34A" />
+                <circle cx="733.5" cy="67" r="1.5" fill="#22C55E" />
+                <circle cx="736" cy="73" r="1.3" fill="#15803D" />
+                <circle cx="733.5" cy="78" r="1.1" fill="#4ADE80" />
+
+                {/* Trimmed Boxwood Topiary Beside Bulkhead (x=372) */}
+                <rect x="368" y="56" width="9" height="8" rx="0.5" fill={isDark ? "#382E47" : "#8E7D9F"} stroke={isDark ? "#1E1829" : "#5E4D71"} strokeWidth="0.5" />
+                <circle cx="372.5" cy="52" r="5.2" fill="#15803D" />
+                <circle cx="371" cy="50.5" r="3.8" fill="#22C55E" opacity="0.6" />
+                <circle cx="373.5" cy="53" r="2.5" fill="#166534" />
               </g>
 
               {/* 
@@ -1244,15 +1344,22 @@ export function CinematicBuildingFacade({
 
           {/* 
             BUILDING FACADE WALL (Masonry)
-            - 4 Floors x 4 Columns
+            - 4 Floors x 3 Columns
+            - Upgraded with Rusticated Quoins, Copper Downspout, Tie-Plate Stars, and Veil of Lights
           */}
           <div
-            className={`relative w-full border-x py-4 sm:py-6 px-2.5 sm:px-4 md:px-5 transition-colors duration-700 ${
+            className={`relative w-full border-x py-4 sm:py-6 px-3 sm:px-6 md:px-7 transition-colors duration-700 ${
               isDark
-                ? "bg-[#12101A] border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.95),_inset_0_1px_2px_rgba(255,255,255,0.08)]"
-                : "bg-[#EAE5F3] border-[#C8BED8] shadow-[0_25px_60px_rgba(52,21,78,0.09),_inset_0_1px_2px_rgba(255,255,255,0.85)]"
+                ? "bg-[#140F22] border-white/12 shadow-[0_30px_90px_rgba(0,0,0,0.98),_inset_0_1px_2px_rgba(255,255,255,0.08)]"
+                : "bg-[#EAE4F4] border-[#C4B7D6] shadow-[0_25px_60px_rgba(52,21,78,0.1),_inset_0_1px_2px_rgba(255,255,255,0.85)]"
             }`}
           >
+            {/* Facade Rusticated Ashlar Quoins, Copper Downspout & Anchor Stars */}
+            <FacadeArchitecturalDetails isDark={isDark} />
+
+            {/* Delicate Architectural Veil of Lights extending from terrace */}
+            <BuildingVeilOfLights isDark={isDark} />
+
             {/* Subtle masonry texture & courses */}
             <div
               aria-hidden="true"
@@ -1264,7 +1371,7 @@ export function CinematicBuildingFacade({
             />
 
             {/* Subtle vertical piers separating bays */}
-            <div className="absolute inset-0 pointer-events-none flex justify-between px-2.5 sm:px-4 md:px-5 opacity-35">
+            <div className="absolute inset-0 pointer-events-none flex justify-between px-3 sm:px-6 md:px-7 opacity-35">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
@@ -2159,60 +2266,64 @@ function BuildingWideWindow({
           : "pointer-events-none"
       }`}
     >
-      {/* 0. ARCHITECTURAL STONE LINTEL & KEYSTONE ABOVE WINDOW */}
+      {/* 0. ARCHITECTURAL CARVED STONE LINTEL & KEYSTONE ABOVE WINDOW */}
       <div
-        className={`absolute -top-1.5 inset-x-[-1px] h-[3px] rounded-t-[1px] border-t transition-colors duration-700 pointer-events-none z-10 ${
+        className={`absolute -top-2.5 inset-x-[-2px] h-[4px] rounded-t-[1px] border-t transition-colors duration-700 pointer-events-none z-10 ${
           isDark
-            ? "bg-[#252033] border-white/15 shadow-[0_-1px_2px_rgba(0,0,0,0.8)]"
-            : "bg-[#BAACCE] border-white shadow-[0_-1px_2px_rgba(52,21,78,0.08)]"
+            ? "bg-[#251D33] border-white/18 shadow-[0_-1px_3px_rgba(0,0,0,0.85)]"
+            : "bg-[#BAACCE] border-white shadow-[0_-1px_3px_rgba(52,21,78,0.12)]"
         }`}
       />
       <div
-        className={`absolute -top-2 left-1/2 -translate-x-1/2 w-2.5 sm:w-3 h-[4px] rounded-t-[1px] border-t border-x transition-colors duration-700 pointer-events-none z-20 ${
+        className={`absolute -top-3 left-1/2 -translate-x-1/2 w-3.5 sm:w-4 h-[5.5px] rounded-t-[1px] border-t border-x transition-colors duration-700 pointer-events-none z-20 flex items-center justify-center ${
           isDark
-            ? "bg-[#2A243A] border-white/20"
-            : "bg-[#C4B7D6] border-white"
+            ? "bg-[#302642] border-white/25 shadow-sm"
+            : "bg-[#C4B7D6] border-white shadow-sm"
         }`}
-      />
+      >
+        <div className={`w-1 h-2 ${isDark ? "bg-white/15" : "bg-black/10"}`} />
+      </div>
 
-      {/* 1. SLIM ARCHITECTURAL CASING (Thinner border, leaves visual area open for the room) */}
+      {/* 1. DEEP ARCHITECTURAL WINDOW CASING (Purple visual identity) */}
       <div
         style={{
           boxShadow: isActive
             ? isDark
               ? "0 0 24px rgba(251, 191, 36, 0.45), inset 0 0 12px rgba(251, 191, 36, 0.2)"
               : "0 0 20px rgba(245, 158, 11, 0.35)"
-            : undefined,
+            : isDark
+            ? "inset 0 3px 8px rgba(0,0,0,0.9), 0 1px 3px rgba(255,255,255,0.06)"
+            : "inset 0 2px 6px rgba(52,21,78,0.18), 0 1px 2px rgba(255,255,255,0.8)",
           borderColor: isActive
             ? isDark
-              ? "rgba(251, 191, 36, 0.75)"
-              : "rgba(245, 158, 11, 0.85)"
+              ? "rgba(251, 191, 36, 0.85)"
+              : "rgba(245, 158, 11, 0.9)"
             : isDark
-            ? "rgba(142,126,168,0.3)"
-            : "rgba(109,85,138,0.4)",
+            ? "rgba(167, 139, 250, 0.35)"
+            : "rgba(109, 85, 138, 0.45)",
         }}
-        className={`absolute inset-0 rounded-[3px] transition-all duration-700 ease-out border-[1.5px] ${
+        className={`absolute inset-0 rounded-[3px] transition-all duration-700 ease-out border-[2px] ${
           isActive
             ? "border-opacity-100"
             : isDark
-            ? "border-[#4A3D63] shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),_0_1px_3px_rgba(255,255,255,0.05)]"
-            : "border-[#85769D] shadow-[inset_0_2px_6px_rgba(52,21,78,0.15)]"
+            ? "bg-[#161024] border-[#3E2F54]"
+            : "bg-[#EDE5F5] border-[#917DA8]"
         }`}
       />
 
-      {/* 2. GLASS SURFACE & ROOM INTERIOR (UNOBSTRUCTED, NO CURTAINS, NO HEAVY CROSSBARS) */}
+      {/* 2. GLASS SURFACE & ROOM INTERIOR */}
       <div
-        className={`absolute inset-[2.5px] rounded-[2px] overflow-hidden transition-all duration-700 ease-out border ${
+        className={`absolute inset-[3px] rounded-[2px] overflow-hidden transition-all duration-700 ease-out border ${
           isActive
             ? isDark
               ? "border-amber-300/40 bg-[#16120C]"
               : "border-amber-400/50 bg-[#FFFDF5]"
             : isDark
-            ? "bg-[#090810] opacity-95 shadow-[inset_0_2px_8px_rgba(0,0,0,0.9)] border-[#8E7EA8]/35"
-            : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-95 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)] border-[#5E4F77]/45"
+            ? "bg-[#090710] opacity-98 shadow-[inset_0_2px_8px_rgba(0,0,0,0.92)] border-[#766392]/30"
+            : "bg-gradient-to-br from-[#E2E8F0]/90 via-[#CBD5E1]/85 to-[#94A3B8]/90 opacity-98 shadow-[inset_0_1px_5px_rgba(52,21,78,0.15)] border-[#67547E]/40"
         }`}
       >
-        {/* ROOM INTERIOR SCENE (BEHIND THE GLASS - 100% UNOBSTRUCTED LARGE VIEW) */}
+        {/* ROOM INTERIOR SCENE (BEHIND THE GLASS) */}
         <WindowSceneRenderer
           scene={detail.scene}
           isDark={isDark}
@@ -2220,14 +2331,14 @@ function BuildingWideWindow({
           windowInstanceId={windowInstanceId}
         />
 
-        {/* Specular glass reflection angle */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-20 z-10"
-          style={{
-            background: `linear-gradient(${detail.specularAngle}, rgba(255,255,255,${
-              isDark ? "0.05" : "0.45"
-            }) 0%, transparent 55%)`,
-          }}
+        {/* ARCHITECTURAL ROOM OVERLAY: Curtains, Blinds, Sill Items, Double-Hung Sash Lock & Glass Sheen */}
+        <WindowArchitecturalOverlay
+          isDark={isDark}
+          isActive={isActive}
+          curtainStyle={detail.curtainStyle}
+          ambientGlow={detail.ambientGlow}
+          sillItem={detail.sillItem}
+          specularAngle={detail.specularAngle}
         />
 
         {/* ACTIVE STATE: GRADUAL CINEMATIC EDITORIAL REVEAL */}
@@ -2272,33 +2383,36 @@ function BuildingWideWindow({
           )}
         </AnimatePresence>
 
-        {/* Clean, sleek perimeter sash highlight (NO obstructing center crossbars) */}
+        {/* Clean perimeter sash highlight */}
         <div className="absolute inset-0 pointer-events-none border border-white/[0.08] rounded-[1px] z-10" />
       </div>
 
-      {/* Architectural Window Sill Ledge */}
+      {/* Multi-tiered Protruding Architectural Window Sill */}
       <div
-        className="absolute -bottom-1.5 inset-x-[-3px] h-[4px] rounded-[1px] transition-all duration-700 ease-out z-20"
+        className="absolute -bottom-2 inset-x-[-3.5px] h-[5px] rounded-[1px] transition-all duration-700 ease-out z-20 flex flex-col justify-between"
         style={{
           backgroundColor: isActive
             ? isDark
               ? "#543015"
               : "#D4A373"
             : isDark
-            ? "#1E1A29"
-            : "#B0A2C5",
+            ? "#231B32"
+            : "#B8A9CD",
           boxShadow: isActive
-            ? "0 2px 8px rgba(251, 191, 36, 0.45)"
+            ? "0 2px 10px rgba(251, 191, 36, 0.5)"
             : isDark
-            ? "0 3px 5px rgba(0,0,0,0.95)"
-            : "0 2px 4px rgba(52,21,78,0.25)",
+            ? "0 3px 6px rgba(0,0,0,0.95)"
+            : "0 2px 5px rgba(52,21,78,0.22)",
           borderTop: isActive
-            ? "1px solid rgba(254, 240, 138, 0.85)"
+            ? "1px solid rgba(254, 240, 138, 0.9)"
             : isDark
-            ? "1px solid rgba(255,255,255,0.18)"
-            : "1px solid rgba(255,255,255,0.9)",
+            ? "1px solid rgba(255,255,255,0.2)"
+            : "1px solid rgba(255,255,255,0.95)",
         }}
-      />
+      >
+        {/* Undercut drip groove shadow */}
+        <div className={`w-full h-[1px] ${isDark ? "bg-black/60" : "bg-[#4A3460]/20"}`} />
+      </div>
 
       {/* Architectural Hand-Crafted Terracotta Tulip Planter Box */}
       {detail.hasTulipBox && (

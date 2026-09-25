@@ -1,38 +1,60 @@
-import React from "react";
-import { DESIGNER_METADATA } from "../data/portfolioData";
+import React, { useState } from "react";
+import {
+  DESIGNER_METADATA,
+  RESUME_SUMMARY,
+  EDUCATION_DATA,
+  AWARDS_DATA,
+  CERTIFICATIONS_DATA,
+  LANGUAGES_DATA,
+  CONTACT_INFO,
+} from "../data/portfolioData";
 import { GlassCard } from "./GlassCard";
 import { LavenderFolder } from "./LavenderFolder";
+import {
+  GraduationCap,
+  Trophy,
+  Award,
+  Globe,
+  BookOpen,
+  MapPin,
+  ExternalLink,
+} from "lucide-react";
 
-interface AboutSectionProps {
-  onNavigateToBits?: () => void;
-}
+type ActiveTab = "education" | "awards" | "certifications" | "languages";
 
-export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
-  const handleClickBits = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    if (onNavigateToBits) {
-      onNavigateToBits();
-    } else {
-      window.history.pushState({}, "", "/some-bits-of-me");
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    }
-  };
+export function AboutSection() {
+  const [activeTab, setActiveTab] = useState<ActiveTab>("education");
 
   return (
-    <section id="about" className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-8 md:px-12 py-16 md:py-28">
+    <section
+      id="about"
+      className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-8 md:px-12 py-16 md:py-28 font-sora"
+    >
       {/* Large Translucent Glass Panel */}
-      <GlassCard className="p-6 sm:p-10 md:p-14 lg:p-18">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-start">
-          
+      <GlassCard className="p-6 sm:p-10 md:p-14 lg:p-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-start">
           {/* Left Side: Heading & Lavender Folder */}
-          <div className="lg:col-span-5 flex flex-col justify-between font-sora">
+          <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <span className="font-sora text-[10.5px] sm:text-[11px] uppercase tracking-[0.24em] text-[#583C7E]/75 dark:text-[#8D879C] block mb-2 sm:mb-3">
                 04 / ABOUT ME
               </span>
-              <h2 className="font-fraunces text-[30px] sm:text-[42px] md:text-[54px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.1]">
-                A little <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">about me.</span>
+              <h2 className="font-fraunces text-[30px] sm:text-[42px] md:text-[52px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.08]">
+                A little{" "}
+                <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">
+                  about me.
+                </span>
               </h2>
+
+              <div className="mt-3 flex items-center gap-2 text-xs text-[#583C7E]/80 dark:text-[#A19BAE]">
+                <MapPin className="w-3.5 h-3.5 text-[#583C7E] dark:text-[#C4B5FD]" />
+                <span>{CONTACT_INFO.location}</span>
+                <span className="text-black/20 dark:text-white/20">·</span>
+                <span className="inline-flex items-center gap-1 font-medium text-emerald-600 dark:text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Available for roles
+                </span>
+              </div>
             </div>
 
             {/* Lavender Folder with 3 photos half-inside */}
@@ -41,77 +63,217 @@ export function AboutSection({ onNavigateToBits }: AboutSectionProps = {}) {
             </div>
           </div>
 
-          {/* Right Side: Biography & Compact Metadata */}
-          <div className="lg:col-span-7 flex flex-col justify-between font-sora">
-            {/* Short Designer Biography */}
-            <div className="space-y-4 sm:space-y-5 text-[14.5px] sm:text-[16px] md:text-[17px] text-[#34154E]/90 dark:text-[#F5F3FA]/90 font-normal leading-[1.7] max-w-2xl font-sora">
-              <p>
-                I am a multidisciplinary visual designer working at the intersection of brand identity, digital craft, and art direction. I believe in designing interfaces and experiences that feel natural, quiet, and enduring.
-              </p>
-              <p className="text-[#583C7E]/85 dark:text-[#A19BAE]">
-                Over the past seven years, I have collaborated with global architectural studios, sound engineering labs, and modern technology companies to translate complex ideas into clear visual systems with mathematical rigor and aesthetic warmth.
-              </p>
+          {/* Right Side: Professional Summary, Metadata Table & Resume Tabs */}
+          <div className="lg:col-span-7 flex flex-col justify-between">
+            {/* Professional Summary from Resume */}
+            <div className="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-[#34154E]/90 dark:text-[#F5F3FA]/90 font-normal leading-[1.7] max-w-2xl">
+              <p>{RESUME_SUMMARY}</p>
             </div>
 
             {/* Compact Metadata Table */}
-            <div className="mt-8 sm:mt-12 pt-8 sm:pt-10 border-t border-[#D6CBFF] dark:border-white/10 font-sora">
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 sm:gap-y-8 gap-x-8 sm:gap-x-10">
-                <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
+            <div className="mt-6 pt-6 border-t border-[#D6CBFF] dark:border-white/10">
+              <dl className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 gap-x-4">
+                <div className="flex flex-col gap-1">
+                  <dt className="text-[10px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Based in
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
+                  <dd className="text-[13.5px] sm:text-[14.5px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
                     {DESIGNER_METADATA.basedIn}
                   </dd>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
+                <div className="flex flex-col gap-1">
+                  <dt className="text-[10px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
+                    Degree & CGPA
+                  </dt>
+                  <dd className="text-[13.5px] sm:text-[14.5px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
+                    B.E. AI & DS (8.5)
+                  </dd>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <dt className="text-[10px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
                     Specialty
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
-                    {DESIGNER_METADATA.specialty}
+                  <dd className="text-[13.5px] sm:text-[14.5px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
+                    Front-end Web Dev
                   </dd>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
-                    Experience
+                <div className="flex flex-col gap-1">
+                  <dt className="text-[10px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
+                    Leadership
                   </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
-                    {DESIGNER_METADATA.experience}
-                  </dd>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <dt className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#583C7E]/75 dark:text-[#A19BAE]">
-                    Focus
-                  </dt>
-                  <dd className="text-[15px] sm:text-[16px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
-                    {DESIGNER_METADATA.focus}
+                  <dd className="text-[13.5px] sm:text-[14.5px] font-medium text-[#34154E] dark:text-[#F5F3FA]">
+                    President @ FE-SAHYOG
                   </dd>
                 </div>
               </dl>
             </div>
 
-            {/* Subtle Editorial Link to "Some Bits of Me" */}
-            <div className="mt-8 pt-6 border-t border-[#D6CBFF]/40 dark:border-white/5 flex items-center justify-start">
-              <a
-                href="/some-bits-of-me"
-                onClick={handleClickBits}
-                id="link-more-about-me"
-                className="group inline-flex items-center gap-1.5 text-[14px] sm:text-[15px] font-medium text-[#583C7E] dark:text-[#C4B5FD] hover:text-[#34154E] dark:hover:text-white transition-colors duration-200 cursor-pointer font-sora select-none"
-              >
-                <span className="relative">
-                  More about me
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#583C7E] dark:bg-[#C4B5FD] group-hover:bg-[#34154E] dark:group-hover:white transition-all duration-300 group-hover:w-full" />
-                </span>
-                <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-base leading-none">
-                  ↗
-                </span>
-              </a>
-            </div>
+            {/* Interactive Resume Highlights: Tabs */}
+            <div className="mt-8 pt-6 border-t border-[#D6CBFF] dark:border-white/10">
+              {/* Tab Selector Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pb-4">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("education")}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    activeTab === "education"
+                      ? "bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-sm"
+                      : "bg-white/60 dark:bg-white/[0.06] text-[#583C7E] dark:text-[#A19BAE] hover:bg-white dark:hover:bg-white/10 border border-[#D6CBFF]/60 dark:border-white/10"
+                  }`}
+                >
+                  <GraduationCap className="w-3.5 h-3.5" />
+                  <span>Education</span>
+                </button>
 
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("awards")}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    activeTab === "awards"
+                      ? "bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-sm"
+                      : "bg-white/60 dark:bg-white/[0.06] text-[#583C7E] dark:text-[#A19BAE] hover:bg-white dark:hover:bg-white/10 border border-[#D6CBFF]/60 dark:border-white/10"
+                  }`}
+                >
+                  <Trophy className="w-3.5 h-3.5" />
+                  <span>Awards & Hackathons</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("certifications")}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    activeTab === "certifications"
+                      ? "bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-sm"
+                      : "bg-white/60 dark:bg-white/[0.06] text-[#583C7E] dark:text-[#A19BAE] hover:bg-white dark:hover:bg-white/10 border border-[#D6CBFF]/60 dark:border-white/10"
+                  }`}
+                >
+                  <Award className="w-3.5 h-3.5" />
+                  <span>Certifications</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("languages")}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    activeTab === "languages"
+                      ? "bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-sm"
+                      : "bg-white/60 dark:bg-white/[0.06] text-[#583C7E] dark:text-[#A19BAE] hover:bg-white dark:hover:bg-white/10 border border-[#D6CBFF]/60 dark:border-white/10"
+                  }`}
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>Languages</span>
+                </button>
+              </div>
+
+              {/* Tab Content Display Area */}
+              <div className="mt-3 p-4 sm:p-5 rounded-2xl bg-white/[0.65] dark:bg-white/[0.04] border border-[#D6CBFF]/70 dark:border-white/10 backdrop-blur-sm min-h-[140px] flex flex-col justify-center">
+                {activeTab === "education" && (
+                  <div className="space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <h4 className="font-semibold text-sm sm:text-[15px] text-[#34154E] dark:text-[#F5F3FA]">
+                        {EDUCATION_DATA.institution}
+                      </h4>
+                      <span className="text-xs font-mono text-[#583C7E]/80 dark:text-[#C4B5FD]">
+                        {EDUCATION_DATA.duration}
+                      </span>
+                    </div>
+
+                    <p className="text-xs sm:text-[13.5px] text-[#583C7E] dark:text-[#A19BAE]">
+                      {EDUCATION_DATA.degree} ·{" "}
+                      <span className="font-semibold text-[#34154E] dark:text-white">
+                        {EDUCATION_DATA.cgpa}
+                      </span>
+                    </p>
+
+                    <div>
+                      <span className="text-[11px] font-medium uppercase tracking-wider text-[#583C7E]/75 dark:text-[#8D879C] block mb-1.5">
+                        Relevant Coursework:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {EDUCATION_DATA.coursework.map((course, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2.5 py-0.5 rounded-md text-[11.5px] bg-[#E8E1F8]/70 dark:bg-white/10 text-[#34154E] dark:text-[#E2DCF0] border border-[#D6CBFF]/60 dark:border-white/5"
+                          >
+                            {course}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "awards" && (
+                  <div className="space-y-3">
+                    {AWARDS_DATA.map((award, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-2.5 pb-2.5 border-b border-[#D6CBFF]/40 dark:border-white/5 last:border-b-0 last:pb-0"
+                      >
+                        <Trophy className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <div className="flex flex-wrap items-baseline justify-between gap-1">
+                            <span className="text-xs sm:text-[13px] font-semibold text-[#34154E] dark:text-white">
+                              {award.title}
+                            </span>
+                            {award.year && (
+                              <span className="text-[11px] font-mono text-[#583C7E]/70 dark:text-[#9A94A8]">
+                                {award.year}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11.5px] sm:text-xs text-[#583C7E]/85 dark:text-[#A19BAE] mt-0.5">
+                            {award.detail}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === "certifications" && (
+                  <div className="space-y-2.5">
+                    {CERTIFICATIONS_DATA.map((cert, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-white/50 dark:bg-white/[0.03] border border-[#D6CBFF]/40 dark:border-white/5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Award className="w-4 h-4 text-[#583C7E] dark:text-[#C4B5FD] shrink-0" />
+                          <span className="text-xs sm:text-[12.5px] font-medium text-[#34154E] dark:text-white">
+                            {cert.name}
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-mono shrink-0 px-2 py-0.5 rounded bg-[#E8E1F8] dark:bg-white/10 text-[#583C7E] dark:text-[#C4B5FD]">
+                          {cert.duration}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === "languages" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {LANGUAGES_DATA.map((lang, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col gap-0.5 p-3 rounded-xl bg-white/50 dark:bg-white/[0.03] border border-[#D6CBFF]/40 dark:border-white/5 text-center"
+                      >
+                        <span className="text-sm font-semibold text-[#34154E] dark:text-white">
+                          {lang.language}
+                        </span>
+                        <span className="text-xs text-[#583C7E] dark:text-[#C4B5FD]">
+                          {lang.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </GlassCard>

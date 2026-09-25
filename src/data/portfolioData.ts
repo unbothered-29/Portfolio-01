@@ -1,185 +1,343 @@
-import { Project, CapabilityItem, DesignerMetadata } from '../types';
+import {
+  Project,
+  CapabilityItem,
+  DesignerMetadata,
+  EducationInfo,
+  AwardItem,
+  CertificationItem,
+  LanguageItem,
+  TechnicalSkillsGroup,
+} from '../types';
 
 export const DESIGNER_NAME = "Jessicaa Chauhan";
 
+export const RESUME_SUMMARY =
+  "Dedicated Front-end Web Developer who enjoys turning ideas into functional, polished websites. Skilled in building responsive frontend interfaces with React.js, Next.js, TypeScript, and Tailwind CSS, with strong attention to detail, reusable components, clean design, and user experience.";
+
 export const DESIGNER_METADATA: DesignerMetadata = {
-  basedIn: "Manila",
-  specialty: "Digital Design",
-  experience: "7+ Years",
-  focus: "Brand / UI / Art Direction",
+  basedIn: "Mumbai, Maharashtra",
+  specialty: "Frontend Web Developer",
+  experience: "President @ RGIT FE-SAHYOG",
+  focus: "React.js · Next.js · TypeScript · Tailwind CSS",
 };
 
-export const PROJECTS: Project[] = [
+export const CONTACT_INFO = {
+  name: "Jessicaa Chauhan",
+  location: "Mumbai, Maharashtra, India",
+  phone: "+91 8855872136",
+  email: "chauhanjessicaa27@gmail.com",
+  github: "https://github.com/unbothered-29",
+  githubUsername: "unbothered-29",
+  linkedin: "https://linkedin.com/in/jessicaachauhan",
+  linkedinUsername: "jessicaachauhan",
+};
+
+export const EDUCATION_DATA: EducationInfo = {
+  institution: "Rajiv Gandhi Institute of Technology (RGIT), Mumbai",
+  degree: "Bachelor of Engineering (B.E.) – Artificial Intelligence & Data Science",
+  duration: "Sep 2024 – May 2028",
+  cgpa: "8.5 CGPA",
+  coursework: [
+    "Data Structures & Algorithms",
+    "Database Management Systems",
+    "Operating Systems",
+    "Computer Networks",
+    "Object-Oriented Programming",
+    "Software Engineering",
+  ],
+};
+
+export const TECHNICAL_SKILLS_DATA: TechnicalSkillsGroup = {
+  frontend: [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "TypeScript",
+    "React.js",
+    "Next.js",
+    "Tailwind CSS",
+  ],
+  backend: ["Java", "Spring Boot", "REST APIs", "Kafka", "Microservices"],
+  toolsAndCloud: ["Git", "GitHub", "Docker", "Vercel", "AWS"],
+  concepts: ["Responsive Design", "Component-Based Architecture"],
+};
+
+export const AWARDS_DATA: AwardItem[] = [
   {
-    id: "roamevo",
-    title: "Roamevo",
-    category: "Travel & Tour Web Platform",
+    title: "1st Runner Up – Pixel Perfect ’26 Frontend Hackathon",
+    detail: "Competed against 80 engineering teams with SPIT Sahyog mobile-first PWA",
     year: "2026",
-    gridSpan: "col-span-12 lg:col-span-7",
-    aspectRatio: "landscape",
-    image: "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/roamevo_gcy8mq.png",
-    altText: "Roamevo Premium Travel and Tour Operating Platform Interface",
-    client: "Roamevo Private Limited",
-    brief: "A premium, community-focused travel and tour operating web platform built to curate unforgettable group expeditions and backpacking trips for young adults, college groups, and solo travelers around three core pillars: Roam, Experience, and Evolve.",
-    deliverables: ["Frontend Architecture", "UI/UX Design", "Performance Optimization", "Mobile-First Experience"],
-    challenge: "Delivering an immersive, high-impact travel discovery experience with dynamic background video reels, destination deep-dives, and rapid trip filtering while maintaining instant perceived performance, skeleton loading states, and fluid mobile responsiveness.",
-    solution: "Engineered a high-performance web platform built with React 19, Vite, Tailwind CSS v4, and Motion. Integrated dynamic hero video loops, custom skeleton loaders for discovery grids, dedicated destination spotlights (Himachal, Kedarnath, Ladakh, Spiti Valley), an interactive 'Vibe Check' video reels gallery, an authentic review carousel, and a touch-optimized mobile drawer experience.",
-    techStack: ["React 19", "TypeScript", "Vite", "Tailwind CSS v4", "Motion", "React Router v7", "Lucide React"],
-    features: [
-      "Immersive Landing Page with dynamic background video loops and conversion-focused search interface",
-      "Performance-Optimized UX featuring custom skeleton loaders for discovery grids",
-      "Destination Spotlights for premier locations (Himachal Pradesh, Kedarnath, Ladakh, Spiti Valley)",
-      "Upcoming Group Trips showcase with pricing, duration, difficulty levels, and booking flows",
-      "The 'Vibe Check' interactive horizontal scrolling short-form video reels gallery",
-      "Authentic Traveler Reviews carousel and expandable accordion FAQ section",
-      "Mobile-First Experience with custom sidebar drawer navigation and touch-friendly carousels"
-    ],
-    gallery: [
-      "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/roamevo_gcy8mq.png",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1400&auto=format&fit=crop"
-    ],
-    liveUrl: "https://roamevo.com"
   },
+  {
+    title: "Smart India Hackathon (SIH) 2025",
+    detail: "Participated in prestigious national-level hackathon solving real-world challenges",
+    year: "2025",
+  },
+  {
+    title: "Saksham 26 Fix It",
+    detail: "Participated in competitive technical problem-solving and rapid code debugging",
+    year: "2026",
+  },
+  {
+    title: "Programmers Date 4.0",
+    detail: "Collaborative developer hackathon and algorithmic programming challenge",
+    year: "2026",
+  },
+];
+
+export const CERTIFICATIONS_DATA: CertificationItem[] = [
+  {
+    name: "The Front-End Web Developer Bootcamp: HTML, CSS, JS & React",
+    duration: "11 hrs",
+    hasCertificate: true,
+  },
+  {
+    name: "Complete JavaScript, XML, AJAX and React Bootcamp – Hands-On",
+    duration: "12.5 hrs",
+    hasCertificate: true,
+  },
+  {
+    name: "Practical Next.js & React – Build a real WebApp with Next.js",
+    duration: "11 hrs",
+    hasCertificate: true,
+  },
+];
+
+export const LANGUAGES_DATA: LanguageItem[] = [
+  { language: "English", level: "Fluent" },
+  { language: "Hindi", level: "Native" },
+  { language: "Gujarati", level: "Native" },
+];
+
+export const PROJECTS: Project[] = [
   {
     id: "spit-sahyog",
     title: "SPIT Sahyog",
     category: "Smart Campus Navigation & PWA",
     year: "2026",
-    gridSpan: "col-span-12 lg:col-span-5",
-    aspectRatio: "portrait",
+    gridSpan: "col-span-12 lg:col-span-7",
+    aspectRatio: "landscape",
     image: "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/spit_qzyedx.png",
     altText: "SPIT Sahyog Smart Campus Navigation and Discovery PWA Interface",
-    client: "Sardar Patel Institute of Technology",
-    brief: "\"Google Maps ends at the gate. We take you to the chair.\" An offline-first mobile Progressive Web App (PWA) designed to solve the \"Last Mile\" indoor navigation gap within the SPIT campus, seamlessly guiding students, faculty, and visitors directly to specific classrooms, laboratories, or amenities—even without internet connectivity.",
-    deliverables: ["A* Pathfinding Engine", "Indoor Vector Mapping", "Offline-First PWA", "Fuse.js Search", "Maintenance Portal"],
-    challenge: "Standard outdoor GPS guides users to building entrances but fails completely indoors. Finding 'Lab 604' on the 6th floor is confusing due to scattered physical notice boards, legacy portals, and spotty basement/elevator WiFi connectivity.",
-    solution: "Engineered an offline-first PWA built with React 18, Leaflet.js, and Zustand backed by an IndexedDB (Dexie.js) datastore. Implemented an A* (A-Star) graph pathfinding algorithm across campus nodes, an automated outdoor GPS to indoor SVG ImageOverlay handover, regex-powered natural language floor filtering, real-time Haversine distance/walk-time calculations, and crowdsourced photo maintenance reporting with administrative status workflows.",
-    techStack: ["React 18", "TypeScript", "Vite", "Leaflet.js", "Zustand", "Dexie.js (IndexedDB)", "Fuse.js", "Tailwind CSS", "PWA"],
+    client: "Sardar Patel Institute of Technology · Pixel Perfect ’26 (1st Runner Up)",
+    brief: "A mobile-first Progressive Web App (PWA) for campus navigation, combining interactive Leaflet maps with custom SVG floor plans to guide students, faculty, and visitors directly to classrooms, laboratories, and facilities even with limited connectivity.",
+    deliverables: [
+      "Mobile-First PWA",
+      "Interactive Leaflet Maps",
+      "Custom SVG Floor Plans",
+      "Fuzzy Search (Fuse.js)",
+      "IndexedDB Offline Caching",
+      "Zustand State Management",
+    ],
+    challenge: "Standard GPS ends at the entrance gate. Locating specific classrooms, labs, and faculty rooms across multiple floors is challenging due to inconsistent connectivity and scattered physical notices.",
+    solution: "Developed a mobile-first Progressive Web App combining interactive Leaflet maps with custom SVG floor plans to guide users to classrooms, labs, and facilities. Implemented fuzzy search, floor-based filtering, offline data caching with IndexedDB, and Zustand state management for reliable navigation with limited connectivity. Won 1st Runner Up at the Pixel-Perfect Hackathon 2026 out of 80 teams.",
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Leaflet.js",
+      "Zustand",
+      "IndexedDB (Dexie.js)",
+      "PWA",
+    ],
     features: [
-      "A* (A-Star) Pathfinding Algorithm modeling campus as a weighted node graph to calculate true walkable shortest paths",
-      "Hybrid Outdoor-Indoor Handover automatically switching from GPS coordinates to custom SVG floor plan overlays",
-      "Offline-First Architecture caching complete campus POIs, maps, and search history locally with Dexie.js",
-      "Regex & Fuse.js Smart Search parsing natural language queries (e.g., '3rd floor labs') with fuzzy typo tolerance",
-      "Real-Time Haversine Distance Engine displaying instant meter distance and walking duration cards",
-      "Crowdsourced Infrastructure Reporting with Base64 photo capture and administrative resolution tracking",
-      "Mobile-First Ergonomics featuring bottom-sheet thumb navigation and an installable PWA manifest"
+      "Developed a mobile-first Progressive Web App for campus navigation combining interactive Leaflet maps with custom SVG floor plans",
+      "Guides users directly to classrooms, labs, and campus facilities with pinpoint accuracy",
+      "Implemented fuzzy search and floor-based filtering for instant room discovery",
+      "Offline data caching with IndexedDB ensuring uninterrupted navigation even with spotty connectivity",
+      "Zustand state management for lightweight, responsive client state across search and floor views",
+      "Built reusable responsive React components and touch-friendly interfaces optimized for mobile devices",
+      "Won 1st Runner Up at the Pixel-Perfect Hackathon 2026 against 80 teams",
     ],
     gallery: [
       "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/spit_qzyedx.png",
       "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=1400&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1200&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1200&auto=format&fit=crop",
     ],
-    liveUrl: "https://spitsahyog.web.app"
+    liveUrl: "https://spit-sahyog.vercel.app",
+    githubUrl: "https://github.com/unbothered-29",
   },
   {
     id: "attendance-tracker",
-    title: "Attendance Tracker",
-    category: "AI Productivity & Analytics",
+    title: "Smart Attendance Tracker & AI Timetable Manager",
+    category: "AI Academic Management & Analytics",
     year: "2026",
     gridSpan: "col-span-12 lg:col-span-5",
     aspectRatio: "portrait",
     image: "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919813/attendance_track_svjrlb.png",
-    altText: "College Attendance Tracker with Gemini Vision AI Interface",
-    client: "Academic Engineering Project",
-    brief: "A smart, subject-wise attendance tracking web platform for college students. Students upload a photo or screenshot of their timetable and let Google Gemini AI extract their schedule automatically—then track daily attendance, monitor percentages against goal thresholds, and calculate safe skips.",
-    deliverables: ["Gemini AI Vision Pipeline", "Full-Stack Express API", "Attendance Forecasting", "Timetable OCR Engine", "Modern Dark UI"],
-    challenge: "Manually inputting complicated weekly college schedules across lectures, laboratory practicals, divisions, and batches is tedious and prone to errors. Students also struggle to calculate exactly how upcoming absences will affect the mandatory 75% attendance threshold.",
-    solution: "Built a full-stack web application powered by React 19, Vite 6, Tailwind CSS 4, and an Express Node.js backend. Integrated the Google Gemini API (@google/genai) and client-side Tesseract.js OCR to automatically parse timetable screenshots or generate synthetic schedules. Implemented real-time goal tracking (calculating exact classes needed or safely skippable to maintain 75%), separate lecture vs. practical weighting, daily notes, and friction-free profile authentication.",
-    techStack: ["React 19", "TypeScript", "Vite 6", "Express.js", "Google Gemini API", "Tailwind CSS 4", "Motion", "Tesseract.js", "date-fns"],
+    altText: "Smart Attendance Tracker & AI Timetable Manager with Gemini Vision",
+    client: "Academic Engineering Platform",
+    brief: "A full-stack attendance platform supporting timetable processing, division and lab-batch scheduling, and attendance analytics powered by Google Gemini Vision.",
+    deliverables: [
+      "Full-Stack Web App",
+      "Google Gemini Vision OCR",
+      "Division & Lab-Batch Scheduling",
+      "Attendance Forecasting",
+      "Bunk Planning Engine",
+      "Firebase Auth & Firestore",
+    ],
+    challenge: "Manually tracking semester attendance across lectures, practical lab batches, divisions, and varied holiday schedules is tedious and error-prone.",
+    solution: "Built a full-stack attendance platform supporting timetable processing, division and lab-batch scheduling, and attendance analytics. Integrated Google Gemini Vision to extract structured timetable data from uploaded images and automatically generate academic schedules. Engineered attendance forecasting and bunk planning with Firebase Auth/Firestore, accounting for holidays and lecture/practical schedules.",
+    techStack: [
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "Firebase Auth",
+      "Firestore",
+      "Google Gemini AI (Vision)",
+      "Express.js",
+    ],
     features: [
-      "AI-Powered Timetable Import via Google Gemini Vision extracting subjects, faculty, and time slots automatically",
-      "Synthetic Timetable Generator creating realistic schedules on demand by branch, semester, and year",
-      "Real-Time Goal Tracker calculating whether attendance is safe or at-risk and projecting exact classes required for 75%",
-      "Semester-Aware Weighting separating lecture hours from laboratory practical sessions",
-      "Single-Tap Daily Logging for Attended, Skipped, and Cancelled lectures",
-      "Contextual Calendar Notes enabling students to attach study reminders to specific dates",
-      "Modern Dark Mode UI built with Tailwind CSS and Radix-inspired accessible primitives"
+      "Full-stack attendance platform supporting timetable processing and attendance analytics",
+      "Division and lab-batch scheduling supporting complex college timetables",
+      "Integrated Google Gemini Vision to extract structured timetable data directly from uploaded screenshots",
+      "Automatically generates full weekly academic schedules from parsed images",
+      "Engineered attendance forecasting and bunk planning to calculate safe skips while maintaining 75% criteria",
+      "Firebase Authentication and cloud Firestore synchronization across devices",
+      "Accounts for public holidays, semester calendars, and lecture vs. practical weighting",
     ],
     gallery: [
       "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919813/attendance_track_svjrlb.png",
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200&auto=format&fit=crop",
     ],
-    liveUrl: "https://attendance-tracker-ai.web.app",
-    githubUrl: "https://github.com/unbothered-29/Attendance-Tracker.git"
+    liveUrl: "https://attendance-jess.vercel.app",
+    githubUrl: "https://github.com/unbothered-29/Attendance-Tracker.git",
+  },
+  {
+    id: "roamevo",
+    title: "Roamevo",
+    category: "Travel & Tour Web Platform",
+    year: "2026",
+    gridSpan: "col-span-12 lg:col-span-5",
+    aspectRatio: "portrait",
+    image: "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/roamevo_gcy8mq.png",
+    altText: "Roamevo Premium Travel and Tour Operating Platform Interface",
+    client: "Roamevo Private Limited",
+    brief: "A premium, community-focused travel and tour operating web platform built to curate group expeditions and backpacking trips for young travelers around Roam, Experience, and Evolve.",
+    deliverables: [
+      "Frontend Architecture",
+      "10+ Curated Itineraries",
+      "Promotional Collateral",
+      "Marketing Campaigns",
+    ],
+    challenge: "Creating an engaging travel discovery platform that pairs itinerary planning with brand marketing and promotional collateral.",
+    solution: "Designed 10+ trip itineraries and coordinated content delivery aligned with founder expectations. Created marketing collateral including flyers, banners, posters, and Instagram posts for promotions. Collaborated with the team to develop and execute campaigns improving content consistency and audience engagement.",
+    techStack: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS v4",
+      "Motion",
+      "Content Strategy",
+    ],
+    features: [
+      "Designed 10+ trip itineraries and coordinated content delivery aligned with founder expectations",
+      "Created marketing collateral including flyers, banners, posters, and Instagram posts for company promotions",
+      "Collaborated with the team to develop and execute promotional campaigns, improving content consistency and engagement",
+      "Interactive destination spotlights for Himachal, Kedarnath, Ladakh, and Spiti Valley",
+      "Performance-optimized frontend with custom skeleton loaders and mobile-first drawer navigation",
+    ],
+    gallery: [
+      "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919814/roamevo_gcy8mq.png",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1400&auto=format&fit=crop",
+    ],
+    liveUrl: "https://roamevo.com",
   },
   {
     id: "sundown-studio",
     title: "Sundown Studio",
-    category: "Creative Studio & Motion System",
+    category: "Creative Frontend & Motion",
     year: "2026",
     gridSpan: "col-span-12 lg:col-span-7",
     aspectRatio: "landscape",
     image: "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919813/html-js_hk3ass.png",
     altText: "Sundown Studio High-Craft Frontend Clone and Motion System Interface",
-    client: "Design & Creative Engineering Clone",
-    brief: "A pixel-perfect frontend clone of the award-winning Sundown Studio website, built with vanilla HTML, CSS, and JavaScript. Replicates the studio's multi-page layout, inertia-based smooth scrolling, cursor-tracking hover previews, dynamic interactive design tabs, and typographic design system in Neue Haas Grotesk.",
-    deliverables: ["Inertia Smooth Scroll", "Cursor-Tracking Hover Preview", "GSAP & ScrollTrigger", "Interactive Design Tabs", "Liquid Fluid Blobs"],
-    challenge: "Faithfully reconstructing award-winning kinetic typography, inertia scrolling, and real-time mouse-tracking image portals using pure vanilla JavaScript without bulky frameworks, while achieving seamless 60fps animations, organic liquid CSS blob morphing, and a fixed footer scroll-reveal depth.",
-    solution: "Engineered a performant vanilla frontend using GSAP 3, ScrollTrigger, Locomotive Scroll, and Swiper.js. Implemented an infinite CSS @keyframes text marquee without JavaScript overhead, dynamic cursor-following project preview portals (#fixed-img) using pointer-events-free mouse tracking, interactive non-reloading design/project/execution tabs via data attributes, fluid CSS gooey blur filters, and a multi-weight Neue Haas Grotesk typographic hierarchy.",
-    techStack: ["HTML5", "CSS3", "JavaScript (Vanilla)", "GSAP 3", "ScrollTrigger", "Locomotive Scroll", "Swiper.js", "Vercel"],
+    client: "Creative Engineering Demonstration",
+    brief: "A high-craft frontend clone of Sundown Studio, built with vanilla HTML5, CSS3, and JavaScript, demonstrating precision motion choreography, cursor-tracking hover portals, and fluid scrolling.",
+    deliverables: [
+      "Inertia Smooth Scroll",
+      "Cursor-Tracking Hover Previews",
+      "GSAP 3 & ScrollTrigger",
+      "Interactive Tabs",
+      "Fluid Blob Animations",
+    ],
+    challenge: "Reconstructing intricate kinetic typography, inertia scrolling, and real-time mouse-tracking image portals using pure vanilla JavaScript without heavy frameworks.",
+    solution: "Engineered a performant vanilla frontend using GSAP 3, ScrollTrigger, Locomotive Scroll, and Swiper.js with 60fps animations and custom CSS gooey filters.",
+    techStack: [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "GSAP 3",
+      "ScrollTrigger",
+      "Locomotive Scroll",
+      "Vercel",
+    ],
     features: [
-      "Locomotive Scroll integration providing silky inertia-based smooth scrolling across page containers",
-      "Mouse-Tracking Project Preview where a floating image portal follows the cursor in real time",
-      "Hover-Reveal Project List with dynamic orange overlay animations and data-image extraction",
-      "Interactive Process Tabs switching image and narrative copy dynamically without page reloads",
-      "Infinite Keyframe Marquee engineered with pure CSS without JavaScript overhead",
-      "Organic Liquid Glowing Blobs with CSS filter blur and skew morphing keyframes",
-      "Fixed Footer Scroll Reveal utilizing viewport depth spacers and 23vw display typography"
+      "Smooth inertia-based scrolling using Locomotive Scroll integration",
+      "Dynamic cursor-following project preview portals in real time",
+      "Interactive process tabs switching image and narrative copy dynamically",
+      "Infinite keyframe marquee engineered with pure CSS",
+      "Fluid gooey blobs with CSS filter blur and keyframe morphing",
     ],
     gallery: [
       "https://res.cloudinary.com/av9pwzc8/image/upload/v1789919813/html-js_hk3ass.png",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
     ],
-    liveUrl: "https://sundown-studio-unbothered.vercel.app/"
-  }
+    liveUrl: "https://sundown-studio-unbothered.vercel.app/",
+    githubUrl: "https://github.com/unbothered-29",
+  },
 ];
 
 export const CAPABILITIES: CapabilityItem[] = [
   {
-    id: "art-direction",
-    name: "Art Direction",
-    description: "Curating photographic direction, color harmonies, lighting, and spatial styling to establish cohesive emotional gravity.",
-    deliverables: ["Visual Concepts", "Photoshoot Treatment", "Style Frames", "Editorial Guidelines"]
+    id: "frontend-architecture",
+    name: "Frontend Development",
+    description: "Building responsive, accessible web applications with React.js, Next.js, TypeScript, and modern component architectures.",
+    deliverables: ["React & Next.js Apps", "Responsive Layouts", "Reusable Design Systems", "State Management (Zustand)"],
   },
   {
-    id: "brand-identity",
-    name: "Brand Identity",
-    description: "Building timeless visual identities, bespoke marks, typographic pairings, and scalable design token systems.",
-    deliverables: ["Logotypes & Marks", "Brand Guidelines", "Design Tokens", "Collateral Systems"]
+    id: "ai-integrations",
+    name: "AI & Full-Stack Systems",
+    description: "Integrating modern AI capabilities (Google Gemini Vision) with backend REST APIs and cloud databases like Firebase.",
+    deliverables: ["Gemini Vision OCR", "Firebase Auth & Firestore", "REST APIs & Java Spring Boot", "Predictive Analytics"],
   },
   {
-    id: "ui-ux-design",
-    name: "UI/UX Design",
-    description: "Architecting human-centric interfaces with obsessive attention to micro-spacing, typography, states, and accessibility.",
-    deliverables: ["Wireframes & Flows", "High-Fidelity UI", "Interactive Prototypes", "Component Libraries"]
+    id: "pwa-mapping",
+    name: "PWAs & Interactive Maps",
+    description: "Developing offline-first Progressive Web Apps with IndexedDB local caching, vector SVG floor plans, and Leaflet.js indoor mapping.",
+    deliverables: ["Offline Caching (IndexedDB)", "Interactive Leaflet Maps", "SVG Floor Plans", "Touch-Optimized UI"],
   },
   {
-    id: "motion-design",
-    name: "Motion Design",
-    description: "Crafting fluid, meaningful transitions and physics-grounded micro-animations that make digital software feel alive.",
-    deliverables: ["Interface Choreography", "State Transitions", "Interactive Physics", "Lottie / Code Specs"]
+    id: "creative-direction",
+    name: "Content & Team Leadership",
+    description: "Guiding student engineering committees and curating marketing collateral, promotional campaigns, and brand storytelling.",
+    deliverables: ["Organizational Governance", "Event Execution", "Promotional Collateral", "Itinerary Curation"],
   },
-  {
-    id: "creative-strategy",
-    name: "Creative Strategy",
-    description: "Positioning digital products through sharp market analysis, editorial narrative, and structured design roadmaps.",
-    deliverables: ["Brand Narrative", "Competitive Audits", "Information Architecture", "Design Principles"]
-  },
-  {
-    id: "digital-experiences",
-    name: "Digital Experiences",
-    description: "Designing end-to-end immersive web experiences with glassmorphic depth, atmospheric light, and responsive fluidity.",
-    deliverables: ["Web Platforms", "Spatial Experiences", "Creative Portfolios", "Interactive Case Studies"]
-  }
 ];
 
 export const SOCIAL_LINKS = [
-  { name: "Email", label: "chauhanjessicaa27@gmail.com", href: "mailto:chauhanjessicaa27@gmail.com" },
-  { name: "LinkedIn", label: "linkedin.com/in/jessicaachauhan", href: "https://linkedin.com" },
-  { name: "Twitter / X", label: "@jessicaachauhan", href: "https://x.com" },
-  { name: "ReadCV", label: "read.cv/jessicaa", href: "https://read.cv" },
-  { name: "Instagram", label: "@jessicaa.design", href: "https://instagram.com" }
+  {
+    name: "GitHub",
+    label: "github.com/unbothered-29",
+    href: "https://github.com/unbothered-29",
+  },
+  {
+    name: "LinkedIn",
+    label: "linkedin.com/in/jessicaachauhan",
+    href: "https://linkedin.com/in/jessicaachauhan",
+  },
+  {
+    name: "Email",
+    label: "chauhanjessicaa27@gmail.com",
+    href: "mailto:chauhanjessicaa27@gmail.com",
+  },
+  {
+    name: "Phone",
+    label: "+91 8855872136",
+    href: "tel:+918855872136",
+  },
 ];
