@@ -57,10 +57,6 @@ export function StackSection() {
             My <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD]">stack.</span>
           </h2>
         </div>
-
-        <span className="font-sora text-[11px] sm:text-xs text-[#583C7E]/75 dark:text-[#888295] tracking-widest uppercase md:text-right">
-          Technologies & Tools
-        </span>
       </div>
 
       {/* Marquee Wrapper with Edge Blur & Fade Curtain, with generous bottom spacing for the 2nd row */}

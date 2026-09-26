@@ -178,10 +178,6 @@ export default experience;`;
               </span>
             </h2>
           </div>
-
-          <div className="font-sora text-[13px] sm:text-[14px] text-[#58506E] dark:text-[#C4B5FD] tracking-normal pb-1">
-            <span>Different experiences, one evolving journey.</span>
-          </div>
         </div>
       </div>
 

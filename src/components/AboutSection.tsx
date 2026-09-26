@@ -153,19 +153,6 @@ export function AboutSection() {
                   <span>Certifications</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("languages")}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
-                    activeTab === "languages"
-                      ? "bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-sm"
-                      : "bg-white/60 dark:bg-white/[0.06] text-[#583C7E] dark:text-[#A19BAE] hover:bg-white dark:hover:bg-white/10 border border-[#D6CBFF]/60 dark:border-white/10"
-                  }`}
-                >
-                  <Globe className="w-3.5 h-3.5" />
-                  <span>Languages</span>
-                </button>
-
                 {/* Direct Resume Download Button with hover tooltip */}
                 <div className="relative group/aboutresume sm:ml-auto">
                   <a

@@ -102,17 +102,17 @@ export function ConnectSection(_props: ConnectSectionProps = {}) {
         }}
       />
 
-      {/* 4. Giant Editorial Outline Watermark Typography */}
+      {/* 4. Giant Editorial Watermark Typography matching Digital */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap font-fraunces font-extrabold tracking-[-0.04em] text-[70px] sm:text-[110px] md:text-[150px] lg:text-[180px] leading-none -z-10 select-none overflow-hidden"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap font-fraunces italic font-normal tracking-[-0.03em] normal-case text-[75px] sm:text-[120px] md:text-[160px] lg:text-[200px] leading-none -z-10 select-none overflow-hidden"
         style={{
-          WebkitTextStroke: "1.25px currentColor",
+          WebkitTextStroke: "1px currentColor",
           color: "transparent",
           opacity: 0.045,
         }}
       >
-        LET'S CONNECT
+        Let's connect
       </div>
 
       {/* 5. Concentric Signal Rings */}
@@ -192,10 +192,12 @@ export function ConnectSection(_props: ConnectSectionProps = {}) {
           </span>
         </div>
 
-        {/* Headline: Editorial Fraunces Display */}
-        <h2 className="font-fraunces text-[34px] sm:text-[50px] md:text-[64px] lg:text-[72px] font-bold tracking-tight text-[#34154E] dark:text-[#F5F3FA] leading-[1.04]">
-          Have an idea in mind?{" "}
-          <span className="font-fraunces italic font-normal text-[#583C7E] dark:text-[#C4B5FD] block mt-1">
+        {/* Headline: Editorial Fraunces Display with exact 'Digital' italic signature */}
+        <h2 className="text-[#34154E] dark:text-[#F5F3FA] leading-[1.02] drop-shadow-[0_20px_50px_rgba(66,55,100,0.06)] dark:drop-shadow-[0_20px_50px_rgba(196,181,253,0.18)] select-none">
+          <span className="block font-fraunces font-bold tracking-tight uppercase text-[26px] sm:text-[38px] md:text-[50px] lg:text-[58px] text-[#34154E] dark:text-[#F5F3FA]">
+            Have an idea in mind?
+          </span>
+          <span className="block font-fraunces italic font-normal sm:font-medium tracking-[-0.02em] text-[#543673] dark:text-[#C4B5FD] py-1 sm:py-1.5 normal-case text-[38px] sm:text-[54px] md:text-[68px] lg:text-[78px]">
             Let's connect.
           </span>
         </h2>
