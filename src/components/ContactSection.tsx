@@ -57,7 +57,7 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
 
             {/* Short Tagline */}
             <p className="mt-4 text-sm sm:text-[14.5px] text-[#58506E] dark:text-[#A19BAE] leading-relaxed max-w-[280px]">
-              Creative designer crafting thoughtful digital experiences.
+              Dedicated Front-end Web Developer crafting responsive, polished digital interfaces.
             </p>
 
             {/* Pill-style Action Button */}
@@ -99,15 +99,6 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     Case Studies
                   </button>
                 </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => handleNav("work")}
-                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
-                  >
-                    Design Work
-                  </button>
-                </li>
               </ul>
             </div>
 
@@ -124,15 +115,6 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                   >
                     About
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => handleNav("work")}
-                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
-                  >
-                    Works
                   </button>
                 </li>
                 <li>
@@ -172,22 +154,34 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                 </li>
                 <li>
                   <a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="tel:+918855872136"
                     className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
-                    LinkedIn
+                    Phone
                   </a>
                 </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={onOpenTalk}
-                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
+                <li className="relative group/resume inline-block">
+                  <a
+                    href="/Jessicaa_Chauhan_Resume.pdf"
+                    download="Jessicaa_Chauhan_Resume.pdf"
+                    className="inline-flex items-center gap-1.5 hover:text-[#34154E] dark:hover:text-white transition-colors duration-150 cursor-pointer"
+                    aria-label="Download Resume"
+                    title="click to download"
                   >
-                    Resume
-                  </button>
+                    <span>Resume</span>
+                    <span className="text-[10.5px] font-mono text-[#583C7E]/75 dark:text-[#C4B5FD] group-hover/resume:translate-y-0.5 transition-transform">
+                      ↓
+                    </span>
+                  </a>
+
+                  {/* Hover Tooltip: 'click to download' */}
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute -top-8 left-0 opacity-0 -translate-y-1 group-hover/resume:opacity-100 group-hover/resume:translate-y-0 transition-all duration-200 z-30 whitespace-nowrap px-2.5 py-1 rounded-md text-[11px] font-medium bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-md flex items-center gap-1 border border-white/10"
+                  >
+                    <span>click to download</span>
+                    <span className="text-[9px]">⤓</span>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -200,12 +194,22 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
               <ul className="space-y-2.5 sm:space-y-3 font-sora text-xs sm:text-[13.5px] text-[#58506E] dark:text-[#A19BAE]">
                 <li>
                   <a
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/in/jessicaachauhan"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/unbothered-29"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
+                  >
+                    GitHub
                   </a>
                 </li>
                 <li>
@@ -216,26 +220,6 @@ export function ContactSection({ onOpenTalk, onNavigate }: ContactSectionProps) 
                     className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
                   >
                     Instagram
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://x.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
-                  >
-                    Twitter / X
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#34154E] dark:hover:text-white transition-colors duration-150"
-                  >
-                    GitHub
                   </a>
                 </li>
               </ul>

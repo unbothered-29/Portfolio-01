@@ -64,3 +64,30 @@ export interface TechnicalSkillsGroup {
   toolsAndCloud: string[];
   concepts: string[];
 }
+
+export interface PersonalBitCard {
+  id: string;
+  category: string;
+  title: string;
+  statement?: string;
+  description?: string;
+  items?: string[];
+  placeholderNote?: string;
+  rotationDeg: number;
+  widthClass?: string;
+  aspectHint?: string;
+  parallaxFactor?: number;
+  fileTag?: string;
+  layout?: {
+    top?: string;
+    left?: string;
+    right?: string;
+    bottom?: string;
+    width: string | number;
+    minHeight?: string | number;
+    zIndex: number;
+    rotation: number;
+    initialOffset?: { x: number; y: number };
+  };
+}
+

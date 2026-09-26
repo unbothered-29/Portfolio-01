@@ -144,7 +144,7 @@ export function SomeBitsOfMeCard({
           {/* Bullet List (if present) */}
           {card.items && card.items.length > 0 && (
             <ul className="mt-2 space-y-1 font-sora text-[11px] sm:text-[11.5px] text-white/95">
-              {card.items.map((item, idx) => (
+              {card.items.map((item: string, idx: number) => (
                 <li
                   key={idx}
                   className="flex items-start gap-2 leading-snug drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] text-white/95"

@@ -166,6 +166,27 @@ export function AboutSection() {
                   <Globe className="w-3.5 h-3.5" />
                   <span>Languages</span>
                 </button>
+
+                {/* Direct Resume Download Button with hover tooltip */}
+                <div className="relative group/aboutresume sm:ml-auto">
+                  <a
+                    href="/Jessicaa_Chauhan_Resume.pdf"
+                    download="Jessicaa_Chauhan_Resume.pdf"
+                    title="click to download"
+                    aria-label="Download Resume"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#34154E]/[0.08] dark:bg-white/10 hover:bg-[#34154E] hover:text-white dark:hover:bg-[#C4B5FD] dark:hover:text-[#180F2E] text-[#34154E] dark:text-[#F5F3FA] border border-[#D6CBFF] dark:border-white/15 transition-all cursor-pointer"
+                  >
+                    <span>Resume</span>
+                    <span className="text-[10px] font-mono group-hover/aboutresume:translate-y-0.5 transition-transform">↓</span>
+                  </a>
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute -top-8 right-0 opacity-0 -translate-y-1 group-hover/aboutresume:opacity-100 group-hover/aboutresume:translate-y-0 transition-all duration-200 z-30 whitespace-nowrap px-2.5 py-1 rounded-md text-[11px] font-medium bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-md flex items-center gap-1 border border-white/10"
+                  >
+                    <span>click to download</span>
+                    <span className="text-[9px]">⤓</span>
+                  </span>
+                </div>
               </div>
 
               {/* Tab Content Display Area */}
