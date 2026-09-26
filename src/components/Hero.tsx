@@ -4,12 +4,10 @@ import { useTheme } from "../context/ThemeContext";
 
 interface HeroProps {
   onExploreClick?: () => void;
-  onContactClick: () => void;
+  onContactClick?: () => void;
 }
 
-export function Hero({
-  onContactClick,
-}: HeroProps) {
+export function Hero(_props: HeroProps = {}) {
   const { theme } = useTheme();
   const isDark = theme === "obsidian";
 
@@ -91,25 +89,8 @@ export function Hero({
 
         {/* Supporting Text in Refined Sora */}
         <p className="mt-8 sm:mt-10 md:mt-12 font-sora text-[15px] sm:text-[17px] md:text-[18px] font-normal text-[#543673]/85 dark:text-[#A19BAE] max-w-xl leading-relaxed tracking-normal px-2">
-          Front-end developer focused on creating responsive, polished interfaces that turn ideas into usable products.
+          Dedicated Front-end Web Developer focused on creating responsive, polished interfaces that turn ideas into functional digital products.
         </p>
-
-        {/* Liquid Glass Action Pill */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-center font-sora">
-          {/* Action Pill */}
-          <button
-            onClick={onContactClick}
-            className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full overflow-hidden text-[10.5px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase text-[#34154E] dark:text-[#F5F3FA] bg-white/[0.80] hover:bg-white dark:bg-white/[0.08] dark:hover:bg-white/[0.16] backdrop-blur-[20px] backdrop-saturate-[180%] border border-[#D6CBFF] dark:border-white/15 hover:border-[#C4B5FD] dark:hover:border-white/30 shadow-[0_8px_25px_rgba(66,55,100,0.08),_0_2px_6px_rgba(30,20,50,0.03),_inset_0_1px_1.5px_0_rgba(255,255,255,0.98),_inset_0_-1px_2px_0_rgba(214,203,255,0.3)] dark:shadow-[0_8px_25px_rgba(0,0,0,0.5),_inset_0_1px_1.5px_0_rgba(255,255,255,0.18),_inset_0_-1px_2px_0_rgba(196,181,253,0.25)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(66,55,100,0.14)] dark:hover:shadow-[0_12px_30px_rgba(0,0,0,0.7)] active:translate-y-0 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4B5FD]/70 min-h-[42px]"
-          >
-            {/* Fluid Reflection Inside Pill */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C4B5FD]/[0.22] dark:via-[#A78BFA]/[0.2] to-transparent pointer-events-none"
-            />
-            <span className="relative z-10">Book a call or contact me</span>
-          </button>
-        </div>
-
       </div>
     </section>
   );

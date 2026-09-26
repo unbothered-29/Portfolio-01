@@ -18,6 +18,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "experience", label: "EXPERIENCE", number: "03", subtitle: "Career Timeline & Growth" },
   { id: "about", label: "ABOUT", number: "04", subtitle: "Philosophy & Background" },
   { id: "contact", label: "CONTACT", number: "05", subtitle: "Inquiries & Collaboration" },
+  { id: "resume", label: "RESUME", number: "06", subtitle: "Curriculum Vitae · Download PDF" },
 ];
 
 interface FullscreenNavOverlayProps {
@@ -176,7 +177,7 @@ export function FullscreenNavOverlay({
                       isDark ? "text-[#9E98AB]" : "text-[#583C7E]/75"
                     }`}
                   >
-                    01 / Manila, PH · Portfolio
+                    01 / Mumbai, IN · Portfolio
                   </span>
                 </button>
               </div>
@@ -238,7 +239,77 @@ export function FullscreenNavOverlay({
                         }}
                         className="w-full flex justify-center"
                       >
-                        {item.id === "contact" ? (
+                        {item.id === "resume" ? (
+                          <a
+                            id={`nav-link-${item.id}`}
+                            href="/Jessicaa_Chauhan_Resume.pdf"
+                            download="Jessicaa_Chauhan_Resume.pdf"
+                            title="click to download"
+                            onClick={() => onClose()}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
+                            onFocus={() => setHoveredIndex(index)}
+                            onBlur={() => setHoveredIndex(null)}
+                            className="group relative flex items-center justify-center px-4 sm:px-8 py-0.5 sm:py-1 cursor-pointer select-none focus-visible:outline-none"
+                          >
+                            {/* Subtle Dashed Editorial Hairline Above */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-top"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -top-0.5 sm:-top-1 inset-x-2 border-t border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
+
+                            {/* Floating Tooltip Pill: 'click to download' */}
+                            {isHovered && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                                transition={{ duration: 0.18 }}
+                                className="absolute -top-7 sm:-top-8 px-3 py-0.5 rounded-full text-[10.5px] sm:text-[11.5px] font-sora font-medium tracking-wide bg-[#34154E] text-white dark:bg-[#C4B5FD] dark:text-[#180F2E] shadow-[0_4px_16px_rgba(0,0,0,0.22)] flex items-center gap-1.5 pointer-events-none whitespace-nowrap z-30"
+                              >
+                                <span>click to download</span>
+                                <span className="text-[10px]">⤓</span>
+                              </motion.div>
+                            )}
+
+                            {/* Full, Unclipped High-End Fraunces Typography */}
+                            <span
+                              className={`block text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-[3.25rem] font-bold uppercase tracking-[-0.02em] font-fraunces leading-[1.1] transition-all duration-200 ease-out ${
+                                isHovered
+                                  ? "text-[#583C7E] dark:text-[#C4B5FD] scale-[1.02]"
+                                  : isDimmed
+                                  ? isDark
+                                    ? "opacity-25 text-current"
+                                    : "opacity-30 text-current"
+                                  : "opacity-100 text-current"
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+
+                            {/* Subtle Dashed Editorial Hairline Below */}
+                            {isHovered && (
+                              <motion.div
+                                layoutId="nav-hover-hairline-bottom"
+                                initial={{ scaleX: 0, opacity: 0 }}
+                                animate={{ scaleX: 1, opacity: 1 }}
+                                exit={{ scaleX: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className={`absolute -bottom-0.5 sm:-bottom-1 inset-x-2 border-b border-dashed pointer-events-none ${
+                                  isDark ? "border-[#A78BFA]/70" : "border-[#C4B5FD]"
+                                }`}
+                              />
+                            )}
+                          </a>
+                        ) : item.id === "contact" ? (
                           <a
                             id={`nav-link-${item.id}`}
                             href="mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry"

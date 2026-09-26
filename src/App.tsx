@@ -8,6 +8,7 @@ import { WorkSection } from "./components/WorkSection";
 import { StackSection } from "./components/StackSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { AboutSection } from "./components/AboutSection";
+import { ConnectSection } from "./components/ConnectSection";
 import { ContactSection } from "./components/ContactSection";
 import { ContactModal } from "./components/ContactModal";
 import { CaseStudyModal } from "./components/CaseStudyModal";
@@ -20,9 +21,8 @@ function MainPortfolioContent() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const handleNavigate = (sectionId: string) => {
-    if (sectionId === "contact") {
-      window.location.href =
-        "mailto:chauhanjessicaa27@gmail.com?subject=Hello%20Jessicaa%20—%20Inquiry";
+    if (sectionId === "contact" || sectionId === "connect") {
+      executeScroll("connect");
       return;
     }
     executeScroll(sectionId);
@@ -82,7 +82,10 @@ function MainPortfolioContent() {
         {/* Section 5: About Me (Translucent Glass Panel & Lavender Folder) */}
         <AboutSection />
 
-        {/* Section 6: Signature Editorial Contact & Giant Wordmark Footer */}
+        {/* Section 6: Connect ("Have an idea in mind? Let's connect.") */}
+        <ConnectSection />
+
+        {/* Section 7: Signature Editorial Contact & Giant Wordmark Footer */}
         <ContactSection
           onOpenTalk={() => setIsContactModalOpen(true)}
           onNavigate={handleNavigate}

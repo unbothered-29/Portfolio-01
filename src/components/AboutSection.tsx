@@ -50,8 +50,7 @@ export function AboutSection() {
                 <MapPin className="w-3.5 h-3.5 text-[#583C7E] dark:text-[#C4B5FD]" />
                 <span>{CONTACT_INFO.location}</span>
                 <span className="text-black/20 dark:text-white/20">·</span>
-                <span className="inline-flex items-center gap-1 font-medium text-emerald-600 dark:text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="font-medium text-emerald-600 dark:text-emerald-400">
                   Available for roles
                 </span>
               </div>
