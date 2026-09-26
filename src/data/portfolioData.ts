@@ -24,7 +24,6 @@ export const DESIGNER_METADATA: DesignerMetadata = {
 export const CONTACT_INFO = {
   name: "Jessicaa Chauhan",
   location: "Mumbai, Maharashtra, India",
-  phone: "+91 8855872136",
   email: "chauhanjessicaa27@gmail.com",
   github: "https://github.com/unbothered-29",
   githubUsername: "unbothered-29",
@@ -334,10 +333,5 @@ export const SOCIAL_LINKS = [
     name: "Email",
     label: "chauhanjessicaa27@gmail.com",
     href: "mailto:chauhanjessicaa27@gmail.com",
-  },
-  {
-    name: "Phone",
-    label: "+91 8855872136",
-    href: "tel:+918855872136",
   },
 ];
